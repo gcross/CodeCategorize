@@ -5,12 +5,18 @@
 //@+<< Includes >>
 //@+node:gcross.20101116210424.1512: ** << Includes >>
 #include <gecode/int.hh>
+#include <gecode/minimodel.hh>
 #include <gecode/search.hh>
 
 using namespace Gecode;
 //@-<< Includes >>
 
 //@+others
+//@+node:gcross.20101117133000.1471: ** Type aliases
+typedef Matrix<IntVarArgs> OMatrix;
+typedef Matrix<BoolVarArgs> XMatrix, ZMatrix;
+//@+node:gcross.20101117133000.1474: ** Enums
+enum Pauli { I = 0, X = 1, Z = 2, Y = 3 };
 //@+node:gcross.20101116210424.1513: ** struct OperatorSpace
 struct OperatorSpace : public Space {
 
@@ -23,8 +29,11 @@ struct OperatorSpace : public Space {
     //@+node:gcross.20101116210424.1675: *3* (constructors)
     OperatorSpace(int number_of_operators, int number_of_qubits);
     OperatorSpace(bool share, OperatorSpace& s);
-    //@+node:gcross.20101116222338.1275: *3* copy
+    //@+node:gcross.20101117133000.1468: *3* (methods)
     virtual Space* copy(bool share);
+    OMatrix getOMatrix() { return Matrix<IntVarArgs>(O,number_of_operators,number_of_qubits); }
+    XMatrix getXMatrix() { return Matrix<BoolVarArgs>(X,number_of_operators,number_of_qubits); }
+    ZMatrix getZMatrix() { return Matrix<BoolVarArgs>(Z,number_of_operators,number_of_qubits); }
     //@-others
 
 };

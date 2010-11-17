@@ -25,5 +25,8 @@ struct CompleteColumnsOperatorSpace : public virtual OperatorSpace {
     //@-others
 
 };
+//@+node:gcross.20101117133000.1465: ** Functions
+//@+node:gcross.20101117133000.1466: *3* postFirstColumnSpecialCaseConstraint
+void postFirstColumnSpecialCaseConstraint(OperatorSpace& m);
 //@-others
 //@-leo
