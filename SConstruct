@@ -1,5 +1,5 @@
-#@+leo-ver=4-thin
-#@+node:gcross.20101116210424.1672:@thin SConstruct
+#@+leo-ver=5-thin
+#@+node:gcross.20101116210424.1672: * @thin SConstruct
 #@@language Python
 
 env = Environment(
@@ -15,7 +15,6 @@ env.PrependENVPath("CPATH","includes")
 
 #@+at
 # Check to make sure that Boost is present.
-#@-at
 #@@c
 errors = []
 conf = Configure(env)
@@ -30,7 +29,6 @@ if errors:
 
 #@+at
 # Get our configuration options:
-#@-at
 #@@c
 opts = Variables('CodeCategorize.conf') # Change wm to the name of your app
 opts.Add(PathVariable('PREFIX', 'Directory to install under', '/usr/local', PathVariable.PathIsDir))
@@ -41,7 +39,6 @@ Help(opts.GenerateHelpText(env))
 
 #@+at
 # Build the program:
-#@-at
 #@@c
 source_file_names =[
     'operator_space.cc',
@@ -63,12 +60,10 @@ source_file_names =[
 # env.Install(idir_inc, ['src/codequest.hpp'])
 # env.Install(idir_man1, ['doc/codequest.1'])
 # env.Alias('install', idir_prefix)
-#@-at
 #@@c
 
 #@+at
 # Testing:
-#@-at
 #@@c
 test = env.Program('tests/test',[
     'tests/operator_space.cc',
@@ -78,6 +73,4 @@ test = env.Program('tests/test',[
     'gecodesearch','gecodeint','gecodekernel','gecodesupport','gecodeminimodel',
 ])
 env.Alias('test',test)
-#@nonl
-#@-node:gcross.20101116210424.1672:@thin SConstruct
 #@-leo

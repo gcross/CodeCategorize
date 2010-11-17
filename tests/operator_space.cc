@@ -1,26 +1,24 @@
-//@+leo-ver=4-thin
-//@+node:gcross.20101116210424.2275:@thin operator_space.cc
+//@+leo-ver=5-thin
+//@+node:gcross.20101116210424.2275: * @thin operator_space.cc
 //@@language cplusplus
 
-//@<< Includes >>
-//@+node:gcross.20101116210424.2278:<< Includes >>
+//@+<< Includes >>
+//@+node:gcross.20101116210424.2278: ** << Includes >>
 #include <unit--.hpp>
 
 #include "operator_space.hh"
-//@nonl
-//@-node:gcross.20101116210424.2278:<< Includes >>
-//@nl
+//@-<< Includes >>
 
 //@+others
-//@+node:gcross.20101116210424.2279:Tests
+//@+node:gcross.20101116210424.2279: ** Tests
 testSuite(OperatorSpace_) {
 
 //@+others
-//@+node:gcross.20101116222338.1277:1x1
+//@+node:gcross.20101116222338.1277: *3* 1x1
 subSuite(_1x1,OperatorSpace_) {
 
 //@+others
-//@+node:gcross.20101116222338.1384:number of solutions
+//@+node:gcross.20101116222338.1384: *4* number of solutions
 testCase(number_of_solutions,_1x1) {
     OperatorSpace* m = new OperatorSpace(1,1);
     DFS<OperatorSpace> e(m);
@@ -32,9 +30,7 @@ testCase(number_of_solutions,_1x1) {
     }
     assertEqual(4,number_of_solutions);
 }
-//@nonl
-//@-node:gcross.20101116222338.1384:number of solutions
-//@+node:gcross.20101116222338.1397:correct order
+//@+node:gcross.20101116222338.1397: *4* correct order
 testCase(correct_order,_1x1) {
     OperatorSpace* m = new OperatorSpace(1,1);
     DFS<OperatorSpace> e(m);
@@ -54,18 +50,14 @@ testCase(correct_order,_1x1) {
     m = e.next();
     assertTrue(m == NULL);
 }
-//@nonl
-//@-node:gcross.20101116222338.1397:correct order
 //@-others
 
 }
-//@nonl
-//@-node:gcross.20101116222338.1277:1x1
-//@+node:gcross.20101116222338.1387:1x2
+//@+node:gcross.20101116222338.1387: *3* 1x2
 subSuite(_1x2,OperatorSpace_) {
 
 //@+others
-//@+node:gcross.20101116222338.1388:number of solutions
+//@+node:gcross.20101116222338.1388: *4* number of solutions
 testCase(number_of_solutions,_1x2) {
     OperatorSpace* m = new OperatorSpace(1,2);
     DFS<OperatorSpace> e(m);
@@ -77,9 +69,7 @@ testCase(number_of_solutions,_1x2) {
     }
     assertEqual(16,number_of_solutions);
 }
-//@nonl
-//@-node:gcross.20101116222338.1388:number of solutions
-//@+node:gcross.20101116222338.1403:correct order
+//@+node:gcross.20101116222338.1403: *4* correct order
 testCase(correct_order,_1x2) {
     OperatorSpace* m = new OperatorSpace(1,2);
     DFS<OperatorSpace> e(m);
@@ -100,18 +90,14 @@ testCase(correct_order,_1x2) {
         m = e.next();
     }
 }
-//@nonl
-//@-node:gcross.20101116222338.1403:correct order
 //@-others
 
 }
-//@nonl
-//@-node:gcross.20101116222338.1387:1x2
-//@+node:gcross.20101116222338.1391:2x1
+//@+node:gcross.20101116222338.1391: *3* 2x1
 subSuite(_2x1,OperatorSpace_) {
 
 //@+others
-//@+node:gcross.20101116222338.1392:number of solutions
+//@+node:gcross.20101116222338.1392: *4* number of solutions
 testCase(number_of_solutions,_2x1) {
     OperatorSpace* m = new OperatorSpace(2,1);
     DFS<OperatorSpace> e(m);
@@ -123,9 +109,7 @@ testCase(number_of_solutions,_2x1) {
     }
     assertEqual(16,number_of_solutions);
 }
-//@nonl
-//@-node:gcross.20101116222338.1392:number of solutions
-//@+node:gcross.20101116222338.1401:correct order
+//@+node:gcross.20101116222338.1401: *4* correct order
 testCase(correct_order,_2x1) {
     OperatorSpace* m = new OperatorSpace(2,1);
     DFS<OperatorSpace> e(m);
@@ -146,18 +130,14 @@ testCase(correct_order,_2x1) {
         m = e.next();
     }
 }
-//@nonl
-//@-node:gcross.20101116222338.1401:correct order
 //@-others
 
 }
-//@nonl
-//@-node:gcross.20101116222338.1391:2x1
-//@+node:gcross.20101116222338.1395:2x2
+//@+node:gcross.20101116222338.1395: *3* 2x2
 subSuite(_2x2,OperatorSpace_) {
 
 //@+others
-//@+node:gcross.20101116222338.1396:number of solutions
+//@+node:gcross.20101116222338.1396: *4* number of solutions
 testCase(number_of_solutions,_2x2) {
     OperatorSpace* m = new OperatorSpace(2,2);
     DFS<OperatorSpace> e(m);
@@ -169,9 +149,7 @@ testCase(number_of_solutions,_2x2) {
     }
     assertEqual(256,number_of_solutions);
 }
-//@nonl
-//@-node:gcross.20101116222338.1396:number of solutions
-//@+node:gcross.20101116222338.1399:correct order
+//@+node:gcross.20101116222338.1399: *4* correct order
 testCase(correct_order,_2x2) {
     OperatorSpace* m = new OperatorSpace(2,2);
     DFS<OperatorSpace> e(m);
@@ -192,18 +170,14 @@ testCase(correct_order,_2x2) {
         m = e.next();
     }
 }
-//@nonl
-//@-node:gcross.20101116222338.1399:correct order
 //@-others
 
 }
-//@nonl
-//@-node:gcross.20101116222338.1395:2x2
-//@+node:gcross.20101116222338.1407:3x3
+//@+node:gcross.20101116222338.1407: *3* 3x3
 subSuite(_3x3,OperatorSpace_) {
 
 //@+others
-//@+node:gcross.20101116222338.1408:number of solutions
+//@+node:gcross.20101116222338.1408: *4* number of solutions
 testCase(number_of_solutions,_3x3) {
     OperatorSpace* m = new OperatorSpace(3,3);
     DFS<OperatorSpace> e(m);
@@ -215,9 +189,7 @@ testCase(number_of_solutions,_3x3) {
     }
     assertEqual(1<<(2*3*3),number_of_solutions);
 }
-//@nonl
-//@-node:gcross.20101116222338.1408:number of solutions
-//@+node:gcross.20101116222338.1415:correct order
+//@+node:gcross.20101116222338.1415: *4* correct order
 testCase(correct_order,_3x3) {
     OperatorSpace* m = new OperatorSpace(3,3);
     DFS<OperatorSpace> e(m);
@@ -238,18 +210,11 @@ testCase(correct_order,_3x3) {
         m = e.next();
     }
 }
-//@nonl
-//@-node:gcross.20101116222338.1415:correct order
 //@-others
 
 }
-//@nonl
-//@-node:gcross.20101116222338.1407:3x3
 //@-others
 
 }
-//@nonl
-//@-node:gcross.20101116210424.2279:Tests
 //@-others
-//@-node:gcross.20101116210424.2275:@thin operator_space.cc
 //@-leo

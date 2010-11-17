@@ -1,19 +1,17 @@
-//@+leo-ver=4-thin
-//@+node:gcross.20101116210424.1514:@thin operator_space.cc
+//@+leo-ver=5-thin
+//@+node:gcross.20101116210424.1514: * @thin operator_space.cc
 //@@language cplusplus
 
-//@<< Includes >>
-//@+node:gcross.20101116210424.2281:<< Includes >>
+//@+<< Includes >>
+//@+node:gcross.20101116210424.2281: ** << Includes >>
 #include <gecode/minimodel.hh>
 
 #include "operator_space.hh"
-//@nonl
-//@-node:gcross.20101116210424.2281:<< Includes >>
-//@nl
+//@-<< Includes >>
 
 //@+others
-//@+node:gcross.20101116210424.1515:class OperatorSpace
-//@+node:gcross.20101116210424.1516:(constructors)
+//@+node:gcross.20101116210424.1515: ** class OperatorSpace
+//@+node:gcross.20101116210424.1516: *3* (constructors)
 OperatorSpace::OperatorSpace(int number_of_operators, int number_of_qubits)
     : number_of_operators(number_of_operators)
     , number_of_qubits(number_of_qubits)
@@ -38,17 +36,10 @@ OperatorSpace::OperatorSpace(bool share, OperatorSpace& s)
     Z.update(*this,share,s.Z);
     O.update(*this,share,s.O);
 }
-//@nonl
-//@-node:gcross.20101116210424.1516:(constructors)
-//@+node:gcross.20101116222338.1276:copy
+//@+node:gcross.20101116222338.1276: *3* copy
 Space* OperatorSpace::copy(bool share)
 {
     return new OperatorSpace(share,*this);
 }
-//@nonl
-//@-node:gcross.20101116222338.1276:copy
-//@-node:gcross.20101116210424.1515:class OperatorSpace
 //@-others
-//@nonl
-//@-node:gcross.20101116210424.1514:@thin operator_space.cc
 //@-leo
