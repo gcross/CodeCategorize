@@ -30,7 +30,7 @@ testCase(number_of_solutions,_1x1) {
         ++number_of_solutions;
         delete m;
     }
-    assertEqual(number_of_solutions,4);
+    assertEqual(4,number_of_solutions);
 }
 //@nonl
 //@-node:gcross.20101116222338.1384:number of solutions
@@ -46,8 +46,8 @@ testCase(correct_order,_1x1) {
     for(int i = 0; i < 4; ++i) {
         m = e.next();
         assertTrue(m != NULL);
-        assertEqual(m->X[0].val(),X[i]);
-        assertEqual(m->Z[0].val(),Z[i]);
+        assertEqual(X[i],m->X[0].val());
+        assertEqual(Z[i],m->Z[0].val());
         delete m;
     }
 
@@ -75,7 +75,7 @@ testCase(number_of_solutions,_1x2) {
         ++number_of_solutions;
         delete m;
     }
-    assertEqual(number_of_solutions,16);
+    assertEqual(16,number_of_solutions);
 }
 //@nonl
 //@-node:gcross.20101116222338.1388:number of solutions
@@ -90,9 +90,9 @@ testCase(correct_order,_1x2) {
     while(m != NULL) {
         int x = solution_number;
         for(int i = 1; i > 0; --i) {
-            assertEqual(m->X[i].val(),x%2);
+            assertEqual(x%2,m->X[i].val());
             x >>= 1;
-            assertEqual(m->Z[i].val(),x%2);
+            assertEqual(x%2,m->Z[i].val());
             x >>= 1;
         }
         ++solution_number;
@@ -121,7 +121,7 @@ testCase(number_of_solutions,_2x1) {
         ++number_of_solutions;
         delete m;
     }
-    assertEqual(number_of_solutions,16);
+    assertEqual(16,number_of_solutions);
 }
 //@nonl
 //@-node:gcross.20101116222338.1392:number of solutions
@@ -136,9 +136,9 @@ testCase(correct_order,_2x1) {
     while(m != NULL) {
         int x = solution_number;
         for(int i = 1; i > 0; --i) {
-            assertEqual(m->X[i].val(),x%2);
+            assertEqual(x%2,m->X[i].val());
             x >>= 1;
-            assertEqual(m->Z[i].val(),x%2);
+            assertEqual(x%2,m->Z[i].val());
             x >>= 1;
         }
         ++solution_number;
@@ -167,7 +167,7 @@ testCase(number_of_solutions,_2x2) {
         ++number_of_solutions;
         delete m;
     }
-    assertEqual(number_of_solutions,256);
+    assertEqual(256,number_of_solutions);
 }
 //@nonl
 //@-node:gcross.20101116222338.1396:number of solutions
@@ -182,9 +182,9 @@ testCase(correct_order,_2x2) {
     while(m != NULL) {
         int x = solution_number;
         for(int i = 3; i > 0; --i) {
-            assertEqual(m->X[i].val(),x%2);
+            assertEqual(x%2,m->X[i].val());
             x >>= 1;
-            assertEqual(m->Z[i].val(),x%2);
+            assertEqual(x%2,m->Z[i].val());
             x >>= 1;
         }
         ++solution_number;
@@ -213,7 +213,7 @@ testCase(number_of_solutions,_3x3) {
         ++number_of_solutions;
         delete m;
     }
-    assertEqual(number_of_solutions,1<<(2*3*3));
+    assertEqual(1<<(2*3*3),number_of_solutions);
 }
 //@nonl
 //@-node:gcross.20101116222338.1408:number of solutions
@@ -228,9 +228,9 @@ testCase(correct_order,_3x3) {
     while(m != NULL) {
         int x = solution_number;
         for(int i = 8; i > 0; --i) {
-            assertEqual(m->X[i].val(),x%2);
+            assertEqual(x%2,m->X[i].val());
             x >>= 1;
-            assertEqual(m->Z[i].val(),x%2);
+            assertEqual(x%2,m->Z[i].val());
             x >>= 1;
         }
         ++solution_number;
