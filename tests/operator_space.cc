@@ -199,6 +199,52 @@ testCase(correct_order,_2x2) {
 }
 //@nonl
 //@-node:gcross.20101116222338.1395:2x2
+//@+node:gcross.20101116222338.1407:3x3
+subSuite(_3x3,OperatorSpace_) {
+
+//@+others
+//@+node:gcross.20101116222338.1408:number of solutions
+testCase(number_of_solutions,_3x3) {
+    OperatorSpace* m = new OperatorSpace(3,3);
+    DFS<OperatorSpace> e(m);
+    delete m;
+    int number_of_solutions = 0;
+    for(m = e.next(); m != NULL; m = e.next()) {
+        ++number_of_solutions;
+        delete m;
+    }
+    assertEqual(number_of_solutions,1<<(2*3*3));
+}
+//@nonl
+//@-node:gcross.20101116222338.1408:number of solutions
+//@+node:gcross.20101116222338.1415:correct order
+testCase(correct_order,_3x3) {
+    OperatorSpace* m = new OperatorSpace(3,3);
+    DFS<OperatorSpace> e(m);
+    delete m;
+
+    int solution_number = 0;
+    m = e.next();
+    while(m != NULL) {
+        int x = solution_number;
+        for(int i = 8; i > 0; --i) {
+            assertEqual(m->X[i].val(),x%2);
+            x >>= 1;
+            assertEqual(m->Z[i].val(),x%2);
+            x >>= 1;
+        }
+        ++solution_number;
+        delete m;
+        m = e.next();
+    }
+}
+//@nonl
+//@-node:gcross.20101116222338.1415:correct order
+//@-others
+
+}
+//@nonl
+//@-node:gcross.20101116222338.1407:3x3
 //@-others
 
 }
