@@ -16,7 +16,7 @@ struct OperatorSpace : public Space {
 
     //@+others
     //@+node:gcross.20101116210424.1674: *3* (fields)
-    BoolVarArray X, Z;
+    BoolVarArray X, Z, non_trivial;
     IntVarArray O;
 
     int number_of_operators, number_of_qubits, number_of_variables;

@@ -18,10 +18,12 @@ OperatorSpace::OperatorSpace(int number_of_operators, int number_of_qubits)
     , number_of_variables(number_of_qubits*number_of_operators)
     , X(*this,number_of_operators*number_of_qubits,0,1)
     , Z(*this,number_of_operators*number_of_qubits,0,1)
+    , non_trivial(*this,number_of_operators*number_of_qubits,0,1)
     , O(*this,number_of_operators*number_of_qubits,0,3)
 {
     for(int i = 0; i < number_of_variables; ++i) {
         O[i] = expr(*this,2*Z[i] + X[i]);
+        non_trivial[i] = expr(*this,Z[i] || X[i]);
     }
     branch(*this,O,INT_VAR_NONE,INT_VAL_MIN);
 }
@@ -34,6 +36,7 @@ OperatorSpace::OperatorSpace(bool share, OperatorSpace& s)
 {
     X.update(*this,share,s.X);
     Z.update(*this,share,s.Z);
+    non_trivial.update(*this,share,s.non_trivial);
     O.update(*this,share,s.O);
 }
 //@+node:gcross.20101116222338.1276: *3* copy
