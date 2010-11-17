@@ -66,7 +66,9 @@ source_file_names =[
 # Testing:
 #@@c
 test = env.Program('tests/test',[
+    'tests/constraints.cc',
     'tests/operator_space.cc',
+    'sources/constraints.cc',
     'sources/operator_space.cc',
 ],LIBS=[
     'unit--','unit--main',

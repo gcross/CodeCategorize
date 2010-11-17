@@ -9,12 +9,15 @@
 <v t="gcross.20101116210206.1249"><vh>@chapters</vh></v>
 <v t="gcross.20101116210424.1672"><vh>@thin SConstruct</vh></v>
 <v t="gcross.20101116210424.1673"><vh>@path includes</vh>
+<v t="gcross.20101117113704.1320"><vh>@thin constraints.hh</vh></v>
 <v t="gcross.20101116210424.1511"><vh>@thin operator_space.hh</vh></v>
 </v>
 <v t="gcross.20101116210206.1248"><vh>@path sources</vh>
+<v t="gcross.20101117113704.1319"><vh>@thin constraints.cc</vh></v>
 <v t="gcross.20101116210424.1514"><vh>@thin operator_space.cc</vh></v>
 </v>
 <v t="gcross.20101116210424.1676"><vh>@path tests</vh>
+<v t="gcross.20101117133000.1340"><vh>@thin constraints.cc</vh></v>
 <v t="gcross.20101116210424.2275"><vh>@thin operator_space.cc</vh></v>
 </v>
 </vnodes>
