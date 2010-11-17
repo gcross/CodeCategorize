@@ -20,13 +20,18 @@ struct OperatorSpace : public Space {
     //@+node:gcross.20101116210424.1674:(fields)
     BoolVarArray X, Z;
 
-    int number_of_operators, number_of_qubits;
+    int number_of_operators, number_of_qubits, number_of_variables;
     //@nonl
     //@-node:gcross.20101116210424.1674:(fields)
-    //@+node:gcross.20101116210424.1675:(constructor)
+    //@+node:gcross.20101116210424.1675:(constructors)
     OperatorSpace(int number_of_operators, int number_of_qubits);
+    OperatorSpace(bool share, OperatorSpace& s);
     //@nonl
-    //@-node:gcross.20101116210424.1675:(constructor)
+    //@-node:gcross.20101116210424.1675:(constructors)
+    //@+node:gcross.20101116222338.1275:copy
+    virtual Space* copy(bool share);
+    //@nonl
+    //@-node:gcross.20101116222338.1275:copy
     //@-others
 
 };
