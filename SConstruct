@@ -75,7 +75,7 @@ test = env.Program('tests/test',[
     'sources/operator_space.cc',
 ],LIBS=[
     'unit--','unit--main',
-    'gecodesearch','gecodeint','gecodekernel','gecodesupport',
+    'gecodesearch','gecodeint','gecodekernel','gecodesupport','gecodeminimodel',
 ])
 env.Alias('test',test)
 #@nonl
