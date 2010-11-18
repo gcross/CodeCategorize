@@ -24,7 +24,7 @@ CompleteColumnsOperatorSpace::CompleteColumnsOperatorSpace(int number_of_operato
     for(int column = 0; column < number_of_qubits; ++column) {
         IntVarArgs O_column;
         for(int row = 0; row < number_of_operators; ++row) {
-            O_column << O_matrix(row,column);
+            O_column << O_matrix(column,row);
         }
         channel(*this,O_column,column_operator_sets[column]);
         rel(*this,cardinality(column_operator_sets[column] - singleton(0)) >= 2);
@@ -118,7 +118,7 @@ WeightRowOrderedOperatorSpace::WeightRowOrderedOperatorSpace(
     BoolMatrix non_trivial_matrix = getNonTrivialMatrix();
     int first_column = exclude_first_column ? 1 : 0;
     for(int i = 0; i < number_of_operators; ++i) {
-        weights[i] = expr(*this,sum(non_trivial_matrix.slice(i,i+1,first_column,number_of_qubits)));
+        weights[i] = expr(*this,sum(non_trivial_matrix.slice(first_column,number_of_qubits,i,i+1)));
     }
     postOrderingConstraint(weights,&intrapair_ties,&interpair_ties);
 }
@@ -145,7 +145,7 @@ FirstColumnXRowOrderedOperatorSpace::FirstColumnXRowOrderedOperatorSpace(
     , interpair_ties(*this,number_of_pairs,0,1)
 {
     BoolMatrix X_matrix = getXMatrix();
-    for(int i = 0; i < number_of_operators; ++i) channel(*this,X_matrix(i,0),first_column_X[i]);
+    for(int i = 0; i < number_of_operators; ++i) channel(*this,X_matrix(0,i),first_column_X[i]);
     postOrderingConstraint(first_column_X,&intrapair_ties,&interpair_ties);
 }
 
@@ -184,9 +184,9 @@ Space* WeightAndFirstColumnXRowOrderedOperatorSpace::copy(bool share)
 //@+node:gcross.20101117133000.1469: ** Functions
 //@+node:gcross.20101117133000.1470: *3* postFirstColumnSpecialCaseConstraint
 void postFirstColumnSpecialCaseConstraint(OperatorSpace& m) {
-    rel(m,m.getOMatrix()(m.number_of_operators-1,0) == Z);
+    rel(m,m.getOMatrix()(0,m.number_of_operators-1) == Z);
     BoolMatrix Z_matrix = m.getZMatrix();
-    for(int row = 0; row < m.number_of_operators-1; ++row) rel(m,Z_matrix(row,0) == 0);
+    for(int row = 0; row < m.number_of_operators-1; ++row) rel(m,Z_matrix(0,row) == 0);
 }
 //@-others
 //@-leo

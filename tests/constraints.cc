@@ -71,8 +71,8 @@ testCase(_2x2,CompleteColumns) {
         ++number_of_solutions;
         for(int i = 0; i < 4; ++i) assertTrue(m->non_trivial[i].val());
         IntMatrix O_matrix = m->getOMatrix();
-        assertTrue(O_matrix(0,0).val() != O_matrix(1,0).val());
-        assertTrue(O_matrix(0,1).val() != O_matrix(1,1).val());
+        assertTrue(O_matrix(0,0).val() != O_matrix(0,1).val());
+        assertTrue(O_matrix(1,0).val() != O_matrix(1,1).val());
         delete m;
     }
     assertTrue(number_of_solutions > 0);
@@ -88,7 +88,7 @@ testCase(_3x3,CompleteColumns) {
         IntMatrix O_matrix = m->getOMatrix();
         for(int column = 0; column < 3; ++column) {
             bool present[4];  BOOST_FOREACH(bool& x, present) { x = false; }
-            for(int row = 0; row < 3; ++row) present[O_matrix(row,column).val()] = true;
+            for(int row = 0; row < 3; ++row) present[O_matrix(column,row).val()] = true;
             int count = 0;
             for(int i = 1; i < 4; ++i) if(present[i]) ++count;
             assertTrue(count >= 2);
@@ -141,7 +141,7 @@ testCase(_2x1,FirstColumnSpecialCase) {
     int number_of_solutions = 0;
     for(m = e.next(); m != NULL; m = e.next()) {
         assertEqual(0,m->getZMatrix()(0,0).val());
-        assertEqual(Z,m->getOMatrix()(1,0).val());
+        assertEqual(Z,m->getOMatrix()(0,1).val());
         ++number_of_solutions;
         delete m;
     }
@@ -156,7 +156,7 @@ testCase(_2x2,FirstColumnSpecialCase) {
     int number_of_solutions = 0;
     for(m = e.next(); m != NULL; m = e.next()) {
         assertEqual(0,m->getZMatrix()(0,0).val());
-        assertEqual(Z,m->getOMatrix()(1,0).val());
+        assertEqual(Z,m->getOMatrix()(0,1).val());
         ++number_of_solutions;
         delete m;
     }
@@ -171,8 +171,8 @@ testCase(_3x3,FirstColumnSpecialCase) {
     int number_of_solutions = 0;
     for(m = e.next(); m != NULL; m = e.next()) {
         assertEqual(0,m->getZMatrix()(0,0).val());
-        assertEqual(0,m->getZMatrix()(1,0).val());
-        assertEqual(Z,m->getOMatrix()(2,0).val());
+        assertEqual(0,m->getZMatrix()(0,1).val());
+        assertEqual(Z,m->getOMatrix()(0,2).val());
         ++number_of_solutions;
         delete m;
     }
@@ -234,8 +234,8 @@ testCase(_2x2,Weight) {
     int number_of_solutions = 0;
     for(m = e.next(); m != NULL; m = e.next()) {
         BoolMatrix non_trivial_matrix = m->getNonTrivialMatrix();
-        assertTrue(non_trivial_matrix(0,0).val() + non_trivial_matrix(0,1).val()
-                >= non_trivial_matrix(1,0).val() + non_trivial_matrix(1,1).val());
+        assertTrue(non_trivial_matrix(0,0).val() + non_trivial_matrix(1,0).val()
+                >= non_trivial_matrix(0,1).val() + non_trivial_matrix(1,1).val());
         ++number_of_solutions;
         delete m;
     }
@@ -254,17 +254,17 @@ testCase(_4x2,Weight) {
     int number_of_solutions = 0;
     for(m = e.next(); m != NULL; m = e.next()) {
         BoolMatrix non_trivial_matrix = m->getNonTrivialMatrix();
-        assertTrue(non_trivial_matrix(0,0).val() + non_trivial_matrix(0,1).val()
-                >= non_trivial_matrix(1,0).val() + non_trivial_matrix(1,1).val());
-        assertTrue(non_trivial_matrix(2,0).val() + non_trivial_matrix(2,1).val()
-                >= non_trivial_matrix(3,0).val() + non_trivial_matrix(3,1).val());
+        assertTrue(non_trivial_matrix(0,0).val() + non_trivial_matrix(1,0).val()
+                >= non_trivial_matrix(0,1).val() + non_trivial_matrix(1,1).val());
+        assertTrue(non_trivial_matrix(0,2).val() + non_trivial_matrix(1,2).val()
+                >= non_trivial_matrix(0,3).val() + non_trivial_matrix(1,3).val());
         assertTrue(
-                   non_trivial_matrix(0,0).val() + non_trivial_matrix(0,1).val()
-                 > non_trivial_matrix(2,0).val() + non_trivial_matrix(2,1).val()
-           ||      non_trivial_matrix(0,0).val() + non_trivial_matrix(0,1).val()
-                == non_trivial_matrix(2,0).val() + non_trivial_matrix(2,1).val()
-           &&      non_trivial_matrix(0,0).val() + non_trivial_matrix(0,1).val()
-                >= non_trivial_matrix(2,0).val() + non_trivial_matrix(2,1).val()
+                   non_trivial_matrix(0,0).val() + non_trivial_matrix(1,0).val()
+                 > non_trivial_matrix(0,2).val() + non_trivial_matrix(1,2).val()
+           ||      non_trivial_matrix(0,0).val() + non_trivial_matrix(1,0).val()
+                == non_trivial_matrix(0,2).val() + non_trivial_matrix(1,2).val()
+           &&      non_trivial_matrix(0,0).val() + non_trivial_matrix(1,0).val()
+                >= non_trivial_matrix(0,2).val() + non_trivial_matrix(1,2).val()
         );
         ++number_of_solutions;
         delete m;
@@ -323,7 +323,7 @@ testCase(_2x2,FirstColumnX) {
     int number_of_solutions = 0;
     for(m = e.next(); m != NULL; m = e.next()) {
         BoolMatrix X_matrix = m->getXMatrix();
-        assertTrue(X_matrix(1,0).val() == 0 || X_matrix(0,0).val() == 1);
+        assertTrue(X_matrix(0,1).val() == 0 || X_matrix(0,0).val() == 1);
         ++number_of_solutions;
         delete m;
     }
@@ -337,11 +337,11 @@ testCase(_4x2,FirstColumnX) {
     int number_of_solutions = 0;
     for(m = e.next(); m != NULL; m = e.next()) {
         BoolMatrix X_matrix = m->getXMatrix();
-        assertTrue(X_matrix(1,0).val() == 0 || X_matrix(0,0).val() == 1);
-        assertTrue(X_matrix(3,0).val() == 0 || X_matrix(2,0).val() == 1);
-        assertTrue(X_matrix(0,0).val() >= X_matrix(2,0).val()
-           ||      X_matrix(0,0).val() == X_matrix(2,0).val()
-               &&  X_matrix(1,0).val() >= X_matrix(3,0).val()
+        assertTrue(X_matrix(0,1).val() == 0 || X_matrix(0,0).val() == 1);
+        assertTrue(X_matrix(0,3).val() == 0 || X_matrix(0,2).val() == 1);
+        assertTrue(X_matrix(0,0).val() >= X_matrix(0,2).val()
+           ||      X_matrix(0,0).val() == X_matrix(0,2).val()
+               &&  X_matrix(0,1).val() >= X_matrix(0,3).val()
 
         );
         ++number_of_solutions;
@@ -402,11 +402,11 @@ testCase(_2x2,Tie_breaking_between_Weight_and_FirstColumnX) {
     for(m = e.next(); m != NULL; m = e.next()) {
         BoolMatrix non_trivial_matrix = m->getNonTrivialMatrix(),
                    X_matrix = m->getXMatrix();
-        assertTrue(non_trivial_matrix(0,1).val() >= non_trivial_matrix(1,1).val());
+        assertTrue(non_trivial_matrix(1,0).val() >= non_trivial_matrix(1,1).val());
         assertTrue(
-                    non_trivial_matrix(0,1).val() > non_trivial_matrix(1,1).val()
-            ||      non_trivial_matrix(0,1).val() == non_trivial_matrix(1,1).val()
-                &&  X_matrix(0,0).val() >= X_matrix(1,0).val()
+                    non_trivial_matrix(1,0).val() > non_trivial_matrix(1,1).val()
+            ||      non_trivial_matrix(1,0).val() == non_trivial_matrix(1,1).val()
+                &&  X_matrix(0,0).val() >= X_matrix(0,1).val()
         );
         ++number_of_solutions;
         delete m;
@@ -421,13 +421,13 @@ testCase(_2x3,Tie_breaking_between_Weight_and_FirstColumnX) {
     for(m = e.next(); m != NULL; m = e.next()) {
         BoolMatrix non_trivial_matrix = m->getNonTrivialMatrix(),
                    X_matrix = m->getXMatrix();
-        int row_0_weight = non_trivial_matrix(0,1).val() + non_trivial_matrix(0,2).val(),
-            row_1_weight = non_trivial_matrix(1,1).val() + non_trivial_matrix(1,2).val();
+        int row_0_weight = non_trivial_matrix(1,0).val() + non_trivial_matrix(2,0).val(),
+            row_1_weight = non_trivial_matrix(1,1).val() + non_trivial_matrix(2,1).val();
         assertTrue(row_0_weight >= row_1_weight);
         assertTrue(
                     row_0_weight > row_1_weight
             ||      row_0_weight == row_1_weight
-                &&  X_matrix(0,0).val() >= X_matrix(1,0).val()
+                &&  X_matrix(0,0).val() >= X_matrix(0,1).val()
         );
         ++number_of_solutions;
         delete m;
@@ -443,25 +443,25 @@ testCase(_4x2,Tie_breaking_between_Weight_and_FirstColumnX) {
         BoolMatrix non_trivial_matrix = m->getNonTrivialMatrix(),
                    X_matrix = m->getXMatrix();
         for(int i = 0; i < 4; i += 2) {
-            assertTrue(non_trivial_matrix(i+0,1).val() >= non_trivial_matrix(i+1,1).val());
+            assertTrue(non_trivial_matrix(1,i+0).val() >= non_trivial_matrix(1,i+1).val());
             assertTrue(
-                        non_trivial_matrix(i+0,1).val() > non_trivial_matrix(i+1,1).val()
-                ||      non_trivial_matrix(i+0,1).val() == non_trivial_matrix(i+1,1).val()
-                    &&  X_matrix(i+0,0).val() >= X_matrix(i+1,0).val()
+                        non_trivial_matrix(1,i+0).val() > non_trivial_matrix(1,i+1).val()
+                ||      non_trivial_matrix(1,i+0).val() == non_trivial_matrix(1,i+1).val()
+                    &&  X_matrix(0,i+0).val() >= X_matrix(0,i+1).val()
             );
         }
-        assertTrue(non_trivial_matrix(0,1).val() >= non_trivial_matrix(2,1).val());
+        assertTrue(non_trivial_matrix(1,0).val() >= non_trivial_matrix(1,2).val());
         assertTrue(
-                    non_trivial_matrix(0,1).val() > non_trivial_matrix(2,1).val()
-            ||      non_trivial_matrix(0,1).val() == non_trivial_matrix(2,1).val()
-                &&  non_trivial_matrix(1,1).val() > non_trivial_matrix(3,1).val()
-            ||      non_trivial_matrix(0,1).val() == non_trivial_matrix(2,1).val()
-                &&  non_trivial_matrix(1,1).val() == non_trivial_matrix(3,1).val()
-                &&  X_matrix(0,0).val() > X_matrix(2,0).val()
-            ||      non_trivial_matrix(0,1).val() == non_trivial_matrix(2,1).val()
-                &&  non_trivial_matrix(1,1).val() == non_trivial_matrix(3,1).val()
-                &&  X_matrix(0,0).val() == X_matrix(2,0).val()
-                &&  X_matrix(1,0).val() >= X_matrix(3,0).val()
+                    non_trivial_matrix(1,0).val() > non_trivial_matrix(1,2).val()
+            ||      non_trivial_matrix(1,0).val() == non_trivial_matrix(1,2).val()
+                &&  non_trivial_matrix(1,1).val() > non_trivial_matrix(1,3).val()
+            ||      non_trivial_matrix(1,0).val() == non_trivial_matrix(1,2).val()
+                &&  non_trivial_matrix(1,1).val() == non_trivial_matrix(1,3).val()
+                &&  X_matrix(0,0).val() > X_matrix(0,2).val()
+            ||      non_trivial_matrix(1,0).val() == non_trivial_matrix(1,2).val()
+                &&  non_trivial_matrix(1,1).val() == non_trivial_matrix(1,3).val()
+                &&  X_matrix(0,0).val() == X_matrix(0,2).val()
+                &&  X_matrix(0,1).val() >= X_matrix(0,3).val()
         );
         ++number_of_solutions;
         delete m;

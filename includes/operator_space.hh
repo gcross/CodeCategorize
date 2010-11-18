@@ -31,10 +31,10 @@ struct OperatorSpace : public Space {
     OperatorSpace(bool share, OperatorSpace& s);
     //@+node:gcross.20101117133000.1468: *3* (methods)
     virtual Space* copy(bool share);
-    IntMatrix getOMatrix() { return Matrix<IntVarArgs>(O,number_of_operators,number_of_qubits); }
-    BoolMatrix getXMatrix() { return Matrix<BoolVarArgs>(X,number_of_operators,number_of_qubits); }
-    BoolMatrix getZMatrix() { return Matrix<BoolVarArgs>(Z,number_of_operators,number_of_qubits); }
-    BoolMatrix getNonTrivialMatrix() { return Matrix<BoolVarArgs>(non_trivial,number_of_operators,number_of_qubits); }
+    IntMatrix getOMatrix() { return Matrix<IntVarArgs>(O,number_of_qubits,number_of_operators); }
+    BoolMatrix getXMatrix() { return Matrix<BoolVarArgs>(X,number_of_qubits,number_of_operators); }
+    BoolMatrix getZMatrix() { return Matrix<BoolVarArgs>(Z,number_of_qubits,number_of_operators); }
+    BoolMatrix getNonTrivialMatrix() { return Matrix<BoolVarArgs>(non_trivial,number_of_qubits,number_of_operators); }
     //@-others
 
 };
