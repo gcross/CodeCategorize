@@ -274,6 +274,7 @@ testCase(_4x2,Weight) {
         ++number_of_solutions;
         delete m;
     }
+    assertTrue(number_of_solutions > 0);
 }
 //@-others
 
