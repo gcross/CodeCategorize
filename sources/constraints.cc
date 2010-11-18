@@ -131,6 +131,32 @@ Space* WeightOrderedOperatorSpace::copy(bool share)
 {
     return new WeightOrderedOperatorSpace(share,*this);
 }
+//@+node:gcross.20101117133000.1558: *3* struct FirstColumnXOrderedOperatorSpace
+//@+node:gcross.20101117133000.1559: *4* (constructors)
+FirstColumnXOrderedOperatorSpace::FirstColumnXOrderedOperatorSpace(
+    int number_of_operators,
+    int number_of_qubits
+)
+    : OrderedOperatorSpace(number_of_operators,number_of_qubits)
+    , OperatorSpace(number_of_operators,number_of_qubits)
+    , first_column_X(*this,number_of_operators,0,1)
+    , intrapair_ties(*this,number_of_pairs,0,1)
+    , interpair_ties(*this,number_of_pairs,0,1)
+{
+    BoolMatrix X_matrix = getXMatrix();
+    for(int i = 0; i < number_of_operators; ++i) channel(*this,X_matrix(i,0),first_column_X[i]);
+    postOrderingConstraint(first_column_X,&intrapair_ties,&interpair_ties);
+}
+
+FirstColumnXOrderedOperatorSpace::FirstColumnXOrderedOperatorSpace(bool share, FirstColumnXOrderedOperatorSpace& s)
+    : OrderedOperatorSpace(share,s)
+    , OperatorSpace(share,s)
+{ }
+//@+node:gcross.20101117133000.1560: *4* copy
+Space* FirstColumnXOrderedOperatorSpace::copy(bool share)
+{
+    return new FirstColumnXOrderedOperatorSpace(share,*this);
+}
 //@+node:gcross.20101117133000.1469: ** Functions
 //@+node:gcross.20101117133000.1470: *3* postFirstColumnSpecialCaseConstraint
 void postFirstColumnSpecialCaseConstraint(OperatorSpace& m) {

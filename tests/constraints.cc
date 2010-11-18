@@ -279,6 +279,84 @@ testCase(_4x2,Weight) {
 //@-others
 
 }
+//@+node:gcross.20101117133000.1567: *4* FirstColumnX
+subSuite(FirstColumnX,Constraints) {
+
+//@+others
+//@+node:gcross.20101117133000.1568: *5* _1x1
+testCase(_1x1,FirstColumnX) {
+    FirstColumnXOrderedOperatorSpace* m = new FirstColumnXOrderedOperatorSpace(1,1);
+    DFS<FirstColumnXOrderedOperatorSpace> e(m);
+    delete m;
+    int number_of_solutions = 0;
+    for(m = e.next(); m != NULL; m = e.next()) {
+        ++number_of_solutions;
+        delete m;
+    }
+    assertEqual(4,number_of_solutions);
+}
+//@+node:gcross.20101117133000.1569: *5* _1x2
+testCase(_1x2,FirstColumnX) {
+    FirstColumnXOrderedOperatorSpace* m = new FirstColumnXOrderedOperatorSpace(1,2);
+    DFS<FirstColumnXOrderedOperatorSpace> e(m);
+    delete m;
+    int number_of_solutions = 0;
+    for(m = e.next(); m != NULL; m = e.next()) {
+        ++number_of_solutions;
+        delete m;
+    }
+    assertEqual(16,number_of_solutions);
+}
+//@+node:gcross.20101117133000.1570: *5* _2x1
+testCase(_2x1,FirstColumnX) {
+    FirstColumnXOrderedOperatorSpace* m = new FirstColumnXOrderedOperatorSpace(2,1);
+    DFS<FirstColumnXOrderedOperatorSpace> e(m);
+    delete m;
+    int number_of_solutions = 0;
+    for(m = e.next(); m != NULL; m = e.next()) {
+        assertTrue(m->X[1].val() == 0 || m->X[0].val() == 1);
+        ++number_of_solutions;
+        delete m;
+    }
+    assertEqual(12,number_of_solutions);
+}
+//@+node:gcross.20101117133000.1571: *5* _2x2
+testCase(_2x2,FirstColumnX) {
+    FirstColumnXOrderedOperatorSpace* m = new FirstColumnXOrderedOperatorSpace(2,2);
+    DFS<FirstColumnXOrderedOperatorSpace> e(m);
+    delete m;
+    int number_of_solutions = 0;
+    for(m = e.next(); m != NULL; m = e.next()) {
+        BoolMatrix X_matrix = m->getXMatrix();
+        assertTrue(X_matrix(1,0).val() == 0 || X_matrix(0,0).val() == 1);
+        ++number_of_solutions;
+        delete m;
+    }
+    assertEqual(12*16,number_of_solutions);
+}
+//@+node:gcross.20101117133000.1572: *5* _4x2
+testCase(_4x2,FirstColumnX) {
+    FirstColumnXOrderedOperatorSpace* m = new FirstColumnXOrderedOperatorSpace(4,2);
+    DFS<FirstColumnXOrderedOperatorSpace> e(m);
+    delete m;
+    int number_of_solutions = 0;
+    for(m = e.next(); m != NULL; m = e.next()) {
+        BoolMatrix X_matrix = m->getXMatrix();
+        assertTrue(X_matrix(1,0).val() == 0 || X_matrix(0,0).val() == 1);
+        assertTrue(X_matrix(3,0).val() == 0 || X_matrix(2,0).val() == 1);
+        assertTrue(X_matrix(0,0).val() >= X_matrix(2,0).val()
+           || (    X_matrix(0,0).val() == X_matrix(2,0).val()
+                && X_matrix(1,0).val() >= X_matrix(3,0).val()
+              )
+        );
+        ++number_of_solutions;
+        delete m;
+    }
+    assertTrue(number_of_solutions > 0);
+}
+//@-others
+
+}
 //@-others
 
 }
