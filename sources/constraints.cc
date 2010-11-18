@@ -4,7 +4,7 @@
 
 //@+<< Includes >>
 //@+node:gcross.20101117113704.1322: ** << Includes >>
-#include "gecode/minimodel.hh"
+#include <gecode/minimodel.hh>
 
 #include "constraints.hh"
 //@-<< Includes >>
