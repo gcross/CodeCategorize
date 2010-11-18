@@ -181,18 +181,18 @@ testCase(_3x3,FirstColumnSpecialCase) {
 //@-others
 
 }
-//@+node:gcross.20101117133000.1531: *3* Ordered
-subSuite(Ordered,Constraints) {
+//@+node:gcross.20101117133000.1531: *3* RowOrdered
+subSuite(RowOrdered,Constraints) {
 
 //@+others
 //@+node:gcross.20101117133000.1533: *4* Weight
-subSuite(Weight,Constraints) {
+subSuite(Weight,RowOrdered) {
 
 //@+others
 //@+node:gcross.20101117133000.1535: *5* _1x1
 testCase(_1x1,Weight) {
-    WeightOrderedOperatorSpace* m = new WeightOrderedOperatorSpace(1,1,false);
-    DFS<WeightOrderedOperatorSpace> e(m);
+    WeightRowOrderedOperatorSpace* m = new WeightRowOrderedOperatorSpace(1,1,false);
+    DFS<WeightRowOrderedOperatorSpace> e(m);
     delete m;
     int number_of_solutions = 0;
     for(m = e.next(); m != NULL; m = e.next()) {
@@ -203,8 +203,8 @@ testCase(_1x1,Weight) {
 }
 //@+node:gcross.20101117133000.1539: *5* _1x2
 testCase(_1x2,Weight) {
-    WeightOrderedOperatorSpace* m = new WeightOrderedOperatorSpace(1,2,false);
-    DFS<WeightOrderedOperatorSpace> e(m);
+    WeightRowOrderedOperatorSpace* m = new WeightRowOrderedOperatorSpace(1,2,false);
+    DFS<WeightRowOrderedOperatorSpace> e(m);
     delete m;
     int number_of_solutions = 0;
     for(m = e.next(); m != NULL; m = e.next()) {
@@ -215,8 +215,8 @@ testCase(_1x2,Weight) {
 }
 //@+node:gcross.20101117133000.1541: *5* _2x1
 testCase(_2x1,Weight) {
-    WeightOrderedOperatorSpace* m = new WeightOrderedOperatorSpace(2,1,false);
-    DFS<WeightOrderedOperatorSpace> e(m);
+    WeightRowOrderedOperatorSpace* m = new WeightRowOrderedOperatorSpace(2,1,false);
+    DFS<WeightRowOrderedOperatorSpace> e(m);
     delete m;
     int number_of_solutions = 0;
     for(m = e.next(); m != NULL; m = e.next()) {
@@ -228,8 +228,8 @@ testCase(_2x1,Weight) {
 }
 //@+node:gcross.20101117133000.1543: *5* _2x2
 testCase(_2x2,Weight) {
-    WeightOrderedOperatorSpace* m = new WeightOrderedOperatorSpace(2,2,false);
-    DFS<WeightOrderedOperatorSpace> e(m);
+    WeightRowOrderedOperatorSpace* m = new WeightRowOrderedOperatorSpace(2,2,false);
+    DFS<WeightRowOrderedOperatorSpace> e(m);
     delete m;
     int number_of_solutions = 0;
     for(m = e.next(); m != NULL; m = e.next()) {
@@ -248,8 +248,8 @@ testCase(_2x2,Weight) {
 }
 //@+node:gcross.20101117133000.1545: *5* _4x2
 testCase(_4x2,Weight) {
-    WeightOrderedOperatorSpace* m = new WeightOrderedOperatorSpace(4,2,false);
-    DFS<WeightOrderedOperatorSpace> e(m);
+    WeightRowOrderedOperatorSpace* m = new WeightRowOrderedOperatorSpace(4,2,false);
+    DFS<WeightRowOrderedOperatorSpace> e(m);
     delete m;
     int number_of_solutions = 0;
     for(m = e.next(); m != NULL; m = e.next()) {
@@ -275,13 +275,13 @@ testCase(_4x2,Weight) {
 
 }
 //@+node:gcross.20101117133000.1567: *4* FirstColumnX
-subSuite(FirstColumnX,Constraints) {
+subSuite(FirstColumnX,RowOrdered) {
 
 //@+others
 //@+node:gcross.20101117133000.1568: *5* _1x1
 testCase(_1x1,FirstColumnX) {
-    FirstColumnXOrderedOperatorSpace* m = new FirstColumnXOrderedOperatorSpace(1,1);
-    DFS<FirstColumnXOrderedOperatorSpace> e(m);
+    FirstColumnXRowOrderedOperatorSpace* m = new FirstColumnXRowOrderedOperatorSpace(1,1);
+    DFS<FirstColumnXRowOrderedOperatorSpace> e(m);
     delete m;
     int number_of_solutions = 0;
     for(m = e.next(); m != NULL; m = e.next()) {
@@ -292,8 +292,8 @@ testCase(_1x1,FirstColumnX) {
 }
 //@+node:gcross.20101117133000.1569: *5* _1x2
 testCase(_1x2,FirstColumnX) {
-    FirstColumnXOrderedOperatorSpace* m = new FirstColumnXOrderedOperatorSpace(1,2);
-    DFS<FirstColumnXOrderedOperatorSpace> e(m);
+    FirstColumnXRowOrderedOperatorSpace* m = new FirstColumnXRowOrderedOperatorSpace(1,2);
+    DFS<FirstColumnXRowOrderedOperatorSpace> e(m);
     delete m;
     int number_of_solutions = 0;
     for(m = e.next(); m != NULL; m = e.next()) {
@@ -304,8 +304,8 @@ testCase(_1x2,FirstColumnX) {
 }
 //@+node:gcross.20101117133000.1570: *5* _2x1
 testCase(_2x1,FirstColumnX) {
-    FirstColumnXOrderedOperatorSpace* m = new FirstColumnXOrderedOperatorSpace(2,1);
-    DFS<FirstColumnXOrderedOperatorSpace> e(m);
+    FirstColumnXRowOrderedOperatorSpace* m = new FirstColumnXRowOrderedOperatorSpace(2,1);
+    DFS<FirstColumnXRowOrderedOperatorSpace> e(m);
     delete m;
     int number_of_solutions = 0;
     for(m = e.next(); m != NULL; m = e.next()) {
@@ -317,8 +317,8 @@ testCase(_2x1,FirstColumnX) {
 }
 //@+node:gcross.20101117133000.1571: *5* _2x2
 testCase(_2x2,FirstColumnX) {
-    FirstColumnXOrderedOperatorSpace* m = new FirstColumnXOrderedOperatorSpace(2,2);
-    DFS<FirstColumnXOrderedOperatorSpace> e(m);
+    FirstColumnXRowOrderedOperatorSpace* m = new FirstColumnXRowOrderedOperatorSpace(2,2);
+    DFS<FirstColumnXRowOrderedOperatorSpace> e(m);
     delete m;
     int number_of_solutions = 0;
     for(m = e.next(); m != NULL; m = e.next()) {
@@ -331,8 +331,8 @@ testCase(_2x2,FirstColumnX) {
 }
 //@+node:gcross.20101117133000.1572: *5* _4x2
 testCase(_4x2,FirstColumnX) {
-    FirstColumnXOrderedOperatorSpace* m = new FirstColumnXOrderedOperatorSpace(4,2);
-    DFS<FirstColumnXOrderedOperatorSpace> e(m);
+    FirstColumnXRowOrderedOperatorSpace* m = new FirstColumnXRowOrderedOperatorSpace(4,2);
+    DFS<FirstColumnXRowOrderedOperatorSpace> e(m);
     delete m;
     int number_of_solutions = 0;
     for(m = e.next(); m != NULL; m = e.next()) {
@@ -353,13 +353,13 @@ testCase(_4x2,FirstColumnX) {
 
 }
 //@+node:gcross.20101117133000.1573: *4* TieBraker: Weight, FirstColumnX
-subSuite(Tie_breaking_between_Weight_and_FirstColumnX,Constraints) {
+subSuite(Tie_breaking_between_Weight_and_FirstColumnX,RowOrdered) {
 
 //@+others
 //@+node:gcross.20101117133000.1575: *5* _1x1
 testCase(_1x1,Tie_breaking_between_Weight_and_FirstColumnX) {
-    WeightAndFirstColumnXOrderedOperatorSpace* m = new WeightAndFirstColumnXOrderedOperatorSpace(1,1);
-    DFS<WeightAndFirstColumnXOrderedOperatorSpace> e(m);
+    WeightAndFirstColumnXRowOrderedOperatorSpace* m = new WeightAndFirstColumnXRowOrderedOperatorSpace(1,1);
+    DFS<WeightAndFirstColumnXRowOrderedOperatorSpace> e(m);
     delete m;
     int number_of_solutions = 0;
     for(m = e.next(); m != NULL; m = e.next()) {
@@ -370,8 +370,8 @@ testCase(_1x1,Tie_breaking_between_Weight_and_FirstColumnX) {
 }
 //@+node:gcross.20101117133000.1588: *5* _1x2
 testCase(_1x2,Tie_breaking_between_Weight_and_FirstColumnX) {
-    WeightAndFirstColumnXOrderedOperatorSpace* m = new WeightAndFirstColumnXOrderedOperatorSpace(1,2);
-    DFS<WeightAndFirstColumnXOrderedOperatorSpace> e(m);
+    WeightAndFirstColumnXRowOrderedOperatorSpace* m = new WeightAndFirstColumnXRowOrderedOperatorSpace(1,2);
+    DFS<WeightAndFirstColumnXRowOrderedOperatorSpace> e(m);
     delete m;
     int number_of_solutions = 0;
     for(m = e.next(); m != NULL; m = e.next()) {
@@ -382,8 +382,8 @@ testCase(_1x2,Tie_breaking_between_Weight_and_FirstColumnX) {
 }
 //@+node:gcross.20101117133000.1591: *5* _2x1
 testCase(_2x1,Tie_breaking_between_Weight_and_FirstColumnX) {
-    WeightAndFirstColumnXOrderedOperatorSpace* m = new WeightAndFirstColumnXOrderedOperatorSpace(2,1);
-    DFS<WeightAndFirstColumnXOrderedOperatorSpace> e(m);
+    WeightAndFirstColumnXRowOrderedOperatorSpace* m = new WeightAndFirstColumnXRowOrderedOperatorSpace(2,1);
+    DFS<WeightAndFirstColumnXRowOrderedOperatorSpace> e(m);
     delete m;
     int number_of_solutions = 0;
     for(m = e.next(); m != NULL; m = e.next()) {
@@ -395,8 +395,8 @@ testCase(_2x1,Tie_breaking_between_Weight_and_FirstColumnX) {
 }
 //@+node:gcross.20101117133000.1593: *5* _2x2
 testCase(_2x2,Tie_breaking_between_Weight_and_FirstColumnX) {
-    WeightAndFirstColumnXOrderedOperatorSpace* m = new WeightAndFirstColumnXOrderedOperatorSpace(2,2);
-    DFS<WeightAndFirstColumnXOrderedOperatorSpace> e(m);
+    WeightAndFirstColumnXRowOrderedOperatorSpace* m = new WeightAndFirstColumnXRowOrderedOperatorSpace(2,2);
+    DFS<WeightAndFirstColumnXRowOrderedOperatorSpace> e(m);
     delete m;
     int number_of_solutions = 0;
     for(m = e.next(); m != NULL; m = e.next()) {
@@ -414,8 +414,8 @@ testCase(_2x2,Tie_breaking_between_Weight_and_FirstColumnX) {
 }
 //@+node:gcross.20101117133000.1595: *5* _2x3
 testCase(_2x3,Tie_breaking_between_Weight_and_FirstColumnX) {
-    WeightAndFirstColumnXOrderedOperatorSpace* m = new WeightAndFirstColumnXOrderedOperatorSpace(2,3);
-    DFS<WeightAndFirstColumnXOrderedOperatorSpace> e(m);
+    WeightAndFirstColumnXRowOrderedOperatorSpace* m = new WeightAndFirstColumnXRowOrderedOperatorSpace(2,3);
+    DFS<WeightAndFirstColumnXRowOrderedOperatorSpace> e(m);
     delete m;
     int number_of_solutions = 0;
     for(m = e.next(); m != NULL; m = e.next()) {
@@ -435,8 +435,8 @@ testCase(_2x3,Tie_breaking_between_Weight_and_FirstColumnX) {
 }
 //@+node:gcross.20101117133000.1599: *5* _4x2
 testCase(_4x2,Tie_breaking_between_Weight_and_FirstColumnX) {
-    WeightAndFirstColumnXOrderedOperatorSpace* m = new WeightAndFirstColumnXOrderedOperatorSpace(4,2);
-    DFS<WeightAndFirstColumnXOrderedOperatorSpace> e(m);
+    WeightAndFirstColumnXRowOrderedOperatorSpace* m = new WeightAndFirstColumnXRowOrderedOperatorSpace(4,2);
+    DFS<WeightAndFirstColumnXRowOrderedOperatorSpace> e(m);
     delete m;
     int number_of_solutions = 0;
     for(m = e.next(); m != NULL; m = e.next()) {

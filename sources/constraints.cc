@@ -41,26 +41,27 @@ Space* CompleteColumnsOperatorSpace::copy(bool share)
 {
     return new CompleteColumnsOperatorSpace(share,*this);
 }
-//@+node:gcross.20101117133000.1507: *3* struct OrderedOperatorSpace
-//@+node:gcross.20101117133000.1508: *4* (constructors)
-OrderedOperatorSpace::OrderedOperatorSpace(int number_of_operators, int number_of_qubits)
+//@+node:gcross.20101117133000.1600: *3* Row ordering constraints
+//@+node:gcross.20101117133000.1507: *4* struct RowOrderedOperatorSpace
+//@+node:gcross.20101117133000.1508: *5* (constructors)
+RowOrderedOperatorSpace::RowOrderedOperatorSpace(int number_of_operators, int number_of_qubits)
     : OperatorSpace(number_of_operators,number_of_qubits)
     , number_of_pairs(number_of_operators/2)
     , interpair_ties(NULL)
     , intrapair_ties(NULL)
 { }
 
-OrderedOperatorSpace::OrderedOperatorSpace(bool share, OrderedOperatorSpace& s)
+RowOrderedOperatorSpace::RowOrderedOperatorSpace(bool share, RowOrderedOperatorSpace& s)
     : OperatorSpace(share,s)
     , number_of_pairs(s.number_of_pairs)
 { }
-//@+node:gcross.20101117133000.1512: *4* copy
-Space* OrderedOperatorSpace::copy(bool share)
+//@+node:gcross.20101117133000.1512: *5* copy
+Space* RowOrderedOperatorSpace::copy(bool share)
 {
-    return new OrderedOperatorSpace(share,*this);
+    return new RowOrderedOperatorSpace(share,*this);
 }
-//@+node:gcross.20101117133000.1513: *4* postOrderingConstraint
-void OrderedOperatorSpace::postOrderingConstraint(
+//@+node:gcross.20101117133000.1513: *5* postOrderingConstraint
+void RowOrderedOperatorSpace::postOrderingConstraint(
     IntVarArgs ordering
    ,BoolVarArray* interpair_ties_
    ,BoolVarArray* intrapair_ties_
@@ -101,14 +102,14 @@ void OrderedOperatorSpace::postOrderingConstraint(
     interpair_ties = interpair_ties_;
     intrapair_ties = intrapair_ties_;
 }
-//@+node:gcross.20101117133000.1527: *3* struct WeightOrderedOperatorSpace
-//@+node:gcross.20101117133000.1528: *4* (constructors)
-WeightOrderedOperatorSpace::WeightOrderedOperatorSpace(
+//@+node:gcross.20101117133000.1527: *4* struct WeightRowOrderedOperatorSpace
+//@+node:gcross.20101117133000.1528: *5* (constructors)
+WeightRowOrderedOperatorSpace::WeightRowOrderedOperatorSpace(
     int number_of_operators,
     int number_of_qubits,
     bool exclude_first_column
 )
-    : OrderedOperatorSpace(number_of_operators,number_of_qubits)
+    : RowOrderedOperatorSpace(number_of_operators,number_of_qubits)
     , OperatorSpace(number_of_operators,number_of_qubits)
     , weights(*this,number_of_operators,0,number_of_qubits)
     , intrapair_ties(*this,number_of_pairs,0,1)
@@ -122,22 +123,22 @@ WeightOrderedOperatorSpace::WeightOrderedOperatorSpace(
     postOrderingConstraint(weights,&intrapair_ties,&interpair_ties);
 }
 
-WeightOrderedOperatorSpace::WeightOrderedOperatorSpace(bool share, WeightOrderedOperatorSpace& s)
-    : OrderedOperatorSpace(share,s)
+WeightRowOrderedOperatorSpace::WeightRowOrderedOperatorSpace(bool share, WeightRowOrderedOperatorSpace& s)
+    : RowOrderedOperatorSpace(share,s)
     , OperatorSpace(share,s)
 { }
-//@+node:gcross.20101117133000.1529: *4* copy
-Space* WeightOrderedOperatorSpace::copy(bool share)
+//@+node:gcross.20101117133000.1529: *5* copy
+Space* WeightRowOrderedOperatorSpace::copy(bool share)
 {
-    return new WeightOrderedOperatorSpace(share,*this);
+    return new WeightRowOrderedOperatorSpace(share,*this);
 }
-//@+node:gcross.20101117133000.1558: *3* struct FirstColumnXOrderedOperatorSpace
-//@+node:gcross.20101117133000.1559: *4* (constructors)
-FirstColumnXOrderedOperatorSpace::FirstColumnXOrderedOperatorSpace(
+//@+node:gcross.20101117133000.1558: *4* struct FirstColumnXRowOrderedOperatorSpace
+//@+node:gcross.20101117133000.1559: *5* (constructors)
+FirstColumnXRowOrderedOperatorSpace::FirstColumnXRowOrderedOperatorSpace(
     int number_of_operators,
     int number_of_qubits
 )
-    : OrderedOperatorSpace(number_of_operators,number_of_qubits)
+    : RowOrderedOperatorSpace(number_of_operators,number_of_qubits)
     , OperatorSpace(number_of_operators,number_of_qubits)
     , first_column_X(*this,number_of_operators,0,1)
     , intrapair_ties(*this,number_of_pairs,0,1)
@@ -148,37 +149,37 @@ FirstColumnXOrderedOperatorSpace::FirstColumnXOrderedOperatorSpace(
     postOrderingConstraint(first_column_X,&intrapair_ties,&interpair_ties);
 }
 
-FirstColumnXOrderedOperatorSpace::FirstColumnXOrderedOperatorSpace(bool share, FirstColumnXOrderedOperatorSpace& s)
-    : OrderedOperatorSpace(share,s)
+FirstColumnXRowOrderedOperatorSpace::FirstColumnXRowOrderedOperatorSpace(bool share, FirstColumnXRowOrderedOperatorSpace& s)
+    : RowOrderedOperatorSpace(share,s)
     , OperatorSpace(share,s)
 { }
-//@+node:gcross.20101117133000.1560: *4* copy
-Space* FirstColumnXOrderedOperatorSpace::copy(bool share)
+//@+node:gcross.20101117133000.1560: *5* copy
+Space* FirstColumnXRowOrderedOperatorSpace::copy(bool share)
 {
-    return new FirstColumnXOrderedOperatorSpace(share,*this);
+    return new FirstColumnXRowOrderedOperatorSpace(share,*this);
 }
-//@+node:gcross.20101117133000.1584: *3* struct WeightAndFirstColumnXOrderedOperatorSpace
-//@+node:gcross.20101117133000.1585: *4* (constructors)
-WeightAndFirstColumnXOrderedOperatorSpace::WeightAndFirstColumnXOrderedOperatorSpace(
+//@+node:gcross.20101117133000.1584: *4* struct WeightAndFirstColumnXRowOrderedOperatorSpace
+//@+node:gcross.20101117133000.1585: *5* (constructors)
+WeightAndFirstColumnXRowOrderedOperatorSpace::WeightAndFirstColumnXRowOrderedOperatorSpace(
     int number_of_operators,
     int number_of_qubits
 )
-    : WeightOrderedOperatorSpace(number_of_operators,number_of_qubits,true)
-    , FirstColumnXOrderedOperatorSpace(number_of_operators,number_of_qubits)
-    , OrderedOperatorSpace(number_of_operators,number_of_qubits)
+    : WeightRowOrderedOperatorSpace(number_of_operators,number_of_qubits,true)
+    , FirstColumnXRowOrderedOperatorSpace(number_of_operators,number_of_qubits)
+    , RowOrderedOperatorSpace(number_of_operators,number_of_qubits)
     , OperatorSpace(number_of_operators,number_of_qubits)
 { }
 
-WeightAndFirstColumnXOrderedOperatorSpace::WeightAndFirstColumnXOrderedOperatorSpace(bool share, WeightAndFirstColumnXOrderedOperatorSpace& s)
-    : WeightOrderedOperatorSpace(share,s)
-    , FirstColumnXOrderedOperatorSpace(share,s)
-    , OrderedOperatorSpace(share,s)
+WeightAndFirstColumnXRowOrderedOperatorSpace::WeightAndFirstColumnXRowOrderedOperatorSpace(bool share, WeightAndFirstColumnXRowOrderedOperatorSpace& s)
+    : WeightRowOrderedOperatorSpace(share,s)
+    , FirstColumnXRowOrderedOperatorSpace(share,s)
+    , RowOrderedOperatorSpace(share,s)
     , OperatorSpace(share,s)
 { }
-//@+node:gcross.20101117133000.1586: *4* copy
-Space* WeightAndFirstColumnXOrderedOperatorSpace::copy(bool share)
+//@+node:gcross.20101117133000.1586: *5* copy
+Space* WeightAndFirstColumnXRowOrderedOperatorSpace::copy(bool share)
 {
-    return new WeightAndFirstColumnXOrderedOperatorSpace(share,*this);
+    return new WeightAndFirstColumnXRowOrderedOperatorSpace(share,*this);
 }
 //@+node:gcross.20101117133000.1469: ** Functions
 //@+node:gcross.20101117133000.1470: *3* postFirstColumnSpecialCaseConstraint
