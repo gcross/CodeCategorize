@@ -352,6 +352,124 @@ testCase(_4x2,FirstColumnX) {
 //@-others
 
 }
+//@+node:gcross.20101117133000.1573: *4* TieBraker: Weight, FirstColumnX
+subSuite(Tie_breaking_between_Weight_and_FirstColumnX,Constraints) {
+
+//@+others
+//@+node:gcross.20101117133000.1575: *5* _1x1
+testCase(_1x1,Tie_breaking_between_Weight_and_FirstColumnX) {
+    WeightAndFirstColumnXOrderedOperatorSpace* m = new WeightAndFirstColumnXOrderedOperatorSpace(1,1);
+    DFS<WeightAndFirstColumnXOrderedOperatorSpace> e(m);
+    delete m;
+    int number_of_solutions = 0;
+    for(m = e.next(); m != NULL; m = e.next()) {
+        ++number_of_solutions;
+        delete m;
+    }
+    assertEqual(4,number_of_solutions);
+}
+//@+node:gcross.20101117133000.1588: *5* _1x2
+testCase(_1x2,Tie_breaking_between_Weight_and_FirstColumnX) {
+    WeightAndFirstColumnXOrderedOperatorSpace* m = new WeightAndFirstColumnXOrderedOperatorSpace(1,2);
+    DFS<WeightAndFirstColumnXOrderedOperatorSpace> e(m);
+    delete m;
+    int number_of_solutions = 0;
+    for(m = e.next(); m != NULL; m = e.next()) {
+        ++number_of_solutions;
+        delete m;
+    }
+    assertEqual(16,number_of_solutions);
+}
+//@+node:gcross.20101117133000.1591: *5* _2x1
+testCase(_2x1,Tie_breaking_between_Weight_and_FirstColumnX) {
+    WeightAndFirstColumnXOrderedOperatorSpace* m = new WeightAndFirstColumnXOrderedOperatorSpace(2,1);
+    DFS<WeightAndFirstColumnXOrderedOperatorSpace> e(m);
+    delete m;
+    int number_of_solutions = 0;
+    for(m = e.next(); m != NULL; m = e.next()) {
+        assertTrue(m->X[1].val() == 0 || m->X[0].val() == 1);
+        ++number_of_solutions;
+        delete m;
+    }
+    assertEqual(12,number_of_solutions);
+}
+//@+node:gcross.20101117133000.1593: *5* _2x2
+testCase(_2x2,Tie_breaking_between_Weight_and_FirstColumnX) {
+    WeightAndFirstColumnXOrderedOperatorSpace* m = new WeightAndFirstColumnXOrderedOperatorSpace(2,2);
+    DFS<WeightAndFirstColumnXOrderedOperatorSpace> e(m);
+    delete m;
+    int number_of_solutions = 0;
+    for(m = e.next(); m != NULL; m = e.next()) {
+        BoolMatrix non_trivial_matrix = m->getNonTrivialMatrix(),
+                   X_matrix = m->getXMatrix();
+        assertTrue(non_trivial_matrix(0,1).val() >= non_trivial_matrix(1,1).val());
+        assertTrue(
+                    non_trivial_matrix(0,1).val() > non_trivial_matrix(1,1).val()
+            ||      non_trivial_matrix(0,1).val() == non_trivial_matrix(1,1).val()
+                &&  X_matrix(0,0).val() >= X_matrix(1,0).val()
+        );
+        ++number_of_solutions;
+        delete m;
+    }
+}
+//@+node:gcross.20101117133000.1595: *5* _2x3
+testCase(_2x3,Tie_breaking_between_Weight_and_FirstColumnX) {
+    WeightAndFirstColumnXOrderedOperatorSpace* m = new WeightAndFirstColumnXOrderedOperatorSpace(2,3);
+    DFS<WeightAndFirstColumnXOrderedOperatorSpace> e(m);
+    delete m;
+    int number_of_solutions = 0;
+    for(m = e.next(); m != NULL; m = e.next()) {
+        BoolMatrix non_trivial_matrix = m->getNonTrivialMatrix(),
+                   X_matrix = m->getXMatrix();
+        int row_0_weight = non_trivial_matrix(0,1).val() + non_trivial_matrix(0,2).val(),
+            row_1_weight = non_trivial_matrix(1,1).val() + non_trivial_matrix(1,2).val();
+        assertTrue(row_0_weight >= row_1_weight);
+        assertTrue(
+                    row_0_weight > row_1_weight
+            ||      row_0_weight == row_1_weight
+                &&  X_matrix(0,0).val() >= X_matrix(1,0).val()
+        );
+        ++number_of_solutions;
+        delete m;
+    }
+}
+//@+node:gcross.20101117133000.1599: *5* _4x2
+testCase(_4x2,Tie_breaking_between_Weight_and_FirstColumnX) {
+    WeightAndFirstColumnXOrderedOperatorSpace* m = new WeightAndFirstColumnXOrderedOperatorSpace(4,2);
+    DFS<WeightAndFirstColumnXOrderedOperatorSpace> e(m);
+    delete m;
+    int number_of_solutions = 0;
+    for(m = e.next(); m != NULL; m = e.next()) {
+        BoolMatrix non_trivial_matrix = m->getNonTrivialMatrix(),
+                   X_matrix = m->getXMatrix();
+        for(int i = 0; i < 4; i += 2) {
+            assertTrue(non_trivial_matrix(i+0,1).val() >= non_trivial_matrix(i+1,1).val());
+            assertTrue(
+                        non_trivial_matrix(i+0,1).val() > non_trivial_matrix(i+1,1).val()
+                ||      non_trivial_matrix(i+0,1).val() == non_trivial_matrix(i+1,1).val()
+                    &&  X_matrix(i+0,0).val() >= X_matrix(i+1,0).val()
+            );
+        }
+        assertTrue(non_trivial_matrix(0,1).val() >= non_trivial_matrix(2,1).val());
+        assertTrue(
+                    non_trivial_matrix(0,1).val() > non_trivial_matrix(2,1).val()
+            ||      non_trivial_matrix(0,1).val() == non_trivial_matrix(2,1).val()
+                &&  non_trivial_matrix(1,1).val() > non_trivial_matrix(3,1).val()
+            ||      non_trivial_matrix(0,1).val() == non_trivial_matrix(2,1).val()
+                &&  non_trivial_matrix(1,1).val() == non_trivial_matrix(3,1).val()
+                &&  X_matrix(0,0).val() > X_matrix(2,0).val()
+            ||      non_trivial_matrix(0,1).val() == non_trivial_matrix(2,1).val()
+                &&  non_trivial_matrix(1,1).val() == non_trivial_matrix(3,1).val()
+                &&  X_matrix(0,0).val() == X_matrix(2,0).val()
+                &&  X_matrix(1,0).val() >= X_matrix(3,0).val()
+        );
+        ++number_of_solutions;
+        delete m;
+    }
+}
+//@-others
+
+}
 //@-others
 
 }

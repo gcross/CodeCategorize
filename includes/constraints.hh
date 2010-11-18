@@ -71,6 +71,21 @@ struct FirstColumnXOrderedOperatorSpace : public virtual OrderedOperatorSpace {
     //@-others
 
 };
+//@+node:gcross.20101117133000.1576: *3* struct WeightAndFirstColumnXOrderedOperatorSpace
+struct WeightAndFirstColumnXOrderedOperatorSpace
+    : public WeightOrderedOperatorSpace
+    , public FirstColumnXOrderedOperatorSpace
+{
+
+    //@+others
+    //@+node:gcross.20101117133000.1578: *4* (constructors)
+    WeightAndFirstColumnXOrderedOperatorSpace(int number_of_operators, int number_of_qubits);
+    WeightAndFirstColumnXOrderedOperatorSpace(bool share, WeightAndFirstColumnXOrderedOperatorSpace& s);
+    //@+node:gcross.20101117133000.1580: *4* (methods)
+    virtual Space* copy(bool share);
+    //@-others
+
+};
 //@+node:gcross.20101117133000.1465: ** Functions
 //@+node:gcross.20101117133000.1466: *3* postFirstColumnSpecialCaseConstraint
 void postFirstColumnSpecialCaseConstraint(OperatorSpace& m);
