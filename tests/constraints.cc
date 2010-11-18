@@ -70,7 +70,7 @@ testCase(_2x2,CompleteColumns) {
     for(m = e.next(); m != NULL; m = e.next()) {
         ++number_of_solutions;
         for(int i = 0; i < 4; ++i) assertTrue(m->non_trivial[i].val());
-        OMatrix O_matrix = m->getOMatrix();
+        IntMatrix O_matrix = m->getOMatrix();
         assertTrue(O_matrix(0,0).val() != O_matrix(1,0).val());
         assertTrue(O_matrix(0,1).val() != O_matrix(1,1).val());
         delete m;
@@ -85,7 +85,7 @@ testCase(_3x3,CompleteColumns) {
     int number_of_solutions = 0;
     for(m = e.next(); m != NULL; m = e.next()) {
         ++number_of_solutions;
-        OMatrix O_matrix = m->getOMatrix();
+        IntMatrix O_matrix = m->getOMatrix();
         for(int column = 0; column < 3; ++column) {
             bool present[4];  BOOST_FOREACH(bool& x, present) { x = false; }
             for(int row = 0; row < 3; ++row) present[O_matrix(row,column).val()] = true;

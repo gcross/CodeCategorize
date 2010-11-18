@@ -16,7 +16,7 @@ CompleteColumnsOperatorSpace::CompleteColumnsOperatorSpace(int number_of_operato
     : OperatorSpace(number_of_operators,number_of_qubits)
     , column_operator_sets(*this,number_of_qubits,IntSet::empty,IntSet(0,3),0,4)
 {
-    OMatrix O_matrix = getOMatrix();
+    IntMatrix O_matrix = getOMatrix();
     for(int column = 0; column < number_of_qubits; ++column) {
         IntVarArgs O_column;
         for(int row = 0; row < number_of_operators; ++row) {
@@ -41,7 +41,7 @@ Space* CompleteColumnsOperatorSpace::copy(bool share)
 //@+node:gcross.20101117133000.1470: *3* postFirstColumnSpecialCaseConstraint
 void postFirstColumnSpecialCaseConstraint(OperatorSpace& m) {
     rel(m,m.getOMatrix()(m.number_of_operators-1,0) == Z);
-    ZMatrix Z_matrix = m.getZMatrix();
+    BoolMatrix Z_matrix = m.getZMatrix();
     for(int row = 0; row < m.number_of_operators-1; ++row) rel(m,Z_matrix(row,0) == 0);
 }
 //@-others

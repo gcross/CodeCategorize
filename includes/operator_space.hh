@@ -13,8 +13,8 @@ using namespace Gecode;
 
 //@+others
 //@+node:gcross.20101117133000.1471: ** Type aliases
-typedef Matrix<IntVarArgs> OMatrix;
-typedef Matrix<BoolVarArgs> XMatrix, ZMatrix;
+typedef Matrix<IntVarArgs> IntMatrix;
+typedef Matrix<BoolVarArgs> BoolMatrix;
 //@+node:gcross.20101117133000.1474: ** Enums
 enum Pauli { I = 0, X = 1, Z = 2, Y = 3 };
 //@+node:gcross.20101116210424.1513: ** struct OperatorSpace
@@ -31,9 +31,10 @@ struct OperatorSpace : public Space {
     OperatorSpace(bool share, OperatorSpace& s);
     //@+node:gcross.20101117133000.1468: *3* (methods)
     virtual Space* copy(bool share);
-    OMatrix getOMatrix() { return Matrix<IntVarArgs>(O,number_of_operators,number_of_qubits); }
-    XMatrix getXMatrix() { return Matrix<BoolVarArgs>(X,number_of_operators,number_of_qubits); }
-    ZMatrix getZMatrix() { return Matrix<BoolVarArgs>(Z,number_of_operators,number_of_qubits); }
+    IntMatrix getOMatrix() { return Matrix<IntVarArgs>(O,number_of_operators,number_of_qubits); }
+    BoolMatrix getXMatrix() { return Matrix<BoolVarArgs>(X,number_of_operators,number_of_qubits); }
+    BoolMatrix getZMatrix() { return Matrix<BoolVarArgs>(Z,number_of_operators,number_of_qubits); }
+    BoolMatrix getNonTrivialMatrix() { return Matrix<BoolVarArgs>(non_trivial,number_of_operators,number_of_qubits); }
     //@-others
 
 };
