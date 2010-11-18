@@ -181,6 +181,106 @@ testCase(_3x3,FirstColumnSpecialCase) {
 //@-others
 
 }
+//@+node:gcross.20101117133000.1531: *3* Ordered
+subSuite(Ordered,Constraints) {
+
+//@+others
+//@+node:gcross.20101117133000.1533: *4* Weight
+subSuite(Weight,Constraints) {
+
+//@+others
+//@+node:gcross.20101117133000.1535: *5* _1x1
+testCase(_1x1,Weight) {
+    WeightOrderedOperatorSpace* m = new WeightOrderedOperatorSpace(1,1,false);
+    DFS<WeightOrderedOperatorSpace> e(m);
+    delete m;
+    int number_of_solutions = 0;
+    for(m = e.next(); m != NULL; m = e.next()) {
+        ++number_of_solutions;
+        delete m;
+    }
+    assertEqual(4,number_of_solutions);
+}
+//@+node:gcross.20101117133000.1539: *5* _1x2
+testCase(_1x2,Weight) {
+    WeightOrderedOperatorSpace* m = new WeightOrderedOperatorSpace(1,2,false);
+    DFS<WeightOrderedOperatorSpace> e(m);
+    delete m;
+    int number_of_solutions = 0;
+    for(m = e.next(); m != NULL; m = e.next()) {
+        ++number_of_solutions;
+        delete m;
+    }
+    assertEqual(16,number_of_solutions);
+}
+//@+node:gcross.20101117133000.1541: *5* _2x1
+testCase(_2x1,Weight) {
+    WeightOrderedOperatorSpace* m = new WeightOrderedOperatorSpace(2,1,false);
+    DFS<WeightOrderedOperatorSpace> e(m);
+    delete m;
+    int number_of_solutions = 0;
+    for(m = e.next(); m != NULL; m = e.next()) {
+        assertTrue(m->O[1].val() == 0 || m->O[0].val() > 0);
+        ++number_of_solutions;
+        delete m;
+    }
+    assertEqual(13,number_of_solutions);
+}
+//@+node:gcross.20101117133000.1543: *5* _2x2
+testCase(_2x2,Weight) {
+    WeightOrderedOperatorSpace* m = new WeightOrderedOperatorSpace(2,2,false);
+    DFS<WeightOrderedOperatorSpace> e(m);
+    delete m;
+    int number_of_solutions = 0;
+    for(m = e.next(); m != NULL; m = e.next()) {
+        BoolMatrix non_trivial_matrix = m->getNonTrivialMatrix();
+        assertTrue(non_trivial_matrix(0,0).val() + non_trivial_matrix(0,1).val()
+                >= non_trivial_matrix(1,0).val() + non_trivial_matrix(1,1).val());
+        ++number_of_solutions;
+        delete m;
+    }
+    assertEqual(
+        1     // top is identity
+      + 6*7   // top is single operator
+      + 9*16  // top is two operators
+    ,number_of_solutions
+    );
+}
+//@+node:gcross.20101117133000.1545: *5* _4x2
+testCase(_4x2,Weight) {
+    WeightOrderedOperatorSpace* m = new WeightOrderedOperatorSpace(4,2,false);
+    DFS<WeightOrderedOperatorSpace> e(m);
+    delete m;
+    int number_of_solutions = 0;
+    for(m = e.next(); m != NULL; m = e.next()) {
+        BoolMatrix non_trivial_matrix = m->getNonTrivialMatrix();
+        assertTrue(non_trivial_matrix(0,0).val() + non_trivial_matrix(0,1).val()
+                >= non_trivial_matrix(1,0).val() + non_trivial_matrix(1,1).val());
+        assertTrue(non_trivial_matrix(2,0).val() + non_trivial_matrix(2,1).val()
+                >= non_trivial_matrix(3,0).val() + non_trivial_matrix(3,1).val());
+        assertTrue(
+              (
+                   non_trivial_matrix(0,0).val() + non_trivial_matrix(0,1).val()
+                 > non_trivial_matrix(2,0).val() + non_trivial_matrix(2,1).val()
+              )
+           || (
+                   non_trivial_matrix(0,0).val() + non_trivial_matrix(0,1).val()
+                == non_trivial_matrix(2,0).val() + non_trivial_matrix(2,1).val()
+                && non_trivial_matrix(0,0).val() + non_trivial_matrix(0,1).val()
+                >= non_trivial_matrix(2,0).val() + non_trivial_matrix(2,1).val()
+
+              )
+        );
+        ++number_of_solutions;
+        delete m;
+    }
+}
+//@-others
+
+}
+//@-others
+
+}
 //@-others
 
 }

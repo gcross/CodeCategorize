@@ -5,13 +5,17 @@
 //@+<< Includes >>
 //@+node:gcross.20101117113704.1322: ** << Includes >>
 #include <gecode/minimodel.hh>
+#include <vector>
 
 #include "constraints.hh"
+
+using namespace std;
 //@-<< Includes >>
 
 //@+others
-//@+node:gcross.20101117133000.1334: ** struct CompleteColumnsOperatorSpace
-//@+node:gcross.20101117133000.1336: *3* (constructors)
+//@+node:gcross.20101117133000.1506: ** Classes
+//@+node:gcross.20101117133000.1334: *3* struct CompleteColumnsOperatorSpace
+//@+node:gcross.20101117133000.1336: *4* (constructors)
 CompleteColumnsOperatorSpace::CompleteColumnsOperatorSpace(int number_of_operators, int number_of_qubits)
     : OperatorSpace(number_of_operators,number_of_qubits)
     , column_operator_sets(*this,number_of_qubits,IntSet::empty,IntSet(0,3),0,4)
@@ -32,10 +36,100 @@ CompleteColumnsOperatorSpace::CompleteColumnsOperatorSpace(bool share, CompleteC
 {
     column_operator_sets.update(*this,share,s.column_operator_sets);
 }
-//@+node:gcross.20101117133000.1339: *3* (methods)
+//@+node:gcross.20101117133000.1339: *4* copy
 Space* CompleteColumnsOperatorSpace::copy(bool share)
 {
     return new CompleteColumnsOperatorSpace(share,*this);
+}
+//@+node:gcross.20101117133000.1507: *3* struct OrderedOperatorSpace
+//@+node:gcross.20101117133000.1508: *4* (constructors)
+OrderedOperatorSpace::OrderedOperatorSpace(int number_of_operators, int number_of_qubits)
+    : OperatorSpace(number_of_operators,number_of_qubits)
+    , number_of_pairs(number_of_operators/2)
+    , interpair_ties(NULL)
+    , intrapair_ties(NULL)
+{ }
+
+OrderedOperatorSpace::OrderedOperatorSpace(bool share, OrderedOperatorSpace& s)
+    : OperatorSpace(share,s)
+    , number_of_pairs(s.number_of_pairs)
+{ }
+//@+node:gcross.20101117133000.1512: *4* copy
+Space* OrderedOperatorSpace::copy(bool share)
+{
+    return new OrderedOperatorSpace(share,*this);
+}
+//@+node:gcross.20101117133000.1513: *4* postOrderingConstraint
+void OrderedOperatorSpace::postOrderingConstraint(
+    IntVarArgs ordering
+   ,BoolVarArray* interpair_ties_
+   ,BoolVarArray* intrapair_ties_
+) {
+    if(interpair_ties == NULL) {
+        assert(interpair_ties == NULL);
+        for(int i = 0; i < number_of_pairs; ++i) {
+            rel(*this,ordering[2*i] >= ordering[2*i+1]);
+        }
+        for(int i = 0; i < number_of_pairs-1; ++i) {
+            rel(*this,ordering[i] >= ordering[i+2]);
+            rel(*this,(ordering[2*i+0] == ordering[2*(i+1)+0])
+                   >> (ordering[2*i+1] >= ordering[2*(i+1)+1])
+            );
+        }
+    } else {
+        assert(interpair_ties != NULL);
+        for(int i = 0; i < number_of_pairs; ++i) {
+            rel(*this,(*intrapair_ties)[i] >> (ordering[2*i] <= ordering[2*i+1]));
+        }
+        for(int i = 0; i < number_of_pairs-1; ++i) {
+            rel(*this,(*interpair_ties)[i] >> (ordering[i] <= ordering[i+2]));
+            rel(*this,(*interpair_ties)[i] >> (
+                      (ordering[2*i+0] == ordering[2*(i+1)+0])
+                   >> (ordering[2*i+1] >= ordering[2*(i+1)+1])
+            ));
+        }
+    }
+    for(int i = 0; i < number_of_pairs; ++i) {
+        (*intrapair_ties_)[i] = expr(*this,ordering[2*i]==ordering[2*i+1]);
+    }
+    for(int i = 0; i < number_of_pairs-1; ++i) {
+        (*interpair_ties_)[i] = expr(*this,
+                  (ordering[2*i+0] == ordering[2*(i+1)+0])
+               && (ordering[2*i+1] == ordering[2*(i+1)+1])
+        );
+    }
+    interpair_ties = interpair_ties_;
+    intrapair_ties = intrapair_ties_;
+}
+//@+node:gcross.20101117133000.1527: *3* struct WeightOrderedOperatorSpace
+//@+node:gcross.20101117133000.1528: *4* (constructors)
+WeightOrderedOperatorSpace::WeightOrderedOperatorSpace(
+    int number_of_operators,
+    int number_of_qubits,
+    bool exclude_first_column
+)
+    : OrderedOperatorSpace(number_of_operators,number_of_qubits)
+    , OperatorSpace(number_of_operators,number_of_qubits)
+    , weights(*this,number_of_operators,0,number_of_qubits)
+    , intrapair_ties(*this,number_of_pairs,0,1)
+    , interpair_ties(*this,number_of_pairs,0,1)
+{
+    BoolMatrix non_trivial_matrix = getNonTrivialMatrix();
+    int first_column = exclude_first_column ? 1 : 0;
+    for(int i = 0; i < number_of_operators; ++i) {
+        weights[i] = expr(*this,sum(non_trivial_matrix.slice(i,i+1,first_column,number_of_qubits)));
+    }
+    postOrderingConstraint(weights,&intrapair_ties,&interpair_ties);
+}
+
+WeightOrderedOperatorSpace::WeightOrderedOperatorSpace(bool share, WeightOrderedOperatorSpace& s)
+    : OrderedOperatorSpace(share,s)
+    , OperatorSpace(share,s)
+{ }
+//@+node:gcross.20101117133000.1529: *4* copy
+Space* WeightOrderedOperatorSpace::copy(bool share)
+{
+    return new WeightOrderedOperatorSpace(share,*this);
 }
 //@+node:gcross.20101117133000.1469: ** Functions
 //@+node:gcross.20101117133000.1470: *3* postFirstColumnSpecialCaseConstraint
