@@ -20,7 +20,7 @@ struct CompleteColumnsOperatorSpace : public virtual OperatorSpace {
     //@+node:gcross.20101117113704.1330: *4* (constructors)
     CompleteColumnsOperatorSpace(int number_of_operators, int number_of_qubits);
     CompleteColumnsOperatorSpace(bool share, CompleteColumnsOperatorSpace& s);
-    //@+node:gcross.20101117113704.1332: *4* copy
+    //@+node:gcross.20101117113704.1332: *4* (methods)
     virtual Space* copy(bool share);
     //@-others
 
