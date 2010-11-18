@@ -259,17 +259,12 @@ testCase(_4x2,Weight) {
         assertTrue(non_trivial_matrix(2,0).val() + non_trivial_matrix(2,1).val()
                 >= non_trivial_matrix(3,0).val() + non_trivial_matrix(3,1).val());
         assertTrue(
-              (
                    non_trivial_matrix(0,0).val() + non_trivial_matrix(0,1).val()
                  > non_trivial_matrix(2,0).val() + non_trivial_matrix(2,1).val()
-              )
-           || (
-                   non_trivial_matrix(0,0).val() + non_trivial_matrix(0,1).val()
+           ||      non_trivial_matrix(0,0).val() + non_trivial_matrix(0,1).val()
                 == non_trivial_matrix(2,0).val() + non_trivial_matrix(2,1).val()
-                && non_trivial_matrix(0,0).val() + non_trivial_matrix(0,1).val()
+           &&      non_trivial_matrix(0,0).val() + non_trivial_matrix(0,1).val()
                 >= non_trivial_matrix(2,0).val() + non_trivial_matrix(2,1).val()
-
-              )
         );
         ++number_of_solutions;
         delete m;
@@ -345,9 +340,9 @@ testCase(_4x2,FirstColumnX) {
         assertTrue(X_matrix(1,0).val() == 0 || X_matrix(0,0).val() == 1);
         assertTrue(X_matrix(3,0).val() == 0 || X_matrix(2,0).val() == 1);
         assertTrue(X_matrix(0,0).val() >= X_matrix(2,0).val()
-           || (    X_matrix(0,0).val() == X_matrix(2,0).val()
-                && X_matrix(1,0).val() >= X_matrix(3,0).val()
-              )
+           ||      X_matrix(0,0).val() == X_matrix(2,0).val()
+               &&  X_matrix(1,0).val() >= X_matrix(3,0).val()
+
         );
         ++number_of_solutions;
         delete m;
