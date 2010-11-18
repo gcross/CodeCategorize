@@ -79,10 +79,10 @@ void OrderedOperatorSpace::postOrderingConstraint(
     } else {
         assert(interpair_ties != NULL);
         for(int i = 0; i < number_of_pairs; ++i) {
-            rel(*this,(*intrapair_ties)[i] >> (ordering[2*i] <= ordering[2*i+1]));
+            rel(*this,(*intrapair_ties)[i] >> (ordering[2*i] >= ordering[2*i+1]));
         }
         for(int i = 0; i < number_of_pairs-1; ++i) {
-            rel(*this,(*interpair_ties)[i] >> (ordering[i] <= ordering[i+2]));
+            rel(*this,(*interpair_ties)[i] >> (ordering[i] >= ordering[i+2]));
             rel(*this,(*interpair_ties)[i] >> (
                       (ordering[2*i+0] == ordering[2*(i+1)+0])
                    >> (ordering[2*i+1] >= ordering[2*(i+1)+1])
