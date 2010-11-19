@@ -14,33 +14,6 @@ using namespace std;
 
 //@+others
 //@+node:gcross.20101117133000.1506: ** Classes
-//@+node:gcross.20101117133000.1334: *3* struct CompleteColumnsOperatorSpace
-//@+node:gcross.20101117133000.1336: *4* (constructors)
-CompleteColumnsOperatorSpace::CompleteColumnsOperatorSpace(int number_of_operators, int number_of_qubits)
-    : OperatorSpace(number_of_operators,number_of_qubits)
-    , column_operator_sets(*this,number_of_qubits,IntSet::empty,IntSet(0,3),0,4)
-{
-    IntMatrix O_matrix = getOMatrix();
-    for(int column = 0; column < number_of_qubits; ++column) {
-        IntVarArgs O_column;
-        for(int row = 0; row < number_of_operators; ++row) {
-            O_column << O_matrix(column,row);
-        }
-        channel(*this,O_column,column_operator_sets[column]);
-        rel(*this,cardinality(column_operator_sets[column] - singleton(0)) >= 2);
-    }
-}
-
-CompleteColumnsOperatorSpace::CompleteColumnsOperatorSpace(bool share, CompleteColumnsOperatorSpace& s)
-    : OperatorSpace(share,s)
-{
-    column_operator_sets.update(*this,share,s.column_operator_sets);
-}
-//@+node:gcross.20101117133000.1339: *4* copy
-Space* CompleteColumnsOperatorSpace::copy(bool share)
-{
-    return new CompleteColumnsOperatorSpace(share,*this);
-}
 //@+node:gcross.20101117133000.1600: *3* Row ordering constraints
 //@+node:gcross.20101117133000.1507: *4* struct RowOrderedOperatorSpace
 //@+node:gcross.20101117133000.1508: *5* (constructors)
