@@ -2,6 +2,9 @@
 //@+node:gcross.20101117113704.1320: * @thin constraints.hh
 //@@language cplusplus
 
+#ifndef CONSTRAINTS_HH
+#define CONSTRAINTS_HH
+
 //@+<< Includes >>
 //@+node:gcross.20101117113704.1321: ** << Includes >>
 #include <gecode/set.hh>
@@ -91,4 +94,6 @@ struct WeightAndFirstColumnXRowOrderedOperatorSpace
 void postFirstColumnSpecialCaseConstraint(OperatorSpace& m);
 void postColumnXZYOrderingConstraints(OperatorSpace& m);
 //@-others
+
+#endif
 //@-leo

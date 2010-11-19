@@ -2,6 +2,9 @@
 //@+node:gcross.20101116210424.1511: * @thin operator_space.hh
 //@@language cplusplus
 
+#ifndef OPERATOR_SPACE_HH
+#define OPERATOR_SPACE_HH
+
 //@+<< Includes >>
 //@+node:gcross.20101116210424.1512: ** << Includes >>
 #include <gecode/int.hh>
@@ -39,4 +42,6 @@ struct OperatorSpace : public Space {
 
 };
 //@-others
+
+#endif
 //@-leo
