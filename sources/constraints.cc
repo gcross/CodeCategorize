@@ -189,6 +189,54 @@ Space* WeightAndFirstColumnXRowOrderedOperatorSpace::copy(bool share)
 {
     return new WeightAndFirstColumnXRowOrderedOperatorSpace(share,*this);
 }
+//@+node:gcross.20101118114009.1492: *3* struct AllConstraintsOddRowsOperatorSpace
+//@+node:gcross.20101118114009.1493: *4* (constructors)
+AllConstraintsOddRowsOperatorSpace::AllConstraintsOddRowsOperatorSpace(int number_of_operators, int number_of_qubits)
+    : OperatorSpace(number_of_operators,number_of_qubits)
+    , RowOrderedOperatorSpace(number_of_operators,number_of_qubits)
+    , WeightAndFirstColumnXRowOrderedOperatorSpace(number_of_operators,number_of_qubits)
+    , ColumnOrderedOperatorSpace(number_of_operators,number_of_qubits)
+{
+    assert(number_of_operators % 2 == 1);
+    postColumnXZYOrderingConstraints(*this);
+}
+
+AllConstraintsOddRowsOperatorSpace::AllConstraintsOddRowsOperatorSpace(bool share, AllConstraintsOddRowsOperatorSpace& s)
+    : OperatorSpace(share,s)
+    , RowOrderedOperatorSpace(share,s)
+    , WeightAndFirstColumnXRowOrderedOperatorSpace(share,s)
+    , ColumnOrderedOperatorSpace(share,s)
+{
+}
+//@+node:gcross.20101118114009.1494: *4* copy
+Space* AllConstraintsOddRowsOperatorSpace::copy(bool share)
+{
+    return new AllConstraintsOddRowsOperatorSpace(share,*this);
+}
+//@+node:gcross.20101118114009.1498: *3* struct AllConstraintsEvenRowsOperatorSpace
+//@+node:gcross.20101118114009.1499: *4* (constructors)
+AllConstraintsEvenRowsOperatorSpace::AllConstraintsEvenRowsOperatorSpace(int number_of_operators, int number_of_qubits)
+    : OperatorSpace(number_of_operators,number_of_qubits)
+    , RowOrderedOperatorSpace(number_of_operators,number_of_qubits)
+    , WeightRowOrderedOperatorSpace(number_of_operators,number_of_qubits,false)
+    , ColumnOrderedOperatorSpace(number_of_operators,number_of_qubits)
+{
+    assert(number_of_operators % 2 == 0);
+    postColumnXZYOrderingConstraints(*this);
+}
+
+AllConstraintsEvenRowsOperatorSpace::AllConstraintsEvenRowsOperatorSpace(bool share, AllConstraintsEvenRowsOperatorSpace& s)
+    : OperatorSpace(share,s)
+    , RowOrderedOperatorSpace(share,s)
+    , WeightRowOrderedOperatorSpace(share,s)
+    , ColumnOrderedOperatorSpace(share,s)
+{
+}
+//@+node:gcross.20101118114009.1500: *4* copy
+Space* AllConstraintsEvenRowsOperatorSpace::copy(bool share)
+{
+    return new AllConstraintsEvenRowsOperatorSpace(share,*this);
+}
 //@+node:gcross.20101117133000.1469: ** Functions
 //@+node:gcross.20101117133000.1470: *3* postFirstColumnSpecialCaseConstraint
 void postFirstColumnSpecialCaseConstraint(OperatorSpace& m) {
@@ -219,6 +267,17 @@ void postColumnXZYOrderingConstraints(OperatorSpace& m) {
 
     IntMatrix O_matrix = m.getOMatrix();
     for(int i = 0; i < m.number_of_qubits; ++i) extensional(m,O_matrix.col(i),d);
+}
+//@+node:gcross.20101118114009.1509: *3* constructConstrainedOperatorSpace
+OperatorSpace* constructConstrainedOperatorSpace(int number_of_qubits,int number_of_operators) {
+    return number_of_operators % 2 == 0
+        ? dynamic_cast<OperatorSpace*>(
+            new AllConstraintsEvenRowsOperatorSpace(number_of_operators,number_of_qubits-number_of_operators/2)
+          )
+        : dynamic_cast<OperatorSpace*>(
+            new AllConstraintsOddRowsOperatorSpace(number_of_operators,number_of_qubits-number_of_operators/2)
+          )
+        ;
 }
 //@-others
 //@-leo
