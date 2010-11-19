@@ -18,14 +18,14 @@ using namespace std;
 testSuite(Constraints) {
 
 //@+others
-//@+node:gcross.20101117133000.1629: *3* ColumnXZYOrdered
-subSuite(ColumnXZYOrdered,Constraints) {
+//@+node:gcross.20101117133000.1629: *3* ColumnXZYOrdering
+subSuite(ColumnXZYOrdering,Constraints) {
 
 //@+others
 //@+node:gcross.20101117133000.1630: *4* _1x1
-testCase(_1x1,ColumnXZYOrdered) {
+testCase(_1x1,ColumnXZYOrdering) {
     OperatorSpace* m = new OperatorSpace(1,1);
-    postColumnXZYOrderedConstraints(*m);
+    postColumnXZYOrderingConstraints(*m);
     DFS<OperatorSpace> e(m);
     delete m;
     int number_of_solutions = 0;
@@ -36,9 +36,9 @@ testCase(_1x1,ColumnXZYOrdered) {
     assertEqual(0,number_of_solutions);
 }
 //@+node:gcross.20101117133000.1631: *4* _1x2
-testCase(_1x2,ColumnXZYOrdered) {
+testCase(_1x2,ColumnXZYOrdering) {
     OperatorSpace* m = new OperatorSpace(1,2);
-    postColumnXZYOrderedConstraints(*m);
+    postColumnXZYOrderingConstraints(*m);
     DFS<OperatorSpace> e(m);
     delete m;
     int number_of_solutions = 0;
@@ -49,9 +49,9 @@ testCase(_1x2,ColumnXZYOrdered) {
     assertEqual(0,number_of_solutions);
 }
 //@+node:gcross.20101117133000.1632: *4* _2x1
-testCase(_2x1,ColumnXZYOrdered) {
+testCase(_2x1,ColumnXZYOrdering) {
     OperatorSpace* m = new OperatorSpace(2,1);
-    postColumnXZYOrderedConstraints(*m);
+    postColumnXZYOrderingConstraints(*m);
     DFS<OperatorSpace> e(m);
     delete m;
     int number_of_solutions = 0;
@@ -64,9 +64,9 @@ testCase(_2x1,ColumnXZYOrdered) {
     assertEqual(1,number_of_solutions);
 }
 //@+node:gcross.20101117133000.1633: *4* _2x2
-testCase(_2x2,ColumnXZYOrdered) {
+testCase(_2x2,ColumnXZYOrdering) {
     OperatorSpace* m = new OperatorSpace(2,2);
-    postColumnXZYOrderedConstraints(*m);
+    postColumnXZYOrderingConstraints(*m);
     DFS<OperatorSpace> e(m);
     delete m;
     int number_of_solutions = 0;
@@ -83,9 +83,9 @@ testCase(_2x2,ColumnXZYOrdered) {
     assertEqual(1,number_of_solutions);
 }
 //@+node:gcross.20101118114009.1411: *4* _3x3
-testCase(_3x3,ColumnXZYOrdered) {
+testCase(_3x3,ColumnXZYOrdering) {
     OperatorSpace* m = new OperatorSpace(3,3);
-    postColumnXZYOrderedConstraints(*m);
+    postColumnXZYOrderingConstraints(*m);
     DFS<OperatorSpace> e(m);
     delete m;
     int number_of_solutions = 0;

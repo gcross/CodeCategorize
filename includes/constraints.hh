@@ -75,6 +75,6 @@ struct WeightAndFirstColumnXRowOrderedOperatorSpace
 };
 //@+node:gcross.20101117133000.1465: ** Functions
 void postFirstColumnSpecialCaseConstraint(OperatorSpace& m);
-void postColumnXZYOrderedConstraints(OperatorSpace& m);
+void postColumnXZYOrderingConstraints(OperatorSpace& m);
 //@-others
 //@-leo

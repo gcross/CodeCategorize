@@ -161,8 +161,8 @@ void postFirstColumnSpecialCaseConstraint(OperatorSpace& m) {
     BoolMatrix Z_matrix = m.getZMatrix();
     for(int row = 0; row < m.number_of_operators-1; ++row) rel(m,Z_matrix(0,row) == 0);
 }
-//@+node:gcross.20101117133000.1622: *3* postColumnXZYOrderedConstraints
-void postColumnXZYOrderedConstraints(OperatorSpace& m) {
+//@+node:gcross.20101117133000.1622: *3* postColumnXZYOrderingConstraints
+void postColumnXZYOrderingConstraints(OperatorSpace& m) {
     static DFA::Transition t[] =
         {{0,0,0}
         ,{0,1,1}
