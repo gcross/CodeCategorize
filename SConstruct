@@ -38,13 +38,24 @@ opts.Save('CodeCategorize.conf', env) # Save, so user doesn't have to
 Help(opts.GenerateHelpText(env))
 
 #@+at
-# Build the program:
+# Build the programs:
 #@@c
-source_file_names =[
-    'operator_space.cc',
-    ]
-#codequest = env.Program('bin/codequest',['src/%s' % filename for filename in source_file_names])
-#Default(codequest)
+count_all_solutions = env.Program(
+    'programs/count-all-solutions',[
+    'sources/count-all-solutions.cc',
+    'sources/constraints.cc',
+    'sources/operator_space.cc',
+])
+count_solutions = env.Program(
+    'programs/count-solutions',[
+    'sources/count-solutions.cc',
+    'sources/constraints.cc',
+    'sources/operator_space.cc',
+])
+env.Default([
+    count_solutions,
+    count_all_solutions,
+])
 
 #@+at
 # Perform installation:
