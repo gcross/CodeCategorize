@@ -11,6 +11,20 @@
 
 //@+others
 //@+node:gcross.20101117113704.1325: ** Classes
+//@+node:gcross.20101118114009.1430: *3* struct ColumnOrderedOperatorSpace
+struct ColumnOrderedOperatorSpace : public virtual OperatorSpace {
+
+    //@+others
+    //@+node:gcross.20101118114009.1431: *4* (fields)
+    BoolVarArray ties;
+    //@+node:gcross.20101118114009.1432: *4* (constructors)
+    ColumnOrderedOperatorSpace(int number_of_operators, int number_of_qubits);
+    ColumnOrderedOperatorSpace(bool share, OperatorSpace& s);
+    //@+node:gcross.20101118114009.1433: *4* (methods)
+    virtual Space* copy(bool share);
+    //@-others
+
+};
 //@+node:gcross.20101117133000.1607: *3* Row ordering constraints
 //@+node:gcross.20101117133000.1502: *4* struct RowOrderedOperatorSpace
 struct RowOrderedOperatorSpace : public virtual OperatorSpace {

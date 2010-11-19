@@ -14,6 +14,41 @@ using namespace std;
 
 //@+others
 //@+node:gcross.20101117133000.1506: ** Classes
+//@+node:gcross.20101118114009.1445: *3* struct ColumnOrderedOperatorSpace
+//@+node:gcross.20101118114009.1446: *4* (constructors)
+ColumnOrderedOperatorSpace::ColumnOrderedOperatorSpace(int number_of_operators, int number_of_qubits)
+    : OperatorSpace(number_of_operators,number_of_qubits)
+    , ties(*this,(number_of_operators-1)*(number_of_qubits-1),0,1)
+{
+    IntMatrix O_matrix = getOMatrix();
+    BoolMatrix ties_matrix(ties,number_of_qubits-1,number_of_operators-1);
+    rel(*this,O_matrix.row(0),IRT_GQ);
+    if(number_of_operators > 1) {
+        for(int col = 0; col < number_of_qubits-1; ++col) {
+            ties_matrix(col,0) = expr(*this,O_matrix(col,0) == O_matrix(col+1,0));
+        }
+    }
+    for(int row = 1; row < number_of_operators; ++row) {
+        for(int col = 0; col < number_of_qubits-1; ++col) {
+            rel(*this,ties_matrix(col,row-1) >> (O_matrix(col,row) >= O_matrix(col+1,row)));
+        }
+        if(row < number_of_operators-1) {
+            for(int col = 0; col < number_of_qubits-1; ++col) {
+                ties_matrix(col,row) = expr(*this,ties_matrix(col,row) && (O_matrix(col,row) == O_matrix(col+1,row)));
+            }
+        }
+    }
+}
+
+ColumnOrderedOperatorSpace::ColumnOrderedOperatorSpace(bool share, OperatorSpace& s)
+    : OperatorSpace(share,s)
+{
+}
+//@+node:gcross.20101118114009.1447: *4* copy
+Space* ColumnOrderedOperatorSpace::copy(bool share)
+{
+    return new ColumnOrderedOperatorSpace(share,*this);
+}
 //@+node:gcross.20101117133000.1600: *3* Row ordering constraints
 //@+node:gcross.20101117133000.1507: *4* struct RowOrderedOperatorSpace
 //@+node:gcross.20101117133000.1508: *5* (constructors)
