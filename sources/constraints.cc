@@ -114,20 +114,13 @@ void RowOrderedOperatorSpace::postOrderingConstraint(
 //@+node:gcross.20101117133000.1528: *5* (constructors)
 WeightRowOrderedOperatorSpace::WeightRowOrderedOperatorSpace(
     int number_of_operators,
-    int number_of_qubits,
-    bool exclude_first_column
+    int number_of_qubits
 )
     : RowOrderedOperatorSpace(number_of_operators,number_of_qubits)
     , OperatorSpace(number_of_operators,number_of_qubits)
-    , weights(*this,number_of_operators,0,number_of_qubits)
     , intrapair_ties(*this,number_of_pairs,0,1)
     , interpair_ties(*this,number_of_pairs,0,1)
 {
-    BoolMatrix non_trivial_matrix = getNonTrivialMatrix();
-    int first_column = exclude_first_column ? 1 : 0;
-    for(int i = 0; i < number_of_operators; ++i) {
-        weights[i] = expr(*this,sum(non_trivial_matrix.slice(first_column,number_of_qubits,i,i+1)));
-    }
     postOrderingConstraint(weights,&intrapair_ties,&interpair_ties);
 }
 
@@ -172,7 +165,7 @@ WeightAndFirstColumnXRowOrderedOperatorSpace::WeightAndFirstColumnXRowOrderedOpe
     int number_of_operators,
     int number_of_qubits
 )
-    : WeightRowOrderedOperatorSpace(number_of_operators,number_of_qubits,true)
+    : WeightRowOrderedOperatorSpace(number_of_operators,number_of_qubits)
     , FirstColumnXRowOrderedOperatorSpace(number_of_operators,number_of_qubits)
     , RowOrderedOperatorSpace(number_of_operators,number_of_qubits)
     , OperatorSpace(number_of_operators,number_of_qubits)
@@ -219,7 +212,7 @@ Space* AllConstraintsOddRowsOperatorSpace::copy(bool share)
 AllConstraintsEvenRowsOperatorSpace::AllConstraintsEvenRowsOperatorSpace(int number_of_operators, int number_of_qubits)
     : OperatorSpace(number_of_operators,number_of_qubits)
     , RowOrderedOperatorSpace(number_of_operators,number_of_qubits)
-    , WeightRowOrderedOperatorSpace(number_of_operators,number_of_qubits,false)
+    , WeightRowOrderedOperatorSpace(number_of_operators,number_of_qubits)
     , ColumnOrderedOperatorSpace(number_of_operators,number_of_qubits)
 {
     assert(number_of_operators % 2 == 0);

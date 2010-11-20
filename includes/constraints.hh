@@ -50,10 +50,9 @@ struct WeightRowOrderedOperatorSpace : public virtual RowOrderedOperatorSpace {
 
     //@+others
     //@+node:gcross.20101117133000.1520: *5* (fields)
-    IntVarArray weights;
     BoolVarArray interpair_ties, intrapair_ties;
     //@+node:gcross.20101117133000.1521: *5* (constructors)
-    WeightRowOrderedOperatorSpace(int number_of_operators, int number_of_qubits, bool exclude_first_column);
+    WeightRowOrderedOperatorSpace(int number_of_operators, int number_of_qubits);
     WeightRowOrderedOperatorSpace(bool share, WeightRowOrderedOperatorSpace& s);
     //@+node:gcross.20101117133000.1522: *5* (methods)
     virtual Space* copy(bool share);

@@ -4,9 +4,12 @@
 
 //@+<< Includes >>
 //@+node:gcross.20101116210424.2278: ** << Includes >>
+#include <iostream>
 #include <unit--.hpp>
 
 #include "operator_space.hh"
+
+using namespace std;
 //@-<< Includes >>
 
 //@+others
@@ -50,6 +53,17 @@ testCase(correct_order,_1x1) {
     m = e.next();
     assertTrue(m == NULL);
 }
+//@+node:gcross.20101119160843.1436: *4* correct properties
+testCase(correct_properties,_1x1) {
+    OperatorSpace* m = new OperatorSpace(1,1);
+    DFS<OperatorSpace> e(m);
+    delete m;
+    for(m = e.next(); m != NULL; m = e.next()) {
+        assertEqual(m->O[0].val() > 0 ? 1 : 0,m->non_trivial[0].val());
+        assertEqual(m->non_trivial[0].val(),m->weights[0].val());
+        delete m;
+    }
+}
 //@-others
 
 }
@@ -88,6 +102,17 @@ testCase(correct_order,_1x2) {
         ++solution_number;
         delete m;
         m = e.next();
+    }
+}
+//@+node:gcross.20101119160843.1438: *4* correct properties
+testCase(correct_properties,_1x2) {
+    OperatorSpace* m = new OperatorSpace(1,2);
+    DFS<OperatorSpace> e(m);
+    delete m;
+    for(m = e.next(); m != NULL; m = e.next()) {
+        for(int i = 0; i < 2; ++i) assertEqual(m->O[i].val() > 0 ? 1 : 0,m->non_trivial[i].val());
+        assertEqual(m->non_trivial[0].val()+m->non_trivial[1].val(),m->weights[0].val());
+        delete m;
     }
 }
 //@-others
@@ -130,6 +155,17 @@ testCase(correct_order,_2x1) {
         m = e.next();
     }
 }
+//@+node:gcross.20101119160843.1440: *4* correct properties
+testCase(correct_properties,_2x1) {
+    OperatorSpace* m = new OperatorSpace(2,1);
+    DFS<OperatorSpace> e(m);
+    delete m;
+    for(m = e.next(); m != NULL; m = e.next()) {
+        for(int i = 0; i < 2; ++i) assertEqual(m->O[i].val() > 0 ? 1 : 0,m->non_trivial[i].val());
+        for(int row = 0; row < 2; ++row) assertEqual(m->non_trivial[row].val(),m->weights[row].val());
+        delete m;
+    }
+}
 //@-others
 
 }
@@ -170,6 +206,22 @@ testCase(correct_order,_2x2) {
         m = e.next();
     }
 }
+//@+node:gcross.20101119160843.1442: *4* correct properties
+testCase(correct_properties,_2x2) {
+    OperatorSpace* m = new OperatorSpace(2,2);
+    DFS<OperatorSpace> e(m);
+    delete m;
+    for(m = e.next(); m != NULL; m = e.next()) {
+        for(int i = 0; i < 4; ++i) assertEqual(m->O[i].val() > 0 ? 1 : 0,m->non_trivial[i].val());
+        BoolMatrix non_trivial_matrix = m->getNonTrivialMatrix();
+        for(int row = 0; row < 2; ++row) {
+            int correct_weight = 0;
+            for(int col = 0; col < 2; ++col) correct_weight += non_trivial_matrix(col,row).val();
+            assertEqual(correct_weight,m->weights[row].val());
+        }
+        delete m;
+    }
+}
 //@-others
 
 }
@@ -208,6 +260,22 @@ testCase(correct_order,_3x3) {
         ++solution_number;
         delete m;
         m = e.next();
+    }
+}
+//@+node:gcross.20101119160843.1444: *4* correct properties
+testCase(correct_properties,_3x3) {
+    OperatorSpace* m = new OperatorSpace(3,3);
+    DFS<OperatorSpace> e(m);
+    delete m;
+    for(m = e.next(); m != NULL; m = e.next()) {
+        for(int i = 0; i < 9; ++i) assertEqual(m->O[i].val() > 0 ? 1 : 0,m->non_trivial[i].val());
+        BoolMatrix non_trivial_matrix = m->getNonTrivialMatrix();
+        for(int row = 0; row < 3; ++row) {
+            int correct_weight = 0;
+            for(int col = 0; col < 3; ++col) correct_weight += non_trivial_matrix(col,row).val();
+            assertEqual(correct_weight,m->weights[row].val());
+        }
+        delete m;
     }
 }
 //@-others
