@@ -54,14 +54,12 @@ Space* ColumnOrderedOperatorSpace::copy(bool share)
 //@+node:gcross.20101117133000.1508: *5* (constructors)
 RowOrderedOperatorSpace::RowOrderedOperatorSpace(int number_of_operators, int number_of_qubits)
     : OperatorSpace(number_of_operators,number_of_qubits)
-    , number_of_pairs(number_of_operators/2)
     , interpair_ties(NULL)
     , intrapair_ties(NULL)
 { }
 
 RowOrderedOperatorSpace::RowOrderedOperatorSpace(bool share, RowOrderedOperatorSpace& s)
     : OperatorSpace(share,s)
-    , number_of_pairs(s.number_of_pairs)
 { }
 //@+node:gcross.20101117133000.1512: *5* copy
 Space* RowOrderedOperatorSpace::copy(bool share)

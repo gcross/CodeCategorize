@@ -28,7 +28,7 @@ struct OperatorSpace : public Space {
     BoolVarArray X, Z, non_trivial;
     IntVarArray O, weights;
 
-    int number_of_operators, number_of_qubits, number_of_variables;
+    int number_of_operators, number_of_qubits, number_of_variables, number_of_pairs;
     //@+node:gcross.20101116210424.1675: *3* (constructors)
     OperatorSpace(int number_of_operators, int number_of_qubits);
     OperatorSpace(bool share, OperatorSpace& s);

@@ -35,7 +35,6 @@ struct RowOrderedOperatorSpace : public virtual OperatorSpace {
     //@+others
     //@+node:gcross.20101117133000.1503: *5* (fields)
     BoolVarArray *intrapair_ties, *interpair_ties;
-    int number_of_pairs;
     //@+node:gcross.20101117133000.1504: *5* (constructors)
     RowOrderedOperatorSpace(int number_of_operators, int number_of_qubits);
     RowOrderedOperatorSpace(bool share, RowOrderedOperatorSpace& s);

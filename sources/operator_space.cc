@@ -16,6 +16,7 @@ OperatorSpace::OperatorSpace(int number_of_operators, int number_of_qubits)
     : number_of_operators(number_of_operators)
     , number_of_qubits(number_of_qubits)
     , number_of_variables(number_of_qubits*number_of_operators)
+    , number_of_pairs(number_of_operators/2)
     , X(*this,number_of_operators*number_of_qubits,0,1)
     , Z(*this,number_of_operators*number_of_qubits,0,1)
     , non_trivial(*this,number_of_operators*number_of_qubits,0,1)
@@ -38,6 +39,7 @@ OperatorSpace::OperatorSpace(bool share, OperatorSpace& s)
     , number_of_operators(s.number_of_operators)
     , number_of_qubits(s.number_of_qubits)
     , number_of_variables(s.number_of_variables)
+    , number_of_pairs(s.number_of_pairs)
 {
     X.update(*this,share,s.X);
     Z.update(*this,share,s.Z);
