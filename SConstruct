@@ -45,12 +45,16 @@ count_all_solutions = env.Program(
     'sources/count-all-solutions.cc',
     'sources/constraints.cc',
     'sources/operator_space.cc',
+],LIBS=[
+    'gecodesearch','gecodeint','gecodekernel','gecodesupport','gecodeminimodel',
 ])
 count_solutions = env.Program(
     'programs/count-solutions',[
     'sources/count-solutions.cc',
     'sources/constraints.cc',
     'sources/operator_space.cc',
+],LIBS=[
+    'gecodesearch','gecodeint','gecodekernel','gecodesupport','gecodeminimodel',
 ])
 env.Default([
     count_solutions,
