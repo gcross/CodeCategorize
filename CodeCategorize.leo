@@ -14,6 +14,8 @@
 </v>
 <v t="gcross.20101116210206.1248"><vh>@path sources</vh>
 <v t="gcross.20101117113704.1319"><vh>@thin constraints.cc</vh></v>
+<v t="gcross.20101118114009.1507"><vh>@thin count-solutions.cc</vh></v>
+<v t="gcross.20101118114009.1514"><vh>@thin count-all-solutions.cc</vh></v>
 <v t="gcross.20101116210424.1514"><vh>@thin operator_space.cc</vh></v>
 </v>
 <v t="gcross.20101116210424.1676"><vh>@path tests</vh>
