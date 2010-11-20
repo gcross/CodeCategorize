@@ -198,6 +198,7 @@ AllConstraintsOddRowsOperatorSpace::AllConstraintsOddRowsOperatorSpace(int numbe
     , ColumnOrderedOperatorSpace(number_of_operators,number_of_qubits)
 {
     assert(number_of_operators % 2 == 1);
+    postFirstColumnSpecialCaseConstraint(*this);
     postColumnXZYOrderingConstraints(*this);
 }
 
