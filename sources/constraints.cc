@@ -8,6 +8,7 @@
 #include <vector>
 
 #include "constraints.hh"
+#include "utilities.hh"
 
 using namespace std;
 //@-<< Includes >>

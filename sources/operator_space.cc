@@ -7,6 +7,7 @@
 #include <gecode/minimodel.hh>
 
 #include "operator_space.hh"
+#include "utilities.hh"
 //@-<< Includes >>
 
 //@+others
@@ -25,12 +26,9 @@ OperatorSpace::OperatorSpace(int number_of_operators, int number_of_qubits)
 {
     for(int i = 0; i < number_of_variables; ++i) {
         O[i] = expr(*this,2*Z[i] + X[i]);
-        non_trivial[i] = expr(*this,Z[i] || X[i]);
     }
-    BoolMatrix non_trivial_matrix = getNonTrivialMatrix();
-    for(int i = 0; i < number_of_operators; ++i) {
-        weights[i] = expr(*this,sum(non_trivial_matrix.row(i)));
-    }
+    computeNonTrivial(*this,X,Z,non_trivial);
+    computeWeights(*this,number_of_operators,number_of_qubits,non_trivial,weights);
     branch(*this,O,INT_VAR_NONE,INT_VAL_MIN);
 }
 

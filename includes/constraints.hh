@@ -10,6 +10,7 @@
 #include <gecode/set.hh>
 
 #include "operator_space.hh"
+#include "utilities.hh"
 //@-<< Includes >>
 
 //@+others

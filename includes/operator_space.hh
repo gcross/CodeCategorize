@@ -6,18 +6,17 @@
 #define OPERATOR_SPACE_HH
 
 //@+<< Includes >>
-//@+node:gcross.20101116210424.1512: ** << Includes >>
+//@+node:gcross.20101120151226.1488: ** << Includes >>
 #include <gecode/int.hh>
 #include <gecode/minimodel.hh>
 #include <gecode/search.hh>
+
+#include "utilities.hh"
 
 using namespace Gecode;
 //@-<< Includes >>
 
 //@+others
-//@+node:gcross.20101117133000.1471: ** Type aliases
-typedef Matrix<IntVarArgs> IntMatrix;
-typedef Matrix<BoolVarArgs> BoolMatrix;
 //@+node:gcross.20101117133000.1474: ** Enums
 enum Pauli { I = 0, X = 1, Z = 2, Y = 3 };
 //@+node:gcross.20101116210424.1513: ** struct OperatorSpace
