@@ -83,6 +83,7 @@ env.Default([
 test = env.Program('tests/test',[
     'tests/constraints.cc',
     'tests/operator_space.cc',
+    'tests/test_utils.cc',
     'sources/constraints.cc',
     'sources/operator_space.cc',
 ],LIBS=[
