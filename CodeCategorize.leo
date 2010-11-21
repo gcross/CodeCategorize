@@ -19,6 +19,8 @@
 <v t="gcross.20101116210424.1514"><vh>@thin operator_space.cc</vh></v>
 </v>
 <v t="gcross.20101116210424.1676"><vh>@path tests</vh>
+<v t="gcross.20101121135345.1473"><vh>@thin test_utils.hh</vh></v>
+<v t="gcross.20101121135345.1474"><vh>@thin test_utils.cc</vh></v>
 <v t="gcross.20101117133000.1340"><vh>@thin constraints.cc</vh></v>
 <v t="gcross.20101116210424.2275"><vh>@thin operator_space.cc</vh></v>
 </v>

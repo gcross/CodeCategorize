@@ -9,6 +9,8 @@
 
 #include "operator_space.hh"
 
+#include "test_utils.hh"
+
 using namespace std;
 //@-<< Includes >>
 
@@ -87,6 +89,7 @@ testCase(correct_properties) {
     delete m;
     for(m = e.next(); m != NULL; m = e.next()) {
         assertEqual(m->O[0].val() > 0 ? 1 : 0,m->non_trivial[0].val());
+        validateNonTrivial(m->X,m->Z,m->non_trivial);
         assertEqual(m->non_trivial[0].val(),m->weights[0].val());
         delete m;
     }
@@ -140,6 +143,7 @@ testCase(correct_properties) {
     delete m;
     for(m = e.next(); m != NULL; m = e.next()) {
         for(int i = 0; i < 2; ++i) assertEqual(m->O[i].val() > 0 ? 1 : 0,m->non_trivial[i].val());
+        validateNonTrivial(m->X,m->Z,m->non_trivial);
         assertEqual(m->non_trivial[0].val()+m->non_trivial[1].val(),m->weights[0].val());
         delete m;
     }
@@ -193,6 +197,7 @@ testCase(correct_properties) {
     delete m;
     for(m = e.next(); m != NULL; m = e.next()) {
         for(int i = 0; i < 2; ++i) assertEqual(m->O[i].val() > 0 ? 1 : 0,m->non_trivial[i].val());
+        validateNonTrivial(m->X,m->Z,m->non_trivial);
         for(int row = 0; row < 2; ++row) assertEqual(m->non_trivial[row].val(),m->weights[row].val());
         delete m;
     }
@@ -246,6 +251,7 @@ testCase(correct_properties) {
     delete m;
     for(m = e.next(); m != NULL; m = e.next()) {
         for(int i = 0; i < 4; ++i) assertEqual(m->O[i].val() > 0 ? 1 : 0,m->non_trivial[i].val());
+        validateNonTrivial(m->X,m->Z,m->non_trivial);
         BoolMatrix non_trivial_matrix = m->getNonTrivialMatrix();
         for(int row = 0; row < 2; ++row) {
             int correct_weight = 0;
@@ -304,6 +310,7 @@ testCase(correct_properties) {
     delete m;
     for(m = e.next(); m != NULL; m = e.next()) {
         for(int i = 0; i < 9; ++i) assertEqual(m->O[i].val() > 0 ? 1 : 0,m->non_trivial[i].val());
+        validateNonTrivial(m->X,m->Z,m->non_trivial);
         BoolMatrix non_trivial_matrix = m->getNonTrivialMatrix();
         for(int row = 0; row < 3; ++row) {
             int correct_weight = 0;

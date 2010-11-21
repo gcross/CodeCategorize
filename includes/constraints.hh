@@ -8,6 +8,7 @@
 //@+<< Includes >>
 //@+node:gcross.20101117113704.1321: ** << Includes >>
 #include <gecode/set.hh>
+#include <vector>
 
 #include "operator_space.hh"
 //@-<< Includes >>
@@ -118,7 +119,63 @@ struct AllConstraintsEvenRowsOperatorSpace
     //@-others
 
 };
+//@+node:gcross.20101121135345.1445: *3* struct MinimalWeightOperatorSpace
+struct MinimalWeightOperatorSpace : public virtual OperatorSpace {
+
+    //@+others
+    //@+node:gcross.20101121135345.1446: *4* (fields)
+    int number_of_products, number_of_variables, maximum_number_of_factors;
+
+    BoolVarArray products_X, products_Z, products_non_trivial;
+    IntVarArray products_weights;
+    //@+node:gcross.20101121135345.1447: *4* (constructors)
+    MinimalWeightOperatorSpace(int number_of_operators, int number_of_qubits);
+    MinimalWeightOperatorSpace(bool share, MinimalWeightOperatorSpace& s);
+    //@+node:gcross.20101121135345.1448: *4* (methods)
+    virtual Space* copy(bool share);
+
+    private:
+
+    static int computeNumberOfProducts(int number_of_operators, int number_of_qubits);
+    void formProductAndPostConstraints(
+        const BoolVarArgs& X1,
+        const BoolVarArgs& Z1,
+        const IntVar& weight1,
+        const int weight_adjustment1,
+        const BoolVarArgs& X2,
+        const BoolVarArgs& Z2,
+        const IntVar& weight2,
+        const int weight_adjustment2,
+        const BoolVarArgs& product_X,
+        const BoolVarArgs& product_Z,
+        IntVar& product_weight,
+        const int product_weight_adjustment
+    );
+    IntVar& getPairOperatorFactor(
+        int pair_number, int factor_index,
+        BoolVarArgs& X, BoolVarArgs& Z
+    );
+    void multiplyOperators(
+        const BoolVarArgs& Xin1, const BoolVarArgs& Zin1,
+        const BoolVarArgs& Xin2, const BoolVarArgs& Zin2,
+        const BoolVarArgs& Xout, const BoolVarArgs& Zout
+    );
+    void postWeightConstraints(
+        BoolMatrix& products_X_matrix,
+        BoolMatrix& products_Z_matrix,
+        int& next_product_number,
+        std::vector<int>& product_weight_adjustments,
+        int number_of_factors,
+        int next_pair_number,
+        const BoolVarArgs& X,
+        const BoolVarArgs& Z,
+        const IntVar& weight
+    );
+    //@-others
+
+};
 //@+node:gcross.20101117133000.1465: ** Functions
+int choose(int n,int k);
 void postFirstColumnSpecialCaseConstraint(OperatorSpace& m);
 void postColumnXZYOrderingConstraints(OperatorSpace& m);
 OperatorSpace* constructConstrainedOperatorSpace(int number_of_qubits,int number_of_operators);
