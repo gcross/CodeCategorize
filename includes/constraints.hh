@@ -119,6 +119,55 @@ struct AllConstraintsEvenRowsOperatorSpace
     //@-others
 
 };
+//@+node:gcross.20101120151226.1448: *3* struct MinimalWeightOperatorSpace
+struct MinimalWeightOperatorSpace : public virtual OperatorSpace {
+
+    //@+others
+    //@+node:gcross.20101120151226.1449: *4* (fields)
+    int number_of_products;
+
+    BoolVarArray products_X, products_Z, products_non_trivial;
+    IntVarArray products_weights;
+    //@+node:gcross.20101120151226.1450: *4* (constructors)
+    MinimalWeightOperatorSpace(int number_of_operators, int number_of_qubits);
+    MinimalWeightOperatorSpace(bool share, MinimalWeightOperatorSpace& s);
+    //@+node:gcross.20101120151226.1451: *4* (methods)
+    virtual Space* copy(bool share);
+
+    private:
+
+    static int computeNumberOfProducts(int number_of_operators, int number_of_qubits);
+    void formProductAndPostConstraints(
+        BoolVarArgs X1,
+        BoolVarArgs Z1,
+        IntVarArgs weight1,
+        BoolVarArgs X2,
+        BoolVarArgs Z2,
+        IntVarArgs weight2,
+        BoolVarArgs product_X,
+        BoolVarArgs product_Z,
+        BoolVarArgs product_non_trivial,
+        IntVarArgs product_weight
+    );
+    void getPairOperatorFactor(
+        int pair_number, int factor_index,
+        BoolVarArgs& X, BoolVarArgs& Z, IntVarArgs weight
+    );
+    void postWeightConstraints(
+        BoolMatrix& products_X_matrix,
+        BoolMatrix& products_Z_matrix,
+        BoolMatrix& products_non_trivial_matrix,
+        IntVarArgs products_weights,
+        int& next_product_number,
+        int number_of_factors,
+        int next_pair_number,
+        const BoolVarArgs& X,
+        const BoolVarArgs& Z,
+        const IntVarArgs& weight
+    );
+    //@-others
+
+};
 //@+node:gcross.20101117133000.1465: ** Functions
 void postFirstColumnSpecialCaseConstraint(OperatorSpace& m);
 void postColumnXZYOrderingConstraints(OperatorSpace& m);

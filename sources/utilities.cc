@@ -11,6 +11,15 @@
 
 //@+others
 //@+node:gcross.20101120151226.1478: ** Functions
+//@+node:gcross.20101120151226.1492: *3* choose
+int choose(int n,int k) {
+    long total = 1;
+    for(int i = n; i > n-k; --i) total *= i;
+    for(int i = 1; i <= k; ++i) total /= i;
+    int total_as_int = (int)total;
+    assert(total_as_int == total);
+    return total;
+}
 //@+node:gcross.20101120151226.1479: *3* computeNonTrivial
 void computeNonTrivial(Space& home, const BoolVarArgs& X, const BoolVarArgs& Z, BoolVarArray& non_trivial) {
     for(int i = 0; i < non_trivial.size(); ++i) {
