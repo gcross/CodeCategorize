@@ -12,7 +12,7 @@
 //@+others
 //@+node:gcross.20101120151226.1478: ** Functions
 //@+node:gcross.20101120151226.1479: *3* computeNonTrivial
-void computeNonTrivial(Space& home, const BoolVarArgs& X, const BoolVarArgs& Z, BoolVarArgs non_trivial) {
+void computeNonTrivial(Space& home, const BoolVarArgs& X, const BoolVarArgs& Z, BoolVarArray& non_trivial) {
     for(int i = 0; i < non_trivial.size(); ++i) {
         non_trivial[i] = expr(home,Z[i] || X[i]);
     }
@@ -23,7 +23,7 @@ void computeWeights(
     int number_of_operators,
     int number_of_qubits,
     const BoolVarArgs& non_trivial,
-    IntVarArgs weights
+    IntVarArray& weights
 ) {
     BoolMatrix non_trivial_matrix(non_trivial,number_of_qubits,number_of_operators);
     for(int i = 0; i < number_of_operators; ++i) {

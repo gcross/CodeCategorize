@@ -17,13 +17,13 @@ using namespace Gecode;
 typedef Matrix<IntVarArgs> IntMatrix;
 typedef Matrix<BoolVarArgs> BoolMatrix;
 //@+node:gcross.20101120151226.1481: ** Functions
-void computeNonTrivial(Space& home, const BoolVarArgs& X, const BoolVarArgs& Z, BoolVarArgs non_trivial);
+void computeNonTrivial(Space& home, const BoolVarArgs& X, const BoolVarArgs& Z, BoolVarArray& non_trivial);
 void computeWeights(
     Space& home,
     int number_of_operators,
     int number_of_qubits,
     const BoolVarArgs& non_trivial,
-    IntVarArgs weights
+    IntVarArray& weights
 );
 void multiplyOperators(
     Space& home,
