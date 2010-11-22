@@ -123,7 +123,7 @@ struct MinimalWeightOperatorSpace : public virtual OperatorSpace {
 
     //@+others
     //@+node:gcross.20101121135345.1446: *4* (fields)
-    int number_of_products, number_of_variables;
+    int number_of_products, number_of_variables, maximum_number_of_factors;
 
     BoolVarArray products_X, products_Z, products_non_trivial;
     IntVarArray products_weights;
