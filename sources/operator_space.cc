@@ -7,6 +7,8 @@
 #include <gecode/minimodel.hh>
 
 #include "operator_space.hh"
+
+using namespace std;
 //@-<< Includes >>
 
 //@+others
@@ -51,6 +53,24 @@ OperatorSpace::OperatorSpace(bool share, OperatorSpace& s)
 Space* OperatorSpace::copy(bool share)
 {
     return new OperatorSpace(share,*this);
+}
+//@+node:gcross.20101121200631.1631: *3* getOperators
+vector<dynamic_quantum_operator> OperatorSpace::getOperators() {
+    int total_number_of_qubits = number_of_pairs + number_of_qubits;
+    vector<dynamic_quantum_operator> operators;
+    IntMatrix O_matrix = getOMatrix();
+    for(int i = 0; i < number_of_operators; ++i) {
+        dynamic_quantum_operator op(total_number_of_qubits);
+        for(int j = 0; j < number_of_qubits; ++j) {
+            op.set(number_of_pairs+j,O_matrix(j,i).val());
+        }
+        operators.push_back(op);
+    }
+    for(int i = 0; i < number_of_pairs; ++i) {
+        operators[2*i+0].set(i,1);
+        operators[2*i+1].set(i,2);
+    }
+    return operators;
 }
 //@-others
 //@-leo

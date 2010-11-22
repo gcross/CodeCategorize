@@ -7,9 +7,11 @@
 
 //@+<< Includes >>
 //@+node:gcross.20101116210424.1512: ** << Includes >>
+#include <codequest.hpp>
 #include <gecode/int.hh>
 #include <gecode/minimodel.hh>
 #include <gecode/search.hh>
+#include <vector>
 
 using namespace Gecode;
 //@-<< Includes >>
@@ -38,6 +40,8 @@ struct OperatorSpace : public Space {
     BoolMatrix getXMatrix() { return Matrix<BoolVarArgs>(X,number_of_qubits,number_of_operators); }
     BoolMatrix getZMatrix() { return Matrix<BoolVarArgs>(Z,number_of_qubits,number_of_operators); }
     BoolMatrix getNonTrivialMatrix() { return Matrix<BoolVarArgs>(non_trivial,number_of_qubits,number_of_operators); }
+
+    std::vector<dynamic_quantum_operator> getOperators();
     //@-others
 
 };
