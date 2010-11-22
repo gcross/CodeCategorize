@@ -230,7 +230,7 @@ Space* AllConstraintsEvenRowsOperatorSpace::copy(bool share)
     return new AllConstraintsEvenRowsOperatorSpace(share,*this);
 }
 //@+node:gcross.20101121135345.1456: *3* struct MinimalWeightOperatorSpace
-//@+node:gcross.20101121135345.1457: *4* (constructors)
+//@+node:gcross.20101121200631.4179: *4* (constructors)
 MinimalWeightOperatorSpace::MinimalWeightOperatorSpace(int number_of_operators, int number_of_qubits)
     : OperatorSpace(number_of_operators,number_of_qubits)
     , number_of_products(computeNumberOfProducts(number_of_operators,number_of_qubits))
@@ -241,18 +241,19 @@ MinimalWeightOperatorSpace::MinimalWeightOperatorSpace(int number_of_operators, 
     , products_non_trivial(*this,number_of_variables,0,1)
     , products_weights(*this,number_of_products,0,number_of_qubits)
 {
-    BoolMatrix products_X_matrix(products_X,number_of_qubits,number_of_products),
-               products_Z_matrix(products_Z,number_of_qubits,number_of_products),
-               products_non_trivial_matrix(products_non_trivial,number_of_qubits,number_of_products),
-               X_matrix = getXMatrix(),
-               Z_matrix = getZMatrix();
-    vector<int> product_weight_adjustments;
     for(int i = 0; i < number_of_variables; ++i) {
-        products_non_trivial[i] = expr(*this,products_X[i] || products_Z[i]);
+        products_non_trivial[i] = expr(*this,products_Z[i] || products_X[i]);
     }
+    BoolMatrix products_non_trivial_matrix(products_non_trivial,number_of_qubits,number_of_products);
     for(int i = 0; i < number_of_products; ++i) {
         linear(*this,products_non_trivial_matrix.row(i),IRT_EQ,products_weights[i]);
     }
+
+    BoolMatrix products_X_matrix(products_X,number_of_qubits,number_of_products),
+               products_Z_matrix(products_Z,number_of_qubits,number_of_products),
+               X_matrix = getXMatrix(),
+               Z_matrix = getZMatrix();
+    vector<int> product_weight_adjustments;
     for(int i = 0; i < number_of_pairs; ++i) {
         formProductAndPostConstraints(
             X_matrix.row (2*i+0),
