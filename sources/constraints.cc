@@ -312,6 +312,22 @@ MinimalWeightOperatorSpace::MinimalWeightOperatorSpace(int number_of_operators, 
                 product_weight_adjustments[i]
             );
         }
+        for(int i = 0; i < number_of_operators; ++i, ++next_product_number) {
+            formProductAndPostConstraints(
+                last_operator_X,
+                last_operator_Z,
+                last_operator_weight,
+                0,
+                X_matrix.row(i),
+                Z_matrix.row(i),
+                weights[i],
+                1,
+                products_X_matrix.row(next_product_number),
+                products_Z_matrix.row(next_product_number),
+                products_weights[next_product_number],
+                1
+            );
+        }
     }
     assert(next_product_number == number_of_products);
 }
@@ -336,7 +352,10 @@ int MinimalWeightOperatorSpace::computeNumberOfProducts(int number_of_operators,
         for(int i = 0; i < k; ++i) x *= 3;
         number_of_products += x;
     }
-    if(number_of_operators % 2 == 1) number_of_products *= 2;
+    if(number_of_operators % 2 == 1) {
+        number_of_products *= 2;
+        number_of_products += number_of_operators;
+    }
     return number_of_products;
 }
 //@+node:gcross.20101121135345.1459: *4* copy
