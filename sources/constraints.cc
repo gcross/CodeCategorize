@@ -246,6 +246,7 @@ MinimalWeightOperatorSpace::MinimalWeightOperatorSpace(int number_of_operators, 
                products_non_trivial_matrix(products_non_trivial,number_of_qubits,number_of_products),
                X_matrix = getXMatrix(),
                Z_matrix = getZMatrix();
+    vector<int> product_weight_adjustments;
     for(int i = 0; i < number_of_variables; ++i) {
         products_non_trivial[i] = expr(*this,products_X[i] || products_Z[i]);
     }
@@ -257,13 +258,17 @@ MinimalWeightOperatorSpace::MinimalWeightOperatorSpace(int number_of_operators, 
             X_matrix.row (2*i+0),
             Z_matrix.row (2*i+0),
             weights      [2*i+0],
+            1,
             X_matrix.row (2*i+1),
             Z_matrix.row (2*i+1),
             weights      [2*i+1],
+            1,
             products_X_matrix.row(i),
             products_Z_matrix.row(i),
-            products_weights[i]
+            products_weights[i],
+            1
         );
+        product_weight_adjustments.push_back(1);
     }
     int next_product_number = number_of_pairs;
     if(maximum_number_of_factors > 1) {
@@ -275,6 +280,7 @@ MinimalWeightOperatorSpace::MinimalWeightOperatorSpace(int number_of_operators, 
                     products_X_matrix,
                     products_Z_matrix,
                     next_product_number,
+                    product_weight_adjustments,
                     2,
                     pair_number+1,
                     factor_X,
@@ -294,12 +300,15 @@ MinimalWeightOperatorSpace::MinimalWeightOperatorSpace(int number_of_operators, 
                 last_operator_X,
                 last_operator_Z,
                 last_operator_weight,
+                0,
                 products_X_matrix.row(i),
                 products_Z_matrix.row(i),
                 products_weights[i],
+                product_weight_adjustments[i],
                 products_X_matrix.row(next_product_number),
                 products_Z_matrix.row(next_product_number),
-                products_weights[next_product_number]
+                products_weights[next_product_number],
+                product_weight_adjustments[i]
             );
         }
     }
@@ -339,15 +348,18 @@ void MinimalWeightOperatorSpace::formProductAndPostConstraints(
     const BoolVarArgs& X1,
     const BoolVarArgs& Z1,
     const IntVar& weight1,
+    const int weight_adjustment1,
     const BoolVarArgs& X2,
     const BoolVarArgs& Z2,
     const IntVar& weight2,
+    const int weight_adjustment2,
     const BoolVarArgs& product_X,
     const BoolVarArgs& product_Z,
-    IntVar& product_weight
+    IntVar& product_weight,
+    const int product_weight_adjustment
 ) {
     multiplyOperators(X1,Z1,X2,Z2,product_X,product_Z);
-    rel(*this,product_weight >= Gecode::min(weight1,weight2));
+    rel(*this,product_weight+product_weight_adjustment >= Gecode::min(weight1+weight_adjustment1,weight2+weight_adjustment2));
 }
 //@+node:gcross.20101121135345.1461: *4* getPairOperatorFactor
 IntVar& MinimalWeightOperatorSpace::getPairOperatorFactor(
@@ -388,6 +400,7 @@ void MinimalWeightOperatorSpace::postWeightConstraints(
     BoolMatrix& products_X_matrix,
     BoolMatrix& products_Z_matrix,
     int& next_product_number,
+    vector<int>& product_weight_adjustments,
     int number_of_factors,
     int next_pair_number,
     const BoolVarArgs& X,
@@ -406,19 +419,24 @@ void MinimalWeightOperatorSpace::postWeightConstraints(
                 X,
                 Z,
                 weight,
+                number_of_factors-1,
                 factor_X,
                 factor_Z,
                 factor_weight,
+                1,
                 product_X,
                 product_Z,
-                product_weight
+                product_weight,
+                number_of_factors
             );
+            product_weight_adjustments.push_back(number_of_factors);
             ++next_product_number;
             if(number_of_factors < maximum_number_of_factors) {
                 postWeightConstraints(
                     products_X_matrix,
                     products_Z_matrix,
                     next_product_number,
+                    product_weight_adjustments,
                     number_of_factors+1,
                     pair_number+1,
                     product_X,

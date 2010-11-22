@@ -8,6 +8,7 @@
 //@+<< Includes >>
 //@+node:gcross.20101117113704.1321: ** << Includes >>
 #include <gecode/set.hh>
+#include <vector>
 
 #include "operator_space.hh"
 //@-<< Includes >>
@@ -140,12 +141,15 @@ struct MinimalWeightOperatorSpace : public virtual OperatorSpace {
         const BoolVarArgs& X1,
         const BoolVarArgs& Z1,
         const IntVar& weight1,
+        const int weight_adjustment1,
         const BoolVarArgs& X2,
         const BoolVarArgs& Z2,
         const IntVar& weight2,
+        const int weight_adjustment1,
         const BoolVarArgs& product_X,
         const BoolVarArgs& product_Z,
-        IntVar& product_weight
+        IntVar& product_weight,
+        const int product_weight_adjustment
     );
     IntVar& getPairOperatorFactor(
         int pair_number, int factor_index,
@@ -160,6 +164,7 @@ struct MinimalWeightOperatorSpace : public virtual OperatorSpace {
         BoolMatrix& products_X_matrix,
         BoolMatrix& products_Z_matrix,
         int& next_product_number,
+        std::vector<int>& product_weight_adjustments,
         int number_of_factors,
         int next_pair_number,
         const BoolVarArgs& X,
