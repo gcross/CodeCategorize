@@ -9,6 +9,7 @@
 #include <unit--.hpp>
 
 #include "constraints.hh"
+#include "test_utils.hh"
 
 using namespace std;
 //@-<< Includes >>
@@ -640,6 +641,30 @@ testCase(_4x2,Tie_breaking_between_Weight_and_FirstColumnX) {
             &&  X_matrix(0,1).val() >= X_matrix(0,3).val()
         );
         ++number_of_solutions;
+        delete m;
+    }
+}
+//@-others
+
+}
+//@-others
+
+}
+//@+node:gcross.20101121135345.1486: *3* MinimalWeight
+subSuite(MinimalWeight,Constraints) {
+
+//@+others
+//@+node:gcross.20101121135345.1487: *4* 2x1
+subSuite(_2x1,MinimalWeight) {
+
+//@+others
+//@+node:gcross.20101121135345.1488: *5* correct derived fields
+testCase(correct_derived_fields,_2x1) {
+    MinimalWeightOperatorSpace* m = new MinimalWeightOperatorSpace(2,1);
+    DFS<MinimalWeightOperatorSpace> e(m);
+    delete m;
+    for(m = e.next(); m != NULL; m = e.next()) {
+        validateNonTrivial(m->products_X,m->products_Z,m->products_non_trivial);
         delete m;
     }
 }

@@ -234,9 +234,10 @@ Space* AllConstraintsEvenRowsOperatorSpace::copy(bool share)
 MinimalWeightOperatorSpace::MinimalWeightOperatorSpace(int number_of_operators, int number_of_qubits)
     : OperatorSpace(number_of_operators,number_of_qubits)
     , number_of_products(computeNumberOfProducts(number_of_operators,number_of_qubits))
-    , products_X(*this,number_of_qubits*number_of_products,0,1)
-    , products_Z(*this,number_of_qubits*number_of_products,0,1)
-    , products_non_trivial(*this,number_of_qubits*number_of_products,0,1)
+    , number_of_variables(number_of_qubits*number_of_products)
+    , products_X(*this,number_of_variables,0,1)
+    , products_Z(*this,number_of_variables,0,1)
+    , products_non_trivial(*this,number_of_variables,0,1)
     , products_weights(*this,number_of_products,0,number_of_qubits)
 {
     BoolMatrix products_X_matrix(products_X,number_of_qubits,number_of_products),
@@ -244,6 +245,12 @@ MinimalWeightOperatorSpace::MinimalWeightOperatorSpace(int number_of_operators, 
                products_non_trivial_matrix(products_non_trivial,number_of_qubits,number_of_products),
                X_matrix = getXMatrix(),
                Z_matrix = getZMatrix();
+    for(int i = 0; i < number_of_variables; ++i) {
+        products_non_trivial[i] = expr(*this,products_X[i] || products_Z[i]);
+    }
+    for(int i = 0; i < number_of_products; ++i) {
+        products_weights[i] = expr(*this,sum(products_non_trivial_matrix.row(i)));
+    }
     for(int i = 0; i < number_of_pairs; ++i) {
         formProductAndPostConstraints(
             X_matrix.row (2*i+0),
@@ -254,7 +261,6 @@ MinimalWeightOperatorSpace::MinimalWeightOperatorSpace(int number_of_operators, 
             weights      [2*i+1],
             products_X_matrix.row(i),
             products_Z_matrix.row(i),
-            products_non_trivial_matrix.row(i),
             products_weights[i]
         );
     }
@@ -266,7 +272,6 @@ MinimalWeightOperatorSpace::MinimalWeightOperatorSpace(int number_of_operators, 
             postWeightConstraints(
                 products_X_matrix,
                 products_Z_matrix,
-                products_non_trivial_matrix,
                 next_product_number,
                 2,
                 pair_number+1,
@@ -291,7 +296,6 @@ MinimalWeightOperatorSpace::MinimalWeightOperatorSpace(int number_of_operators, 
                 products_weights[i],
                 products_X_matrix.row(next_product_number),
                 products_Z_matrix.row(next_product_number),
-                products_non_trivial_matrix.row(next_product_number),
                 products_weights[next_product_number]
             );
         }
@@ -334,14 +338,9 @@ void MinimalWeightOperatorSpace::formProductAndPostConstraints(
     const IntVar& weight2,
     const BoolVarArgs& product_X,
     const BoolVarArgs& product_Z,
-    const BoolVarArgs& product_non_trivial,
     IntVar& product_weight
 ) {
     multiplyOperators(X1,Z1,X2,Z2,product_X,product_Z);
-    for(int i = 0; i < product_X.size(); ++i) {
-        rel(*this,product_non_trivial[i] == product_X[i] || product_Z[i]);
-    };
-    product_weight = expr(*this,sum(product_non_trivial));
     rel(*this,product_weight >= Gecode::min(weight1,weight2));
 }
 //@+node:gcross.20101121135345.1461: *4* getPairOperatorFactor
@@ -371,18 +370,17 @@ IntVar& MinimalWeightOperatorSpace::getPairOperatorFactor(
 void MinimalWeightOperatorSpace::multiplyOperators(
     const BoolVarArgs& Xin1, const BoolVarArgs& Zin1,
     const BoolVarArgs& Xin2, const BoolVarArgs& Zin2,
-          BoolVarArgs  Xout,       BoolVarArgs  Zout
+    const BoolVarArgs& Xout, const BoolVarArgs& Zout
 ) {
     for(int i = 0; i < Xin1.size(); ++i) {
-        Xout[i] = expr(*this,Xin1[i]^Xin2[i]);
-        Zout[i] = expr(*this,Zin1[i]^Zin2[i]);
+        rel(*this,Xout[i] == Xin1[i]^Xin2[i]);
+        rel(*this,Zout[i] == Zin1[i]^Zin2[i]);
     }
 }
 //@+node:gcross.20101121135345.1462: *4* postWeightConstraints
 void MinimalWeightOperatorSpace::postWeightConstraints(
     BoolMatrix& products_X_matrix,
     BoolMatrix& products_Z_matrix,
-    BoolMatrix& products_non_trivial_matrix,
     int& next_product_number,
     int number_of_factors,
     int next_pair_number,
@@ -394,8 +392,7 @@ void MinimalWeightOperatorSpace::postWeightConstraints(
     for(int pair_number = next_pair_number; pair_number < number_of_pairs; ++pair_number) {
         for(int factor_index = 0; factor_index < 3; ++factor_index) {
             BoolVarArgs product_X = products_X_matrix.row(next_product_number),
-                        product_Z = products_Z_matrix.row(next_product_number),
-                        product_non_trivial = products_non_trivial_matrix.row(next_product_number);
+                        product_Z = products_Z_matrix.row(next_product_number);
             IntVar&     product_weight = products_weights[next_product_number];
             BoolVarArgs factor_X, factor_Z;
             IntVar&     factor_weight = getPairOperatorFactor(pair_number,factor_index,factor_X,factor_Z);
@@ -408,14 +405,12 @@ void MinimalWeightOperatorSpace::postWeightConstraints(
                 factor_weight,
                 product_X,
                 product_Z,
-                product_non_trivial,
                 product_weight
             );
             ++next_product_number;
             postWeightConstraints(
                 products_X_matrix,
                 products_Z_matrix,
-                products_non_trivial_matrix,
                 next_product_number,
                 number_of_factors+1,
                 pair_number+1,

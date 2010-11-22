@@ -123,7 +123,7 @@ struct MinimalWeightOperatorSpace : public virtual OperatorSpace {
 
     //@+others
     //@+node:gcross.20101121135345.1446: *4* (fields)
-    int number_of_products;
+    int number_of_products, number_of_variables;
 
     BoolVarArray products_X, products_Z, products_non_trivial;
     IntVarArray products_weights;
@@ -145,7 +145,6 @@ struct MinimalWeightOperatorSpace : public virtual OperatorSpace {
         const IntVar& weight2,
         const BoolVarArgs& product_X,
         const BoolVarArgs& product_Z,
-        const BoolVarArgs& product_non_trivial,
         IntVar& product_weight
     );
     IntVar& getPairOperatorFactor(
@@ -155,12 +154,11 @@ struct MinimalWeightOperatorSpace : public virtual OperatorSpace {
     void multiplyOperators(
         const BoolVarArgs& Xin1, const BoolVarArgs& Zin1,
         const BoolVarArgs& Xin2, const BoolVarArgs& Zin2,
-              BoolVarArgs  Xout,       BoolVarArgs  Zout
+        const BoolVarArgs& Xout, const BoolVarArgs& Zout
     );
     void postWeightConstraints(
         BoolMatrix& products_X_matrix,
         BoolMatrix& products_Z_matrix,
-        BoolMatrix& products_non_trivial_matrix,
         int& next_product_number,
         int number_of_factors,
         int next_pair_number,
