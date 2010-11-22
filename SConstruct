@@ -56,9 +56,18 @@ count_solutions = env.Program(
 ],LIBS=[
     'gecodesearch','gecodeint','gecodekernel','gecodesupport','gecodeminimodel',
 ])
+print_solutions = env.Program(
+    'programs/print-solutions',[
+    'sources/print-solutions.cc',
+    'sources/constraints.cc',
+    'sources/operator_space.cc',
+],LIBS=[
+    'gecodesearch','gecodeint','gecodekernel','gecodesupport','gecodeminimodel',
+])
 env.Default([
     count_solutions,
     count_all_solutions,
+    print_solutions,
 ])
 
 #@+at
