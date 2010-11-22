@@ -29,7 +29,7 @@ OperatorSpace::OperatorSpace(int number_of_operators, int number_of_qubits)
     }
     BoolMatrix non_trivial_matrix = getNonTrivialMatrix();
     for(int i = 0; i < number_of_operators; ++i) {
-        weights[i] = expr(*this,sum(non_trivial_matrix.row(i)));
+        linear(*this,non_trivial_matrix.row(i),IRT_EQ,weights[i]);
     }
     branch(*this,O,INT_VAR_NONE,INT_VAL_MIN);
 }
