@@ -316,7 +316,7 @@ MinimalWeightOperatorSpace::MinimalWeightOperatorSpace(int number_of_operators, 
                 product_weight_adjustments[i]
             );
         }
-        for(int i = 0; i < number_of_operators; ++i, ++next_product_number) {
+        for(int i = 0; i < number_of_operators-1; ++i, ++next_product_number) {
             formProductAndPostConstraints(
                 last_operator_X,
                 last_operator_Z,
@@ -358,7 +358,7 @@ int MinimalWeightOperatorSpace::computeNumberOfProducts(int number_of_operators,
     }
     if(number_of_operators % 2 == 1) {
         number_of_products *= 2;
-        number_of_products += number_of_operators;
+        number_of_products += number_of_operators-1;
     }
     return number_of_products;
 }
