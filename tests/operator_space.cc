@@ -20,11 +20,11 @@ testSuite(OperatorSpace_) {
 
 //@+others
 //@+node:gcross.20101116222338.1277: *3* 1x1
-subSuite(_1x1,OperatorSpace_) {
+subSuite(_1x1) {
 
 //@+others
 //@+node:gcross.20101116222338.1384: *4* number of solutions
-testCase(number_of_solutions,_1x1) {
+testCase(number_of_solutions) {
     OperatorSpace* m = new OperatorSpace(1,1);
     DFS<OperatorSpace> e(m);
     delete m;
@@ -36,7 +36,7 @@ testCase(number_of_solutions,_1x1) {
     assertEqual(4,number_of_solutions);
 }
 //@+node:gcross.20101116222338.1397: *4* correct order
-testCase(correct_order,_1x1) {
+testCase(correct_order) {
     OperatorSpace* m = new OperatorSpace(1,1);
     DFS<OperatorSpace> e(m);
     delete m;
@@ -56,7 +56,7 @@ testCase(correct_order,_1x1) {
     assertTrue(m == NULL);
 }
 //@+node:gcross.20101119160843.1436: *4* correct properties
-testCase(correct_properties,_1x1) {
+testCase(correct_properties) {
     OperatorSpace* m = new OperatorSpace(1,1);
     DFS<OperatorSpace> e(m);
     delete m;
@@ -71,11 +71,11 @@ testCase(correct_properties,_1x1) {
 
 }
 //@+node:gcross.20101116222338.1387: *3* 1x2
-subSuite(_1x2,OperatorSpace_) {
+subSuite(_1x2) {
 
 //@+others
 //@+node:gcross.20101116222338.1388: *4* number of solutions
-testCase(number_of_solutions,_1x2) {
+testCase(number_of_solutions) {
     OperatorSpace* m = new OperatorSpace(1,2);
     DFS<OperatorSpace> e(m);
     delete m;
@@ -87,7 +87,7 @@ testCase(number_of_solutions,_1x2) {
     assertEqual(16,number_of_solutions);
 }
 //@+node:gcross.20101116222338.1403: *4* correct order
-testCase(correct_order,_1x2) {
+testCase(correct_order) {
     OperatorSpace* m = new OperatorSpace(1,2);
     DFS<OperatorSpace> e(m);
     delete m;
@@ -108,7 +108,7 @@ testCase(correct_order,_1x2) {
     }
 }
 //@+node:gcross.20101119160843.1438: *4* correct properties
-testCase(correct_properties,_1x2) {
+testCase(correct_properties) {
     OperatorSpace* m = new OperatorSpace(1,2);
     DFS<OperatorSpace> e(m);
     delete m;
@@ -123,11 +123,11 @@ testCase(correct_properties,_1x2) {
 
 }
 //@+node:gcross.20101116222338.1391: *3* 2x1
-subSuite(_2x1,OperatorSpace_) {
+subSuite(_2x1) {
 
 //@+others
 //@+node:gcross.20101116222338.1392: *4* number of solutions
-testCase(number_of_solutions,_2x1) {
+testCase(number_of_solutions) {
     OperatorSpace* m = new OperatorSpace(2,1);
     DFS<OperatorSpace> e(m);
     delete m;
@@ -139,7 +139,7 @@ testCase(number_of_solutions,_2x1) {
     assertEqual(16,number_of_solutions);
 }
 //@+node:gcross.20101116222338.1401: *4* correct order
-testCase(correct_order,_2x1) {
+testCase(correct_order) {
     OperatorSpace* m = new OperatorSpace(2,1);
     DFS<OperatorSpace> e(m);
     delete m;
@@ -160,7 +160,7 @@ testCase(correct_order,_2x1) {
     }
 }
 //@+node:gcross.20101119160843.1440: *4* correct properties
-testCase(correct_properties,_2x1) {
+testCase(correct_properties) {
     OperatorSpace* m = new OperatorSpace(2,1);
     DFS<OperatorSpace> e(m);
     delete m;
@@ -175,11 +175,11 @@ testCase(correct_properties,_2x1) {
 
 }
 //@+node:gcross.20101116222338.1395: *3* 2x2
-subSuite(_2x2,OperatorSpace_) {
+subSuite(_2x2) {
 
 //@+others
 //@+node:gcross.20101116222338.1396: *4* number of solutions
-testCase(number_of_solutions,_2x2) {
+testCase(number_of_solutions) {
     OperatorSpace* m = new OperatorSpace(2,2);
     DFS<OperatorSpace> e(m);
     delete m;
@@ -191,7 +191,7 @@ testCase(number_of_solutions,_2x2) {
     assertEqual(256,number_of_solutions);
 }
 //@+node:gcross.20101116222338.1399: *4* correct order
-testCase(correct_order,_2x2) {
+testCase(correct_order) {
     OperatorSpace* m = new OperatorSpace(2,2);
     DFS<OperatorSpace> e(m);
     delete m;
@@ -212,7 +212,7 @@ testCase(correct_order,_2x2) {
     }
 }
 //@+node:gcross.20101119160843.1442: *4* correct properties
-testCase(correct_properties,_2x2) {
+testCase(correct_properties) {
     OperatorSpace* m = new OperatorSpace(2,2);
     DFS<OperatorSpace> e(m);
     delete m;
@@ -232,11 +232,11 @@ testCase(correct_properties,_2x2) {
 
 }
 //@+node:gcross.20101116222338.1407: *3* 3x3
-subSuite(_3x3,OperatorSpace_) {
+subSuite(_3x3) {
 
 //@+others
 //@+node:gcross.20101116222338.1408: *4* number of solutions
-testCase(number_of_solutions,_3x3) {
+testCase(number_of_solutions) {
     OperatorSpace* m = new OperatorSpace(3,3);
     DFS<OperatorSpace> e(m);
     delete m;
@@ -248,7 +248,7 @@ testCase(number_of_solutions,_3x3) {
     assertEqual(1<<(2*3*3),number_of_solutions);
 }
 //@+node:gcross.20101116222338.1415: *4* correct order
-testCase(correct_order,_3x3) {
+testCase(correct_order) {
     OperatorSpace* m = new OperatorSpace(3,3);
     DFS<OperatorSpace> e(m);
     delete m;
@@ -269,7 +269,7 @@ testCase(correct_order,_3x3) {
     }
 }
 //@+node:gcross.20101119160843.1444: *4* correct properties
-testCase(correct_properties,_3x3) {
+testCase(correct_properties) {
     OperatorSpace* m = new OperatorSpace(3,3);
     DFS<OperatorSpace> e(m);
     delete m;

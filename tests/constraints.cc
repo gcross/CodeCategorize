@@ -20,11 +20,11 @@ testSuite(Constraints) {
 
 //@+others
 //@+node:gcross.20101117133000.1629: *3* ColumnXZYOrdering
-subSuite(ColumnXZYOrdering,Constraints) {
+subSuite(ColumnXZYOrdering) {
 
 //@+others
 //@+node:gcross.20101117133000.1630: *4* _1x1
-testCase(_1x1,ColumnXZYOrdering) {
+testCase(_1x1) {
     OperatorSpace* m = new OperatorSpace(1,1);
     postColumnXZYOrderingConstraints(*m);
     DFS<OperatorSpace> e(m);
@@ -37,7 +37,7 @@ testCase(_1x1,ColumnXZYOrdering) {
     assertEqual(0,number_of_solutions);
 }
 //@+node:gcross.20101117133000.1631: *4* _1x2
-testCase(_1x2,ColumnXZYOrdering) {
+testCase(_1x2) {
     OperatorSpace* m = new OperatorSpace(1,2);
     postColumnXZYOrderingConstraints(*m);
     DFS<OperatorSpace> e(m);
@@ -50,7 +50,7 @@ testCase(_1x2,ColumnXZYOrdering) {
     assertEqual(0,number_of_solutions);
 }
 //@+node:gcross.20101117133000.1632: *4* _2x1
-testCase(_2x1,ColumnXZYOrdering) {
+testCase(_2x1) {
     OperatorSpace* m = new OperatorSpace(2,1);
     postColumnXZYOrderingConstraints(*m);
     DFS<OperatorSpace> e(m);
@@ -65,7 +65,7 @@ testCase(_2x1,ColumnXZYOrdering) {
     assertEqual(1,number_of_solutions);
 }
 //@+node:gcross.20101117133000.1633: *4* _2x2
-testCase(_2x2,ColumnXZYOrdering) {
+testCase(_2x2) {
     OperatorSpace* m = new OperatorSpace(2,2);
     postColumnXZYOrderingConstraints(*m);
     DFS<OperatorSpace> e(m);
@@ -84,7 +84,7 @@ testCase(_2x2,ColumnXZYOrdering) {
     assertEqual(1,number_of_solutions);
 }
 //@+node:gcross.20101118114009.1411: *4* _3x3
-testCase(_3x3,ColumnXZYOrdering) {
+testCase(_3x3) {
     OperatorSpace* m = new OperatorSpace(3,3);
     postColumnXZYOrderingConstraints(*m);
     DFS<OperatorSpace> e(m);
@@ -120,11 +120,11 @@ testCase(_3x3,ColumnXZYOrdering) {
 
 }
 //@+node:gcross.20101118114009.1454: *3* ColumnOrdered
-subSuite(ColumnOrdered,Constraints) {
+subSuite(ColumnOrdered) {
 
 //@+others
 //@+node:gcross.20101118114009.1455: *4* _1x1
-testCase(_1x1,ColumnOrdered) {
+testCase(_1x1) {
     ColumnOrderedOperatorSpace* m = new ColumnOrderedOperatorSpace(1,1);
     DFS<ColumnOrderedOperatorSpace> e(m);
     delete m;
@@ -136,7 +136,7 @@ testCase(_1x1,ColumnOrdered) {
     assertEqual(4,number_of_solutions);
 }
 //@+node:gcross.20101118114009.1461: *4* _1x2
-testCase(_1x2,ColumnOrdered) {
+testCase(_1x2) {
     ColumnOrderedOperatorSpace* m = new ColumnOrderedOperatorSpace(1,2);
     DFS<ColumnOrderedOperatorSpace> e(m);
     delete m;
@@ -149,7 +149,7 @@ testCase(_1x2,ColumnOrdered) {
     assertEqual(10,number_of_solutions);
 }
 //@+node:gcross.20101118114009.1463: *4* _1x3
-testCase(_1x3,ColumnOrdered) {
+testCase(_1x3) {
     ColumnOrderedOperatorSpace* m = new ColumnOrderedOperatorSpace(1,3);
     DFS<ColumnOrderedOperatorSpace> e(m);
     delete m;
@@ -162,7 +162,7 @@ testCase(_1x3,ColumnOrdered) {
     }
 }
 //@+node:gcross.20101118114009.1467: *4* _2x1
-testCase(_2x1,ColumnOrdered) {
+testCase(_2x1) {
     ColumnOrderedOperatorSpace* m = new ColumnOrderedOperatorSpace(2,1);
     DFS<ColumnOrderedOperatorSpace> e(m);
     delete m;
@@ -174,7 +174,7 @@ testCase(_2x1,ColumnOrdered) {
     assertEqual(16,number_of_solutions);
 }
 //@+node:gcross.20101118114009.1473: *4* _2x2
-testCase(_2x2,ColumnOrdered) {
+testCase(_2x2) {
     ColumnOrderedOperatorSpace* m = new ColumnOrderedOperatorSpace(2,2);
     DFS<ColumnOrderedOperatorSpace> e(m);
     delete m;
@@ -193,7 +193,7 @@ testCase(_2x2,ColumnOrdered) {
     assertEqual(4*10+6*16,number_of_solutions);
 }
 //@+node:gcross.20101118114009.1475: *4* _2x3
-testCase(_2x3,ColumnOrdered) {
+testCase(_2x3) {
     ColumnOrderedOperatorSpace* m = new ColumnOrderedOperatorSpace(2,3);
     DFS<ColumnOrderedOperatorSpace> e(m);
     delete m;
@@ -217,7 +217,7 @@ testCase(_2x3,ColumnOrdered) {
     }
 }
 //@+node:gcross.20101118114009.1469: *4* _3x1
-testCase(_3x1,ColumnOrdered) {
+testCase(_3x1) {
     ColumnOrderedOperatorSpace* m = new ColumnOrderedOperatorSpace(3,1);
     DFS<ColumnOrderedOperatorSpace> e(m);
     delete m;
@@ -229,7 +229,7 @@ testCase(_3x1,ColumnOrdered) {
     assertEqual(64,number_of_solutions);
 }
 //@+node:gcross.20101118114009.1477: *4* _3x2
-testCase(_3x2,ColumnOrdered) {
+testCase(_3x2) {
     ColumnOrderedOperatorSpace* m = new ColumnOrderedOperatorSpace(3,2);
     DFS<ColumnOrderedOperatorSpace> e(m);
     delete m;
@@ -250,7 +250,7 @@ testCase(_3x2,ColumnOrdered) {
     }
 }
 //@+node:gcross.20101118114009.1479: *4* _3x3
-testCase(_3x3,ColumnOrdered) {
+testCase(_3x3) {
     ColumnOrderedOperatorSpace* m = new ColumnOrderedOperatorSpace(3,3);
     DFS<ColumnOrderedOperatorSpace> e(m);
     delete m;
@@ -283,11 +283,11 @@ testCase(_3x3,ColumnOrdered) {
 
 }
 //@+node:gcross.20101117133000.1487: *3* FirstColumnSpecialCase
-subSuite(FirstColumnSpecialCase,Constraints) {
+subSuite(FirstColumnSpecialCase) {
 
 //@+others
 //@+node:gcross.20101117133000.1489: *4* _1x1
-testCase(_1x1,FirstColumnSpecialCase) {
+testCase(_1x1) {
     OperatorSpace* m = new OperatorSpace(1,1);
     postFirstColumnSpecialCaseConstraint(*m);
     DFS<OperatorSpace> e(m);
@@ -301,7 +301,7 @@ testCase(_1x1,FirstColumnSpecialCase) {
     assertEqual(1,number_of_solutions);
 }
 //@+node:gcross.20101117133000.1491: *4* _1x2
-testCase(_1x2,FirstColumnSpecialCase) {
+testCase(_1x2) {
     OperatorSpace* m = new OperatorSpace(1,2);
     postFirstColumnSpecialCaseConstraint(*m);
     DFS<OperatorSpace> e(m);
@@ -315,7 +315,7 @@ testCase(_1x2,FirstColumnSpecialCase) {
     assertEqual(4,number_of_solutions);
 }
 //@+node:gcross.20101117133000.1493: *4* _2x1
-testCase(_2x1,FirstColumnSpecialCase) {
+testCase(_2x1) {
     OperatorSpace* m = new OperatorSpace(2,1);
     postFirstColumnSpecialCaseConstraint(*m);
     DFS<OperatorSpace> e(m);
@@ -330,7 +330,7 @@ testCase(_2x1,FirstColumnSpecialCase) {
     assertEqual(2,number_of_solutions);
 }
 //@+node:gcross.20101117133000.1495: *4* _2x2
-testCase(_2x2,FirstColumnSpecialCase) {
+testCase(_2x2) {
     OperatorSpace* m = new OperatorSpace(2,2);
     postFirstColumnSpecialCaseConstraint(*m);
     DFS<OperatorSpace> e(m);
@@ -345,7 +345,7 @@ testCase(_2x2,FirstColumnSpecialCase) {
     assertEqual(32,number_of_solutions);
 }
 //@+node:gcross.20101117133000.1497: *4* _3x3
-testCase(_3x3,FirstColumnSpecialCase) {
+testCase(_3x3) {
     OperatorSpace* m = new OperatorSpace(3,3);
     postFirstColumnSpecialCaseConstraint(*m);
     DFS<OperatorSpace> e(m);
@@ -364,15 +364,15 @@ testCase(_3x3,FirstColumnSpecialCase) {
 
 }
 //@+node:gcross.20101117133000.1531: *3* RowOrdered
-subSuite(RowOrdered,Constraints) {
+subSuite(RowOrdered) {
 
 //@+others
 //@+node:gcross.20101117133000.1533: *4* Weight
-subSuite(Weight,RowOrdered) {
+subSuite(Weight) {
 
 //@+others
 //@+node:gcross.20101117133000.1535: *5* _1x1
-testCase(_1x1,Weight) {
+testCase(_1x1) {
     WeightRowOrderedOperatorSpace* m = new WeightRowOrderedOperatorSpace(1,1);
     DFS<WeightRowOrderedOperatorSpace> e(m);
     delete m;
@@ -384,7 +384,7 @@ testCase(_1x1,Weight) {
     assertEqual(4,number_of_solutions);
 }
 //@+node:gcross.20101117133000.1539: *5* _1x2
-testCase(_1x2,Weight) {
+testCase(_1x2) {
     WeightRowOrderedOperatorSpace* m = new WeightRowOrderedOperatorSpace(1,2);
     DFS<WeightRowOrderedOperatorSpace> e(m);
     delete m;
@@ -396,7 +396,7 @@ testCase(_1x2,Weight) {
     assertEqual(16,number_of_solutions);
 }
 //@+node:gcross.20101117133000.1541: *5* _2x1
-testCase(_2x1,Weight) {
+testCase(_2x1) {
     WeightRowOrderedOperatorSpace* m = new WeightRowOrderedOperatorSpace(2,1);
     DFS<WeightRowOrderedOperatorSpace> e(m);
     delete m;
@@ -409,7 +409,7 @@ testCase(_2x1,Weight) {
     assertEqual(13,number_of_solutions);
 }
 //@+node:gcross.20101117133000.1543: *5* _2x2
-testCase(_2x2,Weight) {
+testCase(_2x2) {
     WeightRowOrderedOperatorSpace* m = new WeightRowOrderedOperatorSpace(2,2);
     DFS<WeightRowOrderedOperatorSpace> e(m);
     delete m;
@@ -429,7 +429,7 @@ testCase(_2x2,Weight) {
     );
 }
 //@+node:gcross.20101117133000.1545: *5* _4x2
-testCase(_4x2,Weight) {
+testCase(_4x2) {
     WeightRowOrderedOperatorSpace* m = new WeightRowOrderedOperatorSpace(4,2);
     DFS<WeightRowOrderedOperatorSpace> e(m);
     delete m;
@@ -457,11 +457,11 @@ testCase(_4x2,Weight) {
 
 }
 //@+node:gcross.20101117133000.1567: *4* FirstColumnX
-subSuite(FirstColumnX,RowOrdered) {
+subSuite(FirstColumnX) {
 
 //@+others
 //@+node:gcross.20101117133000.1568: *5* _1x1
-testCase(_1x1,FirstColumnX) {
+testCase(_1x1) {
     FirstColumnXRowOrderedOperatorSpace* m = new FirstColumnXRowOrderedOperatorSpace(1,1);
     DFS<FirstColumnXRowOrderedOperatorSpace> e(m);
     delete m;
@@ -473,7 +473,7 @@ testCase(_1x1,FirstColumnX) {
     assertEqual(4,number_of_solutions);
 }
 //@+node:gcross.20101117133000.1569: *5* _1x2
-testCase(_1x2,FirstColumnX) {
+testCase(_1x2) {
     FirstColumnXRowOrderedOperatorSpace* m = new FirstColumnXRowOrderedOperatorSpace(1,2);
     DFS<FirstColumnXRowOrderedOperatorSpace> e(m);
     delete m;
@@ -485,7 +485,7 @@ testCase(_1x2,FirstColumnX) {
     assertEqual(16,number_of_solutions);
 }
 //@+node:gcross.20101117133000.1570: *5* _2x1
-testCase(_2x1,FirstColumnX) {
+testCase(_2x1) {
     FirstColumnXRowOrderedOperatorSpace* m = new FirstColumnXRowOrderedOperatorSpace(2,1);
     DFS<FirstColumnXRowOrderedOperatorSpace> e(m);
     delete m;
@@ -498,7 +498,7 @@ testCase(_2x1,FirstColumnX) {
     assertEqual(12,number_of_solutions);
 }
 //@+node:gcross.20101117133000.1571: *5* _2x2
-testCase(_2x2,FirstColumnX) {
+testCase(_2x2) {
     FirstColumnXRowOrderedOperatorSpace* m = new FirstColumnXRowOrderedOperatorSpace(2,2);
     DFS<FirstColumnXRowOrderedOperatorSpace> e(m);
     delete m;
@@ -512,7 +512,7 @@ testCase(_2x2,FirstColumnX) {
     assertEqual(12*16,number_of_solutions);
 }
 //@+node:gcross.20101117133000.1572: *5* _4x2
-testCase(_4x2,FirstColumnX) {
+testCase(_4x2) {
     FirstColumnXRowOrderedOperatorSpace* m = new FirstColumnXRowOrderedOperatorSpace(4,2);
     DFS<FirstColumnXRowOrderedOperatorSpace> e(m);
     delete m;
@@ -535,11 +535,11 @@ testCase(_4x2,FirstColumnX) {
 
 }
 //@+node:gcross.20101117133000.1573: *4* TieBraker: Weight, FirstColumnX
-subSuite(Tie_breaking_between_Weight_and_FirstColumnX,RowOrdered) {
+subSuite(Tie_breaking_between_Weight_and_FirstColumnX) {
 
 //@+others
 //@+node:gcross.20101117133000.1575: *5* _1x1
-testCase(_1x1,Tie_breaking_between_Weight_and_FirstColumnX) {
+testCase(_1x1) {
     WeightAndFirstColumnXRowOrderedOperatorSpace* m = new WeightAndFirstColumnXRowOrderedOperatorSpace(1,1);
     DFS<WeightAndFirstColumnXRowOrderedOperatorSpace> e(m);
     delete m;
@@ -551,7 +551,7 @@ testCase(_1x1,Tie_breaking_between_Weight_and_FirstColumnX) {
     assertEqual(4,number_of_solutions);
 }
 //@+node:gcross.20101117133000.1588: *5* _1x2
-testCase(_1x2,Tie_breaking_between_Weight_and_FirstColumnX) {
+testCase(_1x2) {
     WeightAndFirstColumnXRowOrderedOperatorSpace* m = new WeightAndFirstColumnXRowOrderedOperatorSpace(1,2);
     DFS<WeightAndFirstColumnXRowOrderedOperatorSpace> e(m);
     delete m;
@@ -563,7 +563,7 @@ testCase(_1x2,Tie_breaking_between_Weight_and_FirstColumnX) {
     assertEqual(16,number_of_solutions);
 }
 //@+node:gcross.20101117133000.1591: *5* _2x1
-testCase(_2x1,Tie_breaking_between_Weight_and_FirstColumnX) {
+testCase(_2x1) {
     WeightAndFirstColumnXRowOrderedOperatorSpace* m = new WeightAndFirstColumnXRowOrderedOperatorSpace(2,1);
     DFS<WeightAndFirstColumnXRowOrderedOperatorSpace> e(m);
     delete m;
@@ -580,7 +580,7 @@ testCase(_2x1,Tie_breaking_between_Weight_and_FirstColumnX) {
     assertEqual(11,number_of_solutions);
 }
 //@+node:gcross.20101117133000.1593: *5* _2x2
-testCase(_2x2,Tie_breaking_between_Weight_and_FirstColumnX) {
+testCase(_2x2) {
     WeightAndFirstColumnXRowOrderedOperatorSpace* m = new WeightAndFirstColumnXRowOrderedOperatorSpace(2,2);
     DFS<WeightAndFirstColumnXRowOrderedOperatorSpace> e(m);
     delete m;
@@ -597,7 +597,7 @@ testCase(_2x2,Tie_breaking_between_Weight_and_FirstColumnX) {
     }
 }
 //@+node:gcross.20101117133000.1595: *5* _2x3
-testCase(_2x3,Tie_breaking_between_Weight_and_FirstColumnX) {
+testCase(_2x3) {
     WeightAndFirstColumnXRowOrderedOperatorSpace* m = new WeightAndFirstColumnXRowOrderedOperatorSpace(2,3);
     DFS<WeightAndFirstColumnXRowOrderedOperatorSpace> e(m);
     delete m;
@@ -614,7 +614,7 @@ testCase(_2x3,Tie_breaking_between_Weight_and_FirstColumnX) {
     }
 }
 //@+node:gcross.20101117133000.1599: *5* _4x2
-testCase(_4x2,Tie_breaking_between_Weight_and_FirstColumnX) {
+testCase(_4x2) {
     WeightAndFirstColumnXRowOrderedOperatorSpace* m = new WeightAndFirstColumnXRowOrderedOperatorSpace(4,2);
     DFS<WeightAndFirstColumnXRowOrderedOperatorSpace> e(m);
     delete m;
@@ -651,15 +651,15 @@ testCase(_4x2,Tie_breaking_between_Weight_and_FirstColumnX) {
 
 }
 //@+node:gcross.20101121135345.1486: *3* MinimalWeight
-subSuite(MinimalWeight,Constraints) {
+subSuite(MinimalWeight) {
 
 //@+others
 //@+node:gcross.20101121135345.1487: *4* 2x1
-subSuite(_2x1,MinimalWeight) {
+subSuite(_2x1) {
 
 //@+others
 //@+node:gcross.20101121135345.1488: *5* correct derived fields
-testCase(correct_derived_fields,_2x1) {
+testCase(correct_derived_fields) {
     MinimalWeightOperatorSpace* m = new MinimalWeightOperatorSpace(2,1);
     DFS<MinimalWeightOperatorSpace> e(m);
     delete m;
