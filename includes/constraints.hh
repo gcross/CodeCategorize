@@ -89,36 +89,6 @@ struct WeightAndFirstColumnXRowOrderedOperatorSpace
     //@-others
 
 };
-//@+node:gcross.20101118114009.1485: *3* struct AllConstraintsOddRowsOperatorSpace
-struct AllConstraintsOddRowsOperatorSpace
-    : public WeightAndFirstColumnXRowOrderedOperatorSpace
-    , public ColumnOrderedOperatorSpace
-{
-
-    //@+others
-    //@+node:gcross.20101118114009.1487: *4* (constructors)
-    AllConstraintsOddRowsOperatorSpace(int number_of_operators, int number_of_qubits);
-    AllConstraintsOddRowsOperatorSpace(bool share, AllConstraintsOddRowsOperatorSpace& s);
-    //@+node:gcross.20101118114009.1488: *4* (methods)
-    virtual Space* copy(bool share);
-    //@-others
-
-};
-//@+node:gcross.20101118114009.1504: *3* struct AllConstraintsEvenRowsOperatorSpace
-struct AllConstraintsEvenRowsOperatorSpace
-    : public WeightRowOrderedOperatorSpace
-    , public ColumnOrderedOperatorSpace
-{
-
-    //@+others
-    //@+node:gcross.20101118114009.1505: *4* (constructors)
-    AllConstraintsEvenRowsOperatorSpace(int number_of_operators, int number_of_qubits);
-    AllConstraintsEvenRowsOperatorSpace(bool share, AllConstraintsEvenRowsOperatorSpace& s);
-    //@+node:gcross.20101118114009.1506: *4* (methods)
-    virtual Space* copy(bool share);
-    //@-others
-
-};
 //@+node:gcross.20101121135345.1445: *3* struct MinimalWeightOperatorSpace
 struct MinimalWeightOperatorSpace : public virtual OperatorSpace {
 
@@ -171,6 +141,38 @@ struct MinimalWeightOperatorSpace : public virtual OperatorSpace {
         const BoolVarArgs& Z,
         const IntVar& weight
     );
+    //@-others
+
+};
+//@+node:gcross.20101118114009.1485: *3* struct AllConstraintsOddRowsOperatorSpace
+struct AllConstraintsOddRowsOperatorSpace
+    : public WeightAndFirstColumnXRowOrderedOperatorSpace
+    , public ColumnOrderedOperatorSpace
+    , public MinimalWeightOperatorSpace
+{
+
+    //@+others
+    //@+node:gcross.20101118114009.1487: *4* (constructors)
+    AllConstraintsOddRowsOperatorSpace(int number_of_operators, int number_of_qubits);
+    AllConstraintsOddRowsOperatorSpace(bool share, AllConstraintsOddRowsOperatorSpace& s);
+    //@+node:gcross.20101118114009.1488: *4* (methods)
+    virtual Space* copy(bool share);
+    //@-others
+
+};
+//@+node:gcross.20101118114009.1504: *3* struct AllConstraintsEvenRowsOperatorSpace
+struct AllConstraintsEvenRowsOperatorSpace
+    : public WeightRowOrderedOperatorSpace
+    , public ColumnOrderedOperatorSpace
+    , public MinimalWeightOperatorSpace
+{
+
+    //@+others
+    //@+node:gcross.20101118114009.1505: *4* (constructors)
+    AllConstraintsEvenRowsOperatorSpace(int number_of_operators, int number_of_qubits);
+    AllConstraintsEvenRowsOperatorSpace(bool share, AllConstraintsEvenRowsOperatorSpace& s);
+    //@+node:gcross.20101118114009.1506: *4* (methods)
+    virtual Space* copy(bool share);
     //@-others
 
 };
