@@ -8,6 +8,7 @@
 //@+<< Includes >>
 //@+node:gcross.20101117113704.1321: ** << Includes >>
 #include <gecode/set.hh>
+#include <utility>
 #include <vector>
 
 #include "operator_space.hh"
@@ -97,7 +98,7 @@ struct MinimalWeightOperatorSpace : public virtual OperatorSpace {
     int number_of_products, number_of_variables, maximum_number_of_factors;
 
     BoolVarArray products_X, products_Z, products_non_trivial;
-    IntVarArray products_weights;
+    IntVarArray products_weights, products_minimum_weights;
     //@+node:gcross.20101121135345.1447: *4* (constructors)
     MinimalWeightOperatorSpace(int number_of_operators, int number_of_qubits);
     MinimalWeightOperatorSpace(bool share, MinimalWeightOperatorSpace& s);
@@ -110,18 +111,19 @@ struct MinimalWeightOperatorSpace : public virtual OperatorSpace {
     void formProductAndPostConstraints(
         const BoolVarArgs& X1,
         const BoolVarArgs& Z1,
-        const IntVar& weight1,
+        const IntVar& minimal_weight1,
         const int weight_adjustment1,
         const BoolVarArgs& X2,
         const BoolVarArgs& Z2,
-        const IntVar& weight2,
+        const IntVar& minimal_weight2,
         const int weight_adjustment2,
         const BoolVarArgs& product_X,
         const BoolVarArgs& product_Z,
         IntVar& product_weight,
+        IntVar& product_minimal_weight,
         const int product_weight_adjustment
     );
-    IntVar& getPairOperatorFactor(
+    std::pair<const IntVar*,int> getPairOperatorFactor(
         int pair_number, int factor_index,
         BoolVarArgs& X, BoolVarArgs& Z
     );
@@ -139,7 +141,8 @@ struct MinimalWeightOperatorSpace : public virtual OperatorSpace {
         int next_pair_number,
         const BoolVarArgs& X,
         const BoolVarArgs& Z,
-        const IntVar& weight
+        const IntVar& minimal_weight,
+        int weight_adjustment
     );
     //@-others
 
