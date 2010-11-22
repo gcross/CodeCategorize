@@ -15,6 +15,33 @@ using namespace std;
 //@-<< Includes >>
 
 //@+others
+//@+node:gcross.20101121200631.1632: ** Functions
+//@+node:gcross.20101121200631.1633: *3* validateOperators
+void validateOperators(OperatorSpace* m) {
+    vector<dynamic_quantum_operator> operators = m->getOperators();
+    int first_qubit = 0;
+    for(int i = 0; i < m->number_of_pairs; ++i) {
+        assertEqual('X',operators[2*i+0].pauli_char_at(i));
+        assertEqual('Z',operators[2*i+1].pauli_char_at(i));
+        ++first_qubit;
+    }
+    IntMatrix O_matrix = m->getOMatrix();
+    for(int i = 0; i < m->number_of_operators; ++i) {
+        for(int j = 0; j < m->number_of_qubits; ++j) {
+            assertEqual(O_matrix(j,i).val(),operators[i][first_qubit+j]);
+        }
+    }
+}
+//@+node:gcross.20101121200631.1634: *3* runOperatorValidationTest
+void runOperatorValidationTest(int number_of_operators, int number_of_qubits) {
+    OperatorSpace* m = new OperatorSpace(number_of_operators,number_of_qubits);
+    DFS<OperatorSpace> e(m);
+    delete m;
+    for(m = e.next(); m != NULL; m = e.next()) {
+        validateOperators(m);
+        delete m;
+    }
+}
 //@+node:gcross.20101116210424.2279: ** Tests
 testSuite(OperatorSpace_) {
 
@@ -67,6 +94,8 @@ testCase(correct_properties) {
         delete m;
     }
 }
+//@+node:gcross.20101121200631.1635: *4* correct operators
+testCase(correct_operators) { runOperatorValidationTest(1,1); }
 //@-others
 
 }
@@ -119,6 +148,8 @@ testCase(correct_properties) {
         delete m;
     }
 }
+//@+node:gcross.20101121200631.1637: *4* correct operators
+testCase(correct_operators) { runOperatorValidationTest(1,2); }
 //@-others
 
 }
@@ -171,6 +202,8 @@ testCase(correct_properties) {
         delete m;
     }
 }
+//@+node:gcross.20101121200631.1639: *4* correct operators
+testCase(correct_operators) { runOperatorValidationTest(2,1); }
 //@-others
 
 }
@@ -228,6 +261,8 @@ testCase(correct_properties) {
         delete m;
     }
 }
+//@+node:gcross.20101121200631.1641: *4* correct operators
+testCase(correct_operators) { runOperatorValidationTest(2,2); }
 //@-others
 
 }
@@ -285,6 +320,8 @@ testCase(correct_properties) {
         delete m;
     }
 }
+//@+node:gcross.20101121200631.1643: *4* correct operators
+testCase(correct_operators) { runOperatorValidationTest(3,3); }
 //@-others
 
 }
