@@ -192,6 +192,7 @@ AllConstraintsOddRowsOperatorSpace::AllConstraintsOddRowsOperatorSpace(int numbe
     assert(number_of_operators % 2 == 1);
     postFirstColumnSpecialCaseConstraint(*this);
     postColumnXZYOrderingConstraints(*this);
+    postNonTrivialWeightConstraints(*this);
 }
 
 AllConstraintsOddRowsOperatorSpace::AllConstraintsOddRowsOperatorSpace(bool share, AllConstraintsOddRowsOperatorSpace& s)
@@ -218,6 +219,7 @@ AllConstraintsEvenRowsOperatorSpace::AllConstraintsEvenRowsOperatorSpace(int num
 {
     assert(number_of_operators % 2 == 0);
     postColumnXZYOrderingConstraints(*this);
+    postNonTrivialWeightConstraints(*this);
 }
 
 AllConstraintsEvenRowsOperatorSpace::AllConstraintsEvenRowsOperatorSpace(bool share, AllConstraintsEvenRowsOperatorSpace& s)
