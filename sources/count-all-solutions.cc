@@ -23,7 +23,9 @@ int main(int argc, char** argv) {
     int number_of_qubits = atoi(argv[1]);
     for(int number_of_operators = 3; number_of_operators < 2*number_of_qubits; ++number_of_operators) {
         OperatorSpace* m = constructConstrainedOperatorSpace(number_of_qubits,number_of_operators);
-        DFS<OperatorSpace> e(m);
+        Search::Options opts = Search::Options::def;
+        opts.threads = 0;
+        DFS<OperatorSpace> e(m,opts);
         delete m;
         int number_of_solutions = 0;
         for(m = e.next(); m != NULL; m = e.next()) {
