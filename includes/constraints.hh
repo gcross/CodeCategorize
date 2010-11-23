@@ -147,6 +147,23 @@ struct MinimalWeightOperatorSpace : public virtual OperatorSpace {
     //@-others
 
 };
+//@+node:gcross.20101122154804.1504: *3* struct CommutatorOperatorSpace
+struct CommutatorOperatorSpace : public virtual OperatorSpace {
+
+    //@+others
+    //@+node:gcross.20101122154804.1507: *4* (fields)
+    int number_of_commutators;
+
+    BoolVarArray anti_commuting_qubits, anti_commuting_operators;
+    //@+node:gcross.20101122154804.1505: *4* (constructors)
+    CommutatorOperatorSpace(int number_of_operators, int number_of_qubits);
+    CommutatorOperatorSpace(bool share, CommutatorOperatorSpace& s);
+    //@+node:gcross.20101122154804.1506: *4* (methods)
+    virtual Space* copy(bool share);
+    BoolMatrix getAntiCommutatorMatrix();
+    //@-others
+
+};
 //@+node:gcross.20101118114009.1485: *3* struct AllConstraintsOddRowsOperatorSpace
 struct AllConstraintsOddRowsOperatorSpace
     : public WeightAndFirstColumnXRowOrderedOperatorSpace

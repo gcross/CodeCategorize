@@ -485,6 +485,54 @@ void MinimalWeightOperatorSpace::postWeightConstraints(
         }
     }
 }
+//@+node:gcross.20101122154804.1511: *3* struct CommutatorOperatorSpace
+//@+node:gcross.20101122154804.1512: *4* (constructors)
+CommutatorOperatorSpace::CommutatorOperatorSpace(int number_of_operators, int number_of_qubits)
+    : OperatorSpace(number_of_operators,number_of_qubits)
+    , number_of_commutators(number_of_operators*(number_of_operators-1))
+    , anti_commuting_qubits(*this,number_of_commutators*number_of_qubits,0,1)
+    , anti_commuting_operators(*this,number_of_operators*number_of_operators,0,1)
+{
+    BoolMatrix anti_commuting_qubits_matrix(anti_commuting_qubits,number_of_qubits,number_of_commutators),
+               anti_commuting_operators_matrix(anti_commuting_operators,number_of_operators,number_of_operators),
+               X_matrix = getXMatrix(),
+               Z_matrix = getZMatrix();
+    int commutator_number = 0;
+    for(int i = 0; i < number_of_operators; ++i) {
+        rel(*this,anti_commuting_operators_matrix(i,i),IRT_EQ,0);
+        for(int j = i+1; j < number_of_operators; ++j) {
+            for(int k = 0; k < number_of_qubits; ++k) {
+                rel(*this,anti_commuting_qubits_matrix(k,commutator_number) ==
+                    (X_matrix(k,i) && Z_matrix(k,j))
+                  ^ (X_matrix(k,j) && Z_matrix(k,i))
+                );
+            }
+            if(i/2 == j/2) {
+                rel(*this,anti_commuting_operators_matrix(i,j) == (sum(anti_commuting_qubits_matrix.row(commutator_number))+1) % 2);
+            } else {
+                rel(*this,anti_commuting_operators_matrix(i,j) == sum(anti_commuting_qubits_matrix.row(commutator_number)) % 2);
+            }
+            rel(*this,anti_commuting_operators_matrix(j,i) == anti_commuting_operators_matrix(i,j));
+            ++commutator_number;
+        }
+    }
+}
+
+CommutatorOperatorSpace::CommutatorOperatorSpace(bool share, CommutatorOperatorSpace& s)
+    : OperatorSpace(share,s)
+{
+    anti_commuting_qubits.update(*this,share,s.anti_commuting_qubits);
+    anti_commuting_operators.update(*this,share,s.anti_commuting_operators);
+}
+//@+node:gcross.20101122154804.1513: *4* copy
+Space* CommutatorOperatorSpace::copy(bool share)
+{
+    return new CommutatorOperatorSpace(share,*this);
+}
+//@+node:gcross.20101122154804.1670: *4* getAntiCommutatorMatrix
+BoolMatrix CommutatorOperatorSpace::getAntiCommutatorMatrix() {
+    return BoolMatrix(anti_commuting_operators,number_of_operators,number_of_operators);
+}
 //@+node:gcross.20101117133000.1469: ** Functions
 //@+node:gcross.20101121135345.1466: *3* choose
 int choose(int n,int k) {
