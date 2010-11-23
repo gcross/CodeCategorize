@@ -183,6 +183,7 @@ struct AllConstraintsEvenRowsOperatorSpace
 int choose(int n,int k);
 void postFirstColumnSpecialCaseConstraint(OperatorSpace& m);
 void postColumnXZYOrderingConstraints(OperatorSpace& m);
+void postNonTrivialWeightConstraints(OperatorSpace& m);
 OperatorSpace* constructConstrainedOperatorSpace(int number_of_qubits,int number_of_operators);
 //@-others
 

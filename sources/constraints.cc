@@ -523,6 +523,11 @@ void postColumnXZYOrderingConstraints(OperatorSpace& m) {
     IntMatrix O_matrix = m.getOMatrix();
     for(int i = 0; i < m.number_of_qubits; ++i) extensional(m,O_matrix.col(i),d);
 }
+//@+node:gcross.20101122154804.1498: *3* postNonTrivialWeightConstraints
+void postNonTrivialWeightConstraints(OperatorSpace& m) {
+    rel(m,m.weights,IRT_GR,0);
+    if(m.number_of_operators % 2 == 1) rel(m,m.weights[m.number_of_operators-1],IRT_GR,1);
+}
 //@+node:gcross.20101118114009.1509: *3* constructConstrainedOperatorSpace
 OperatorSpace* constructConstrainedOperatorSpace(int number_of_qubits,int number_of_operators) {
     return number_of_operators % 2 == 0
