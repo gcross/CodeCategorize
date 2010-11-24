@@ -59,7 +59,7 @@ struct RowOrderedOperatorSpace : public virtual OperatorSpace {
     RowOrderedOperatorSpace(bool share, RowOrderedOperatorSpace& s);
     //@+node:gcross.20101117133000.1510: *5* (methods)
     virtual Space* copy(bool share);
-    void postOrderingConstraint(IntVarArgs ordering,BoolVarArray* interpair_ties_,BoolVarArray* intrapair_ties_);
+    void postOrderingConstraint(const IntVarArgs& ordering,BoolVarArray* interpair_ties_,BoolVarArray* intrapair_ties_);
     //@-others
 
 };

@@ -69,7 +69,7 @@ Space* RowOrderedOperatorSpace::copy(bool share)
 }
 //@+node:gcross.20101117133000.1513: *5* postOrderingConstraint
 void RowOrderedOperatorSpace::postOrderingConstraint(
-    IntVarArgs ordering
+    const IntVarArgs& ordering
    ,BoolVarArray* interpair_ties_
    ,BoolVarArray* intrapair_ties_
 ) {
