@@ -70,41 +70,44 @@ Space* RowOrderedOperatorSpace::copy(bool share)
 //@+node:gcross.20101117133000.1513: *5* postOrderingConstraint
 void RowOrderedOperatorSpace::postOrderingConstraint(
     const IntVarArgs& ordering
-   ,BoolVarArray* interpair_ties_
    ,BoolVarArray* intrapair_ties_
+   ,BoolVarArray* interpair_ties_
 ) {
-    if(interpair_ties == NULL) {
+    if(intrapair_ties == NULL) {
         assert(interpair_ties == NULL);
         for(int i = 0; i < number_of_pairs; ++i) {
             rel(*this,ordering[2*i] >= ordering[2*i+1]);
+            (*intrapair_ties_)[i] = expr(*this,ordering[2*i]==ordering[2*i+1]);
         }
         for(int i = 0; i < number_of_pairs-1; ++i) {
-            rel(*this,ordering[i] >= ordering[i+2]);
-            rel(*this,(ordering[2*i+0] == ordering[2*(i+1)+0])
-                   >> (ordering[2*i+1] >= ordering[2*(i+1)+1])
+            rel(*this,
+                    ordering[2*i+0] >  ordering[2*(i+1)+0]
+              ||    ordering[2*i+0] == ordering[2*(i+1)+0]
+                 && ordering[2*i+1] >= ordering[2*(i+1)+1]
+            );
+            (*interpair_ties_)[i] = expr(*this,
+                      ordering[2*i+0] == ordering[2*(i+1)+0]
+                   && ordering[2*i+1] == ordering[2*(i+1)+1]
             );
         }
     } else {
         assert(interpair_ties != NULL);
         for(int i = 0; i < number_of_pairs; ++i) {
             rel(*this,(*intrapair_ties)[i] >> (ordering[2*i] >= ordering[2*i+1]));
+            (*intrapair_ties_)[i] = expr(*this,(*intrapair_ties)[i] && ordering[2*i]==ordering[2*i+1]);
         }
         for(int i = 0; i < number_of_pairs-1; ++i) {
-            rel(*this,(*interpair_ties)[i] >> (ordering[i] >= ordering[i+2]));
             rel(*this,(*interpair_ties)[i] >> (
-                      (ordering[2*i+0] == ordering[2*(i+1)+0])
-                   >> (ordering[2*i+1] >= ordering[2*(i+1)+1])
+                    ordering[2*i+0] >  ordering[2*(i+1)+0]
+              ||    ordering[2*i+0] == ordering[2*(i+1)+0]
+                 && ordering[2*i+1] >= ordering[2*(i+1)+1]
             ));
-        }
-    }
-    for(int i = 0; i < number_of_pairs; ++i) {
-        (*intrapair_ties_)[i] = expr(*this,ordering[2*i]==ordering[2*i+1]);
-    }
-    for(int i = 0; i < number_of_pairs-1; ++i) {
         (*interpair_ties_)[i] = expr(*this,
-                  (ordering[2*i+0] == ordering[2*(i+1)+0])
-               && (ordering[2*i+1] == ordering[2*(i+1)+1])
+                  (*interpair_ties_)[i]
+               && ordering[2*i+0] == ordering[2*(i+1)+0]
+               && ordering[2*i+1] == ordering[2*(i+1)+1]
         );
+        }
     }
     interpair_ties = interpair_ties_;
     intrapair_ties = intrapair_ties_;
@@ -118,7 +121,7 @@ WeightRowOrderedOperatorSpace::WeightRowOrderedOperatorSpace(
     : RowOrderedOperatorSpace(number_of_operators,number_of_qubits)
     , OperatorSpace(number_of_operators,number_of_qubits)
     , intrapair_ties(*this,number_of_pairs,0,1)
-    , interpair_ties(*this,number_of_pairs,0,1)
+    , interpair_ties(*this,max(number_of_pairs-1,0),0,1)
 {
     postOrderingConstraint(weights,&intrapair_ties,&interpair_ties);
 }
@@ -145,7 +148,7 @@ FirstColumnXRowOrderedOperatorSpace::FirstColumnXRowOrderedOperatorSpace(
     , OperatorSpace(number_of_operators,number_of_qubits)
     , first_column_X(*this,number_of_operators,0,1)
     , intrapair_ties(*this,number_of_pairs,0,1)
-    , interpair_ties(*this,number_of_pairs,0,1)
+    , interpair_ties(*this,max(number_of_pairs-1,0),0,1)
 {
     BoolMatrix X_matrix = getXMatrix();
     for(int i = 0; i < number_of_operators; ++i) channel(*this,X_matrix(0,i),first_column_X[i]);
@@ -199,7 +202,7 @@ AntiCommutatorCountOrderedOperatorSpace::AntiCommutatorCountOrderedOperatorSpace
     , OperatorSpace(number_of_operators,number_of_qubits)
     , number_of_anti_commuting_operators(*this,number_of_operators,0,number_of_operators)
     , intrapair_ties(*this,number_of_pairs,0,1)
-    , interpair_ties(*this,number_of_pairs,0,1)
+    , interpair_ties(*this,max(number_of_pairs-1,0),0,1)
 {
     BoolMatrix anti_commutator_matrix = getAntiCommutatorMatrix();
     for(int i = 0; i < number_of_operators; ++i) {
