@@ -30,6 +30,23 @@ struct ColumnOrderedOperatorSpace : public virtual OperatorSpace {
     //@-others
 
 };
+//@+node:gcross.20101123173026.1525: *3* struct CommutatorOperatorSpace
+struct CommutatorOperatorSpace : public virtual OperatorSpace {
+
+    //@+others
+    //@+node:gcross.20101123173026.1526: *4* (fields)
+    int number_of_commutators;
+
+    BoolVarArray anti_commuting_qubits, anti_commuting_operators;
+    //@+node:gcross.20101123173026.1527: *4* (constructors)
+    CommutatorOperatorSpace(int number_of_operators, int number_of_qubits);
+    CommutatorOperatorSpace(bool share, CommutatorOperatorSpace& s);
+    //@+node:gcross.20101123173026.1528: *4* (methods)
+    virtual Space* copy(bool share);
+    BoolMatrix getAntiCommutatorMatrix();
+    //@-others
+
+};
 //@+node:gcross.20101117133000.1607: *3* Row ordering constraints
 //@+node:gcross.20101117133000.1502: *4* struct RowOrderedOperatorSpace
 struct RowOrderedOperatorSpace : public virtual OperatorSpace {
@@ -90,6 +107,24 @@ struct WeightAndFirstColumnXRowOrderedOperatorSpace
     //@-others
 
 };
+//@+node:gcross.20101123173026.1511: *4* struct AntiCommutatorCountOrderedOperatorSpace
+struct AntiCommutatorCountOrderedOperatorSpace
+    : public virtual RowOrderedOperatorSpace
+    , public virtual CommutatorOperatorSpace
+{
+
+    //@+others
+    //@+node:gcross.20101123173026.1512: *5* (fields)
+    IntVarArray number_of_anti_commuting_operators;
+    BoolVarArray interpair_ties, intrapair_ties;
+    //@+node:gcross.20101123173026.1513: *5* (constructors)
+    AntiCommutatorCountOrderedOperatorSpace(int number_of_operators, int number_of_qubits);
+    AntiCommutatorCountOrderedOperatorSpace(bool share, AntiCommutatorCountOrderedOperatorSpace& s);
+    //@+node:gcross.20101123173026.1514: *5* (methods)
+    virtual Space* copy(bool share);
+    //@-others
+
+};
 //@+node:gcross.20101121135345.1445: *3* struct MinimalWeightOperatorSpace
 struct MinimalWeightOperatorSpace : public virtual OperatorSpace {
 
@@ -144,23 +179,6 @@ struct MinimalWeightOperatorSpace : public virtual OperatorSpace {
         const IntVar& minimal_weight,
         int weight_adjustment
     );
-    //@-others
-
-};
-//@+node:gcross.20101122154804.1504: *3* struct CommutatorOperatorSpace
-struct CommutatorOperatorSpace : public virtual OperatorSpace {
-
-    //@+others
-    //@+node:gcross.20101122154804.1507: *4* (fields)
-    int number_of_commutators;
-
-    BoolVarArray anti_commuting_qubits, anti_commuting_operators;
-    //@+node:gcross.20101122154804.1505: *4* (constructors)
-    CommutatorOperatorSpace(int number_of_operators, int number_of_qubits);
-    CommutatorOperatorSpace(bool share, CommutatorOperatorSpace& s);
-    //@+node:gcross.20101122154804.1506: *4* (methods)
-    virtual Space* copy(bool share);
-    BoolMatrix getAntiCommutatorMatrix();
     //@-others
 
 };
