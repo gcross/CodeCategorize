@@ -55,8 +55,6 @@ Space* ColumnOrderedOperatorSpace::copy(bool share)
 //@+node:gcross.20101117133000.1508: *5* (constructors)
 RowOrderedOperatorSpace::RowOrderedOperatorSpace(int number_of_operators, int number_of_qubits)
     : OperatorSpace(number_of_operators,number_of_qubits)
-    , interpair_ties(NULL)
-    , intrapair_ties(NULL)
 { }
 
 RowOrderedOperatorSpace::RowOrderedOperatorSpace(bool share, RowOrderedOperatorSpace& s)
@@ -70,14 +68,14 @@ Space* RowOrderedOperatorSpace::copy(bool share)
 //@+node:gcross.20101117133000.1513: *5* postOrderingConstraint
 void RowOrderedOperatorSpace::postOrderingConstraint(
     const IntVarArgs& ordering
-   ,BoolVarArray* intrapair_ties_
-   ,BoolVarArray* interpair_ties_
+   ,BoolVarArgs intrapair_ties_
+   ,BoolVarArgs interpair_ties_
 ) {
-    if(intrapair_ties == NULL) {
-        assert(interpair_ties == NULL);
+    if(intrapair_ties.size() == 0) {
+        assert(interpair_ties.size() == 0);
         for(int i = 0; i < number_of_pairs; ++i) {
             rel(*this,ordering[2*i] >= ordering[2*i+1]);
-            (*intrapair_ties_)[i] = expr(*this,ordering[2*i]==ordering[2*i+1]);
+            intrapair_ties_[i] = expr(*this,ordering[2*i]==ordering[2*i+1]);
         }
         for(int i = 0; i < number_of_pairs-1; ++i) {
             rel(*this,
@@ -85,28 +83,29 @@ void RowOrderedOperatorSpace::postOrderingConstraint(
               ||    ordering[2*i+0] == ordering[2*(i+1)+0]
                  && ordering[2*i+1] >= ordering[2*(i+1)+1]
             );
-            (*interpair_ties_)[i] = expr(*this,
+            interpair_ties_[i] = expr(*this,
                       ordering[2*i+0] == ordering[2*(i+1)+0]
                    && ordering[2*i+1] == ordering[2*(i+1)+1]
             );
         }
     } else {
-        assert(interpair_ties != NULL);
+        assert(interpair_ties.size() == intrapair_ties.size()-1);
         for(int i = 0; i < number_of_pairs; ++i) {
-            rel(*this,(*intrapair_ties)[i] >> (ordering[2*i] >= ordering[2*i+1]));
-            (*intrapair_ties_)[i] = expr(*this,(*intrapair_ties)[i] && ordering[2*i]==ordering[2*i+1]);
+            rel(*this,intrapair_ties[i] >> (ordering[2*i] >= ordering[2*i+1]));
+            intrapair_ties_[i] = expr(*this,intrapair_ties[i] && ordering[2*i]==ordering[2*i+1]);
         }
         for(int i = 0; i < number_of_pairs-1; ++i) {
-            rel(*this,(*interpair_ties)[i] >> (
+            rel(*this,interpair_ties[i] >> (
                     ordering[2*i+0] >  ordering[2*(i+1)+0]
               ||    ordering[2*i+0] == ordering[2*(i+1)+0]
                  && ordering[2*i+1] >= ordering[2*(i+1)+1]
             ));
-        (*interpair_ties_)[i] = expr(*this,
-                  (*interpair_ties_)[i]
+        interpair_ties_[i] =
+            expr(*this,
+                  interpair_ties_[i]
                && ordering[2*i+0] == ordering[2*(i+1)+0]
                && ordering[2*i+1] == ordering[2*(i+1)+1]
-        );
+            );
         }
     }
     interpair_ties = interpair_ties_;
@@ -123,7 +122,7 @@ WeightRowOrderedOperatorSpace::WeightRowOrderedOperatorSpace(
     , intrapair_ties(*this,number_of_pairs,0,1)
     , interpair_ties(*this,max(number_of_pairs-1,0),0,1)
 {
-    postOrderingConstraint(weights,&intrapair_ties,&interpair_ties);
+    postOrderingConstraint(weights,intrapair_ties,interpair_ties);
 }
 
 WeightRowOrderedOperatorSpace::WeightRowOrderedOperatorSpace(bool share, WeightRowOrderedOperatorSpace& s)
@@ -152,7 +151,7 @@ FirstColumnXRowOrderedOperatorSpace::FirstColumnXRowOrderedOperatorSpace(
 {
     BoolMatrix X_matrix = getXMatrix();
     for(int i = 0; i < number_of_operators; ++i) channel(*this,X_matrix(0,i),first_column_X[i]);
-    postOrderingConstraint(first_column_X,&intrapair_ties,&interpair_ties);
+    postOrderingConstraint(first_column_X,intrapair_ties,interpair_ties);
 }
 
 FirstColumnXRowOrderedOperatorSpace::FirstColumnXRowOrderedOperatorSpace(bool share, FirstColumnXRowOrderedOperatorSpace& s)
@@ -208,7 +207,7 @@ AntiCommutatorCountOrderedOperatorSpace::AntiCommutatorCountOrderedOperatorSpace
     for(int i = 0; i < number_of_operators; ++i) {
         linear(*this,anti_commutator_matrix.row(i),IRT_EQ,number_of_anti_commuting_operators[i]);
     }
-    postOrderingConstraint(number_of_anti_commuting_operators,&intrapair_ties,&interpair_ties);
+    postOrderingConstraint(number_of_anti_commuting_operators,intrapair_ties,interpair_ties);
 }
 
 AntiCommutatorCountOrderedOperatorSpace::AntiCommutatorCountOrderedOperatorSpace(bool share, AntiCommutatorCountOrderedOperatorSpace& s)
