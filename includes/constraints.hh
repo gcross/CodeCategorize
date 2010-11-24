@@ -187,6 +187,7 @@ struct AllConstraintsOddRowsOperatorSpace
     : public WeightAndFirstColumnXRowOrderedOperatorSpace
     , public ColumnOrderedOperatorSpace
     , public MinimalWeightOperatorSpace
+    , public AntiCommutatorCountOrderedOperatorSpace
 {
 
     //@+others
@@ -203,6 +204,7 @@ struct AllConstraintsEvenRowsOperatorSpace
     : public WeightRowOrderedOperatorSpace
     , public ColumnOrderedOperatorSpace
     , public MinimalWeightOperatorSpace
+    , public AntiCommutatorCountOrderedOperatorSpace
 {
 
     //@+others
