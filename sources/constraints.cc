@@ -40,9 +40,10 @@ ColumnOrderedOperatorSpace::ColumnOrderedOperatorSpace(int number_of_operators, 
     }
 }
 
-ColumnOrderedOperatorSpace::ColumnOrderedOperatorSpace(bool share, OperatorSpace& s)
+ColumnOrderedOperatorSpace::ColumnOrderedOperatorSpace(bool share, ColumnOrderedOperatorSpace& s)
     : OperatorSpace(share,s)
 {
+    ties.update(*this,share,s.ties);
 }
 //@+node:gcross.20101118114009.1447: *4* copy
 Space* ColumnOrderedOperatorSpace::copy(bool share)
@@ -125,7 +126,10 @@ WeightRowOrderedOperatorSpace::WeightRowOrderedOperatorSpace(
 WeightRowOrderedOperatorSpace::WeightRowOrderedOperatorSpace(bool share, WeightRowOrderedOperatorSpace& s)
     : RowOrderedOperatorSpace(share,s)
     , OperatorSpace(share,s)
-{ }
+{
+    intrapair_ties.update(*this,share,s.intrapair_ties);
+    interpair_ties.update(*this,share,s.interpair_ties);
+}
 //@+node:gcross.20101117133000.1529: *5* copy
 Space* WeightRowOrderedOperatorSpace::copy(bool share)
 {
@@ -151,7 +155,11 @@ FirstColumnXRowOrderedOperatorSpace::FirstColumnXRowOrderedOperatorSpace(
 FirstColumnXRowOrderedOperatorSpace::FirstColumnXRowOrderedOperatorSpace(bool share, FirstColumnXRowOrderedOperatorSpace& s)
     : RowOrderedOperatorSpace(share,s)
     , OperatorSpace(share,s)
-{ }
+{
+    first_column_X.update(*this,share,s.first_column_X);
+    intrapair_ties.update(*this,share,s.intrapair_ties);
+    interpair_ties.update(*this,share,s.interpair_ties);
+}
 //@+node:gcross.20101117133000.1560: *5* copy
 Space* FirstColumnXRowOrderedOperatorSpace::copy(bool share)
 {
