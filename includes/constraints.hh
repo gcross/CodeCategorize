@@ -38,6 +38,7 @@ struct CommutatorOperatorSpace : public virtual OperatorSpace {
     int number_of_commutators;
 
     BoolVarArray anti_commuting_qubits, anti_commuting_operators;
+    IntVarArray anti_commuting_qubit_counts_minus_hidden_qubits, anti_commuting_qubit_counts;
     //@+node:gcross.20101123173026.1527: *4* (constructors)
     CommutatorOperatorSpace(int number_of_operators, int number_of_qubits);
     CommutatorOperatorSpace(bool share, CommutatorOperatorSpace& s);
