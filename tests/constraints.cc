@@ -910,6 +910,45 @@ testCase(_4x1) { runNonTrivialWeightTest(4,1,81); }
 //@+node:gcross.20101122154804.1515: *3* Commutator
 subSuite(Commutator) {
 
+//@+others
+//@+node:gcross.20101123222425.1533: *4* correct counts
+subSuite(correct_counts) {
+
+void runCountTest(int number_of_operators,int number_of_qubits) {
+    CommutatorOperatorSpace* m = new CommutatorOperatorSpace(number_of_operators,number_of_qubits);
+    DFS<CommutatorOperatorSpace> e(m);
+    delete m;
+    for(m = e.next(); m != NULL; m = e.next()) {
+        vector<dynamic_quantum_operator> operators = m->getOperators();
+        BoolMatrix anti_commutator_matrix = m->getAntiCommutatorMatrix();
+        IntMatrix anti_commuting_qubit_counts_minus_hidden_qubits_matrix = m->getAntiCommutingQubitCountsMinusHiddenQubitsMatrix(),
+                  anti_commuting_qubit_counts_matrix = m->getAntiCommutingQubitCountsMatrix();
+        for(int i = 0; i < number_of_operators; ++i) {
+            for(int j = 0; j < number_of_operators; ++j) {
+                int count = 0;
+                for(int k = 0; k < number_of_qubits+number_of_operators/2; ++k) {
+                    if((operators[i].X[k] && operators[j].Z[k]) ^ (operators[i].Z[k] && operators[j].X[k])) ++count;
+                }
+                assertEqual(count,anti_commuting_qubit_counts_matrix(i,j).val());
+                assertEqual(i != j && i/2 == j/2 ? count-1 : count,anti_commuting_qubit_counts_minus_hidden_qubits_matrix(i,j).val());
+            }
+        }
+        delete m;
+    }
+}
+
+testCase(_1x1) { runCountTest(1,1); }
+testCase(_1x2) { runCountTest(1,2); }
+testCase(_2x1) { runCountTest(2,1); }
+testCase(_2x2) { runCountTest(2,2); }
+testCase(_3x1) { runCountTest(3,1); }
+testCase(_3x2) { runCountTest(3,2); }
+testCase(_4x1) { runCountTest(4,1); }
+
+}
+//@+node:gcross.20101123222425.1534: *4* correct commutators
+subSuite(correct_commutators) {
+
 void runCommutatorTest(int number_of_operators,int number_of_qubits) {
     CommutatorOperatorSpace* m = new CommutatorOperatorSpace(number_of_operators,number_of_qubits);
     DFS<CommutatorOperatorSpace> e(m);
@@ -933,6 +972,9 @@ testCase(_2x2) { runCommutatorTest(2,2); }
 testCase(_3x1) { runCommutatorTest(3,1); }
 testCase(_3x2) { runCommutatorTest(3,2); }
 testCase(_4x1) { runCommutatorTest(4,1); }
+
+}
+//@-others
 
 }
 //@-others
