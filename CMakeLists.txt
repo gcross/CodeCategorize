@@ -1,0 +1,14 @@
+#@+leo-ver=5-thin
+#@+node:gcross.20101123173026.1546: * @thin CMakeLists.txt
+cmake_minimum_required (VERSION 2.6)
+project (CodeCategorize)
+
+if( NOT CMAKE_BUILD_TYPE )
+set( CMAKE_BUILD_TYPE "RelWithDebInfo" )
+endif ()
+
+include_directories ("includes")
+
+add_subdirectory ("sources")
+add_subdirectory ("tests")
+#@-leo

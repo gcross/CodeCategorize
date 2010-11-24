@@ -1,6 +1,12 @@
 tests/test
 *.o
 CodeCategorize.conf
-.scons*
 *.log
 programs
+CMakeFiles
+CMakeCache.txt
+.DS_Store
+Makefile
+cmake_install.cmake
+*.a
+test
