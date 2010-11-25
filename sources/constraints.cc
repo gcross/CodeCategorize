@@ -28,14 +28,14 @@ ColumnOrderedOperatorSpace::ColumnOrderedOperatorSpace(int number_of_operators, 
             ties_matrix(col,0) = expr(*this,O_matrix(col,0) == O_matrix(col+1,0));
         }
     }
+    for(int row = 1; row < number_of_operators-1; ++row) {
+        for(int col = 0; col < number_of_qubits-1; ++col) {
+            ties_matrix(col,row) = expr(*this,ties_matrix(col,row-1) && (O_matrix(col,row) == O_matrix(col+1,row)));
+        }
+    }
     for(int row = 1; row < number_of_operators; ++row) {
         for(int col = 0; col < number_of_qubits-1; ++col) {
             rel(*this,ties_matrix(col,row-1) >> (O_matrix(col,row) >= O_matrix(col+1,row)));
-        }
-        if(row < number_of_operators-1) {
-            for(int col = 0; col < number_of_qubits-1; ++col) {
-                ties_matrix(col,row) = expr(*this,ties_matrix(col,row) && (O_matrix(col,row) == O_matrix(col+1,row)));
-            }
         }
     }
 }
