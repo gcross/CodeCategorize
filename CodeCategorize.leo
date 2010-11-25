@@ -14,11 +14,17 @@
 </v>
 <v t="gcross.20101116210206.1248"><vh>@path sources</vh>
 <v t="gcross.20101123173026.1549"><vh>@thin CMakeLists.txt</vh></v>
+<v t="gcross.20101123222425.2235"><vh>@path common</vh>
+<v t="gcross.20101123222425.2239"><vh>@thin CMakeLists.txt</vh></v>
 <v t="gcross.20101117113704.1319"><vh>@thin constraints.cc</vh></v>
+<v t="gcross.20101116210424.1514"><vh>@thin operator_space.cc</vh></v>
+</v>
+<v t="gcross.20101123222425.2234"><vh>@path programs</vh>
+<v t="gcross.20101123222425.2237"><vh>@thin CMakeLists.txt</vh></v>
 <v t="gcross.20101118114009.1507"><vh>@thin count-solutions.cc</vh></v>
 <v t="gcross.20101118114009.1514"><vh>@thin count-all-solutions.cc</vh></v>
-<v t="gcross.20101116210424.1514"><vh>@thin operator_space.cc</vh></v>
 <v t="gcross.20101122101448.1534"><vh>@thin print-solutions.cc</vh></v>
+</v>
 </v>
 <v t="gcross.20101116210424.1676"><vh>@path tests</vh>
 <v t="gcross.20101123173026.1551"><vh>@thin CMakeLists.txt</vh></v>
@@ -33,5 +39,7 @@
 <t tx="gcross.20101116210206.1249"></t>
 <t tx="gcross.20101116210424.1673"></t>
 <t tx="gcross.20101116210424.1676"></t>
+<t tx="gcross.20101123222425.2234"></t>
+<t tx="gcross.20101123222425.2235"></t>
 </tnodes>
 </leo_file>

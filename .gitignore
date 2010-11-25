@@ -2,7 +2,9 @@ tests/test
 *.o
 CodeCategorize.conf
 *.log
-programs
+programs/count-all-solutions
+programs/count-solutions
+programs/print-solutions
 CMakeFiles
 CMakeCache.txt
 .DS_Store
