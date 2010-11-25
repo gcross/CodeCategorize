@@ -27,10 +27,10 @@ struct OperatorSpace : public Space {
 
     //@+others
     //@+node:gcross.20101116210424.1674: *3* (fields)
+    int number_of_operators, number_of_qubits, number_of_variables, number_of_pairs, total_number_of_qubits;
+
     BoolVarArray X, Z, non_trivial;
     IntVarArray O, weights;
-
-    int number_of_operators, number_of_qubits, number_of_variables, number_of_pairs;
     //@+node:gcross.20101116210424.1675: *3* (constructors)
     OperatorSpace(int number_of_operators, int number_of_qubits);
     OperatorSpace(bool share, OperatorSpace& s);
@@ -42,6 +42,31 @@ struct OperatorSpace : public Space {
     BoolMatrix getNonTrivialMatrix() { return Matrix<BoolVarArgs>(non_trivial,number_of_qubits,number_of_operators); }
 
     std::vector<dynamic_quantum_operator> getOperators();
+    //@+node:gcross.20101123222425.1890: *3* initializeOperators
+    template<
+        class quantum_operator,
+        class operator_vector
+    > void initializeOperators(operator_vector& operators) {
+        for(int i = 0; i < number_of_operators; ++i) {
+            operators.push_back(quantum_operator(total_number_of_qubits));
+        }
+        for(int i = 0; i < number_of_pairs; ++i) {
+            operators[2*i+0].set(i,1);
+            operators[2*i+1].set(i,2);
+        }
+    }
+    //@+node:gcross.20101123222425.2046: *3* updateOperators
+    template<
+        class quantum_operator,
+        class operator_vector
+    > void updateOperators(operator_vector& operators) {
+        int index = 0;
+        for(int i = 0; i < number_of_operators; ++i) {
+            for(int j = 0; j < number_of_qubits; ++j, ++index) {
+                operators[i].set(number_of_pairs+j,O[index].val());
+            }
+        }
+    }
     //@-others
 
 };

@@ -42,6 +42,26 @@ void runOperatorValidationTest(int number_of_operators, int number_of_qubits) {
         delete m;
     }
 }
+//@+node:gcross.20101123222425.2049: *3* runUpdateValidationTest
+template<int number_of_operators, int number_of_qubits> void runUpdateValidationTest() {
+    typedef static_quantum_operator<number_of_qubits+number_of_operators/2> quantum_operator;
+    typedef static_vector<quantum_operator,number_of_operators> operator_vector;
+    OperatorSpace* m = new OperatorSpace(number_of_operators,number_of_qubits);
+    operator_vector operators;
+    m->initializeOperators<quantum_operator,operator_vector>(operators);
+    DFS<OperatorSpace> e(m);
+    delete m;
+    for(m = e.next(); m != NULL; m = e.next()) {
+        vector<dynamic_quantum_operator> correct_operators = m->getOperators();
+        m->updateOperators<quantum_operator,operator_vector>(operators);
+        for(int i = 0; i < number_of_operators; ++i) {
+            for(int j = 0; j < number_of_qubits+number_of_operators/2; ++j) {
+                assertEqual(correct_operators[i].pauli_char_at(j),operators[i].pauli_char_at(j));
+            }
+        }
+        delete m;
+    }
+}
 //@+node:gcross.20101116210424.2279: ** Tests
 testSuite(OperatorSpace_) {
 
@@ -96,6 +116,8 @@ testCase(correct_properties) {
 }
 //@+node:gcross.20101121200631.1635: *4* correct operators
 testCase(correct_operators) { runOperatorValidationTest(1,1); }
+//@+node:gcross.20101123222425.2047: *4* correct update
+testCase(correct_update) { runUpdateValidationTest<1,1>(); }
 //@-others
 
 }
@@ -150,6 +172,8 @@ testCase(correct_properties) {
 }
 //@+node:gcross.20101121200631.1637: *4* correct operators
 testCase(correct_operators) { runOperatorValidationTest(1,2); }
+//@+node:gcross.20101123222425.2051: *4* correct update
+testCase(correct_update) { runUpdateValidationTest<1,2>(); }
 //@-others
 
 }
@@ -204,6 +228,8 @@ testCase(correct_properties) {
 }
 //@+node:gcross.20101121200631.1639: *4* correct operators
 testCase(correct_operators) { runOperatorValidationTest(2,1); }
+//@+node:gcross.20101123222425.2053: *4* correct update
+testCase(correct_update) { runUpdateValidationTest<2,1>(); }
 //@-others
 
 }
@@ -263,6 +289,8 @@ testCase(correct_properties) {
 }
 //@+node:gcross.20101121200631.1641: *4* correct operators
 testCase(correct_operators) { runOperatorValidationTest(2,2); }
+//@+node:gcross.20101123222425.2055: *4* correct update
+testCase(correct_update) { runUpdateValidationTest<2,2>(); }
 //@-others
 
 }
@@ -322,6 +350,8 @@ testCase(correct_properties) {
 }
 //@+node:gcross.20101121200631.1643: *4* correct operators
 testCase(correct_operators) { runOperatorValidationTest(3,3); }
+//@+node:gcross.20101123222425.2057: *4* correct update
+testCase(correct_update) { runUpdateValidationTest<3,3>(); }
 //@-others
 
 }
