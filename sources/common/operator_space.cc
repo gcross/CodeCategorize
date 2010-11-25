@@ -7,9 +7,12 @@
 #include <gecode/minimodel.hh>
 
 #include "operator_space.hh"
-
-using namespace std;
 //@-<< Includes >>
+
+namespace CodeCategorize {
+
+using namespace Gecode;
+using namespace std;
 
 //@+others
 //@+node:gcross.20101116210424.1515: ** class OperatorSpace
@@ -74,4 +77,6 @@ vector<dynamic_quantum_operator> OperatorSpace::getOperators() {
     return operators;
 }
 //@-others
+
+}
 //@-leo

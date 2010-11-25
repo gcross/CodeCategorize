@@ -1,8 +1,19 @@
 #@+leo-ver=5-thin
 #@+node:gcross.20101123222425.2239: * @thin CMakeLists.txt
 add_library(CodeCategorize
-    constraints
-    operator_space
+    "commutator.cc"
+    "constrained_operator_space.cc"
+    "constraints.cc"
+    "constraints/column_ordered.cc"
+    "constraints/minimal_weight.cc"
+    "constraints/row_ordered.cc"
+    "constraints/row_ordered/anti_commutator_count.cc"
+    "constraints/row_ordered/anti_commutator_qubit_count_sequence.cc"
+    "constraints/row_ordered/first_column.cc"
+    "constraints/row_ordered/weight.cc"
+    "constraints/row_ordered/weight_and_first_column.cc"
+    "operator_space.cc"
+    "utilities.cc"
 )
 target_link_libraries(CodeCategorize
     gecodesearch

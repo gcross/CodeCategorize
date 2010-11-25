@@ -9,11 +9,24 @@
 #include <iostream>
 #include <unit--.hpp>
 
+#include "commutator.hh"
+#include "constrained_operator_space.hh"
 #include "constraints.hh"
+#include "constraints/column_ordered.hh"
+#include "constraints/minimal_weight.hh"
+#include "constraints/row_ordered.hh"
+#include "constraints/row_ordered/anti_commutator_count.hh"
+#include "constraints/row_ordered/anti_commutator_qubit_count_sequence.hh"
+#include "constraints/row_ordered/first_column.hh"
+#include "constraints/row_ordered/weight.hh"
+#include "constraints/row_ordered/weight_and_first_column.hh"
+#include "operator_space.hh"
 #include "test_utils.hh"
+#include "utilities.hh"
 
 using namespace std;
 using namespace Gecode;
+using namespace CodeCategorize;
 //@-<< Includes >>
 
 //@+others

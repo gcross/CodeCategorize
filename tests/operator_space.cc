@@ -12,6 +12,8 @@
 #include "test_utils.hh"
 
 using namespace std;
+using namespace Gecode;
+using namespace CodeCategorize;
 //@-<< Includes >>
 
 //@+others

@@ -16,6 +16,11 @@
 using namespace Gecode;
 //@-<< Includes >>
 
+namespace CodeCategorize {
+
+using namespace Gecode;
+using namespace std;
+
 //@+others
 //@+node:gcross.20101117133000.1471: ** Type aliases
 typedef Matrix<IntVarArgs> IntMatrix;
@@ -71,6 +76,8 @@ struct OperatorSpace : public Space {
 
 };
 //@-others
+
+}
 
 #endif
 //@-leo

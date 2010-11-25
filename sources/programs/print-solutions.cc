@@ -8,9 +8,11 @@
 #include <iostream>
 #include <cstdlib>
 
-#include "constraints.hh"
+#include "constrained_operator_space.hh"
 #include "operator_space.hh"
 
+using namespace CodeCategorize;
+using namespace Gecode;
 using namespace std;
 //@-<< Includes >>
 
