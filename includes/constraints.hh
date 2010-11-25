@@ -44,7 +44,9 @@ struct CommutatorOperatorSpace : public virtual OperatorSpace {
     CommutatorOperatorSpace(bool share, CommutatorOperatorSpace& s);
     //@+node:gcross.20101123173026.1528: *4* (methods)
     virtual Space* copy(bool share);
-    BoolMatrix getAntiCommutatorMatrix();
+    BoolMatrix getAntiCommutatorMatrix() { return BoolMatrix(anti_commuting_operators,number_of_operators,number_of_operators); }
+    IntMatrix getAntiCommutingQubitCountsMatrix() { return IntMatrix(anti_commuting_qubit_counts,number_of_operators,number_of_operators); }
+    IntMatrix getAntiCommutingQubitCountsMinusHiddenQubitsMatrix() { return IntMatrix(anti_commuting_qubit_counts_minus_hidden_qubits,number_of_operators,number_of_operators); }
     //@-others
 
 };
@@ -126,6 +128,24 @@ struct AntiCommutatorCountOrderedOperatorSpace
     //@-others
 
 };
+//@+node:gcross.20101123222425.1523: *4* struct AntiCommutatorQubitCountSequenceOrderedOperatorSpace
+struct AntiCommutatorQubitCountSequenceOrderedOperatorSpace
+    : public virtual RowOrderedOperatorSpace
+    , public virtual CommutatorOperatorSpace
+{
+
+    //@+others
+    //@+node:gcross.20101123222425.1524: *5* (fields)
+    IntVarArray sorted_anti_commuting_qubit_counts;
+    BoolVarArray interpair_ties, intrapair_ties;
+    //@+node:gcross.20101123222425.1525: *5* (constructors)
+    AntiCommutatorQubitCountSequenceOrderedOperatorSpace(int number_of_operators, int number_of_qubits);
+    AntiCommutatorQubitCountSequenceOrderedOperatorSpace(bool share, AntiCommutatorQubitCountSequenceOrderedOperatorSpace& s);
+    //@+node:gcross.20101123222425.1526: *5* (methods)
+    virtual Space* copy(bool share);
+    //@-others
+
+};
 //@+node:gcross.20101121135345.1445: *3* struct MinimalWeightOperatorSpace
 struct MinimalWeightOperatorSpace : public virtual OperatorSpace {
 
@@ -189,6 +209,7 @@ struct AllConstraintsOddRowsOperatorSpace
     , public ColumnOrderedOperatorSpace
     , public MinimalWeightOperatorSpace
     , public AntiCommutatorCountOrderedOperatorSpace
+    , public AntiCommutatorQubitCountSequenceOrderedOperatorSpace
 {
 
     //@+others
@@ -206,6 +227,7 @@ struct AllConstraintsEvenRowsOperatorSpace
     , public ColumnOrderedOperatorSpace
     , public MinimalWeightOperatorSpace
     , public AntiCommutatorCountOrderedOperatorSpace
+    , public AntiCommutatorQubitCountSequenceOrderedOperatorSpace
 {
 
     //@+others

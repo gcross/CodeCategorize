@@ -224,6 +224,50 @@ Space* AntiCommutatorCountOrderedOperatorSpace::copy(bool share)
 {
     return new AntiCommutatorCountOrderedOperatorSpace(share,*this);
 }
+//@+node:gcross.20101123222425.1530: *4* struct AntiCommutatorQubitCountSequenceOrderedOperatorSpace
+//@+node:gcross.20101123222425.1531: *5* (constructors)
+AntiCommutatorQubitCountSequenceOrderedOperatorSpace::AntiCommutatorQubitCountSequenceOrderedOperatorSpace(
+    int number_of_operators,
+    int number_of_qubits
+)
+    : RowOrderedOperatorSpace(number_of_operators,number_of_qubits)
+    , CommutatorOperatorSpace(number_of_operators,number_of_qubits)
+    , OperatorSpace(number_of_operators,number_of_qubits)
+    , sorted_anti_commuting_qubit_counts(*this,number_of_operators*number_of_operators,0,number_of_qubits+1)
+    , intrapair_ties(*this,number_of_operators*number_of_pairs,0,1)
+    , interpair_ties(*this,number_of_operators*max(number_of_pairs-1,0),0,1)
+{
+    IntMatrix sorted_anti_commuting_qubit_counts_matrix(sorted_anti_commuting_qubit_counts,number_of_operators,number_of_operators),
+              anti_commuting_qubit_counts_matrix = getAntiCommutingQubitCountsMatrix();
+    for(int i = 0; i < number_of_operators; ++i) {
+        sorted(*this,anti_commuting_qubit_counts_matrix.row(i),sorted_anti_commuting_qubit_counts_matrix.row(i));
+    }
+    BoolMatrix intrapair_ties_matrix(intrapair_ties,number_of_pairs,number_of_operators),
+               interpair_ties_matrix(interpair_ties,max(number_of_pairs-1,0),number_of_operators);
+    for(int i = number_of_operators-1; i >= 0; --i) {
+        postOrderingConstraint
+            (sorted_anti_commuting_qubit_counts_matrix.col(i)
+            ,intrapair_ties_matrix.row(i)
+            ,interpair_ties_matrix.row(i)
+            );
+    }
+
+}
+
+AntiCommutatorQubitCountSequenceOrderedOperatorSpace::AntiCommutatorQubitCountSequenceOrderedOperatorSpace(bool share, AntiCommutatorQubitCountSequenceOrderedOperatorSpace& s)
+    : RowOrderedOperatorSpace(share,s)
+    , CommutatorOperatorSpace(share,s)
+    , OperatorSpace(share,s)
+{
+    sorted_anti_commuting_qubit_counts.update(*this,share,s.sorted_anti_commuting_qubit_counts);
+    intrapair_ties.update(*this,share,s.intrapair_ties);
+    interpair_ties.update(*this,share,s.interpair_ties);
+}
+//@+node:gcross.20101123222425.1532: *5* copy
+Space* AntiCommutatorQubitCountSequenceOrderedOperatorSpace::copy(bool share)
+{
+    return new AntiCommutatorQubitCountSequenceOrderedOperatorSpace(share,*this);
+}
 //@+node:gcross.20101118114009.1492: *3* struct AllConstraintsOddRowsOperatorSpace
 //@+node:gcross.20101118114009.1493: *4* (constructors)
 AllConstraintsOddRowsOperatorSpace::AllConstraintsOddRowsOperatorSpace(int number_of_operators, int number_of_qubits)
@@ -234,6 +278,7 @@ AllConstraintsOddRowsOperatorSpace::AllConstraintsOddRowsOperatorSpace(int numbe
     , MinimalWeightOperatorSpace(number_of_operators,number_of_qubits)
     , CommutatorOperatorSpace(number_of_operators,number_of_qubits)
     , AntiCommutatorCountOrderedOperatorSpace(number_of_operators,number_of_qubits)
+    , AntiCommutatorQubitCountSequenceOrderedOperatorSpace(number_of_operators,number_of_qubits)
 {
     assert(number_of_operators % 2 == 1);
     postFirstColumnSpecialCaseConstraint(*this);
@@ -249,6 +294,7 @@ AllConstraintsOddRowsOperatorSpace::AllConstraintsOddRowsOperatorSpace(bool shar
     , MinimalWeightOperatorSpace(share,s)
     , CommutatorOperatorSpace(share,s)
     , AntiCommutatorCountOrderedOperatorSpace(share,s)
+    , AntiCommutatorQubitCountSequenceOrderedOperatorSpace(share,s)
 {
 }
 //@+node:gcross.20101118114009.1494: *4* copy
@@ -266,6 +312,7 @@ AllConstraintsEvenRowsOperatorSpace::AllConstraintsEvenRowsOperatorSpace(int num
     , MinimalWeightOperatorSpace(number_of_operators,number_of_qubits)
     , CommutatorOperatorSpace(number_of_operators,number_of_qubits)
     , AntiCommutatorCountOrderedOperatorSpace(number_of_operators,number_of_qubits)
+    , AntiCommutatorQubitCountSequenceOrderedOperatorSpace(number_of_operators,number_of_qubits)
 {
     assert(number_of_operators % 2 == 0);
     postColumnXZYOrderingConstraints(*this);
@@ -280,6 +327,7 @@ AllConstraintsEvenRowsOperatorSpace::AllConstraintsEvenRowsOperatorSpace(bool sh
     , MinimalWeightOperatorSpace(share,s)
     , CommutatorOperatorSpace(share,s)
     , AntiCommutatorCountOrderedOperatorSpace(share,s)
+    , AntiCommutatorQubitCountSequenceOrderedOperatorSpace(share,s)
 {
 }
 //@+node:gcross.20101118114009.1500: *4* copy
@@ -592,10 +640,6 @@ CommutatorOperatorSpace::CommutatorOperatorSpace(bool share, CommutatorOperatorS
 Space* CommutatorOperatorSpace::copy(bool share)
 {
     return new CommutatorOperatorSpace(share,*this);
-}
-//@+node:gcross.20101122154804.1670: *4* getAntiCommutatorMatrix
-BoolMatrix CommutatorOperatorSpace::getAntiCommutatorMatrix() {
-    return BoolMatrix(anti_commuting_operators,number_of_operators,number_of_operators);
 }
 //@+node:gcross.20101117133000.1469: ** Functions
 //@+node:gcross.20101121135345.1466: *3* choose
