@@ -17,8 +17,8 @@ namespace CodeCategorize {
 using namespace Gecode;
 
 //@+others
-//@+node:gcross.20101123222425.3925: ** struct SpecialCaseXZOperatorSpace
-struct SpecialCaseXZOperatorSpace : public virtual OperatorSpace {
+//@+node:gcross.20101123222425.3925: ** struct SpecialCaseXZConstrainedOperatorSpace
+struct SpecialCaseXZConstrainedOperatorSpace : public virtual OperatorSpace {
 
     //@+others
     //@+node:gcross.20101123222425.3926: *3* (fields)
@@ -26,8 +26,8 @@ struct SpecialCaseXZOperatorSpace : public virtual OperatorSpace {
     BoolVar special_case_is_present;
     IntVar special_case_is_present_as_int;
     //@+node:gcross.20101123222425.3927: *3* (constructors)
-    SpecialCaseXZOperatorSpace(int number_of_operators, int number_of_qubits);
-    SpecialCaseXZOperatorSpace(bool share, SpecialCaseXZOperatorSpace& s);
+    SpecialCaseXZConstrainedOperatorSpace(int number_of_operators, int number_of_qubits);
+    SpecialCaseXZConstrainedOperatorSpace(bool share, SpecialCaseXZConstrainedOperatorSpace& s);
     //@+node:gcross.20101123222425.3928: *3* (methods)
     virtual Space* copy(bool share);
     //@-others

@@ -14,9 +14,9 @@ namespace CodeCategorize {
 using namespace Gecode;
 
 //@+others
-//@+node:gcross.20101123222425.3936: ** struct SpecialCaseXZOperatorSpace
+//@+node:gcross.20101123222425.3936: ** struct SpecialCaseXZConstrainedOperatorSpace
 //@+node:gcross.20101123222425.3937: *3* (constructors)
-SpecialCaseXZOperatorSpace::SpecialCaseXZOperatorSpace(int number_of_operators, int number_of_qubits)
+SpecialCaseXZConstrainedOperatorSpace::SpecialCaseXZConstrainedOperatorSpace(int number_of_operators, int number_of_qubits)
     : OperatorSpace(number_of_operators,number_of_qubits)
     , first_row_X(*this,0,1)
     , first_row_Z(*this,0,1)
@@ -62,7 +62,7 @@ SpecialCaseXZOperatorSpace::SpecialCaseXZOperatorSpace(int number_of_operators, 
     extensional(*this,symbols,d);
 }
 
-SpecialCaseXZOperatorSpace::SpecialCaseXZOperatorSpace(bool share, SpecialCaseXZOperatorSpace& s)
+SpecialCaseXZConstrainedOperatorSpace::SpecialCaseXZConstrainedOperatorSpace(bool share, SpecialCaseXZConstrainedOperatorSpace& s)
     : OperatorSpace(share,s)
 {
     first_row_X.update(*this,share,s.first_row_X);
@@ -73,9 +73,9 @@ SpecialCaseXZOperatorSpace::SpecialCaseXZOperatorSpace(bool share, SpecialCaseXZ
     special_case_is_present_as_int.update(*this,share,s.special_case_is_present_as_int);
 }
 //@+node:gcross.20101123222425.3938: *3* copy
-Space* SpecialCaseXZOperatorSpace::copy(bool share)
+Space* SpecialCaseXZConstrainedOperatorSpace::copy(bool share)
 {
-    return new SpecialCaseXZOperatorSpace(share,*this);
+    return new SpecialCaseXZConstrainedOperatorSpace(share,*this);
 }
 //@-others
 

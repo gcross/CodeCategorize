@@ -17,8 +17,8 @@ using namespace CodeCategorize;
 testSuite(Constraints) { subSuite(SpecialCaseXZ) {
 
 void runTest(int number_of_operators,int number_of_qubits) {
-    SpecialCaseXZOperatorSpace* m = new SpecialCaseXZOperatorSpace(number_of_operators,number_of_qubits);
-    DFS<SpecialCaseXZOperatorSpace> e(m);
+    SpecialCaseXZConstrainedOperatorSpace* m = new SpecialCaseXZConstrainedOperatorSpace(number_of_operators,number_of_qubits);
+    DFS<SpecialCaseXZConstrainedOperatorSpace> e(m);
     delete m;
     for(m = e.next(); m != NULL; m = e.next()) {
         IntMatrix O_matrix = m->getOMatrix();
