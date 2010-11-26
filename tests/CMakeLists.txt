@@ -1,6 +1,7 @@
 #@+leo-ver=5-thin
 #@+node:gcross.20101123173026.1551: * @thin CMakeLists.txt
 add_executable(test EXCLUDE_FROM_ALL
+    "column_pauli_sets.cc"
     "constraints.cc"
     "constraints/column_ordered.cc"
     "constraints/minimal_weight.cc"

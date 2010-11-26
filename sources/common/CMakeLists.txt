@@ -1,6 +1,7 @@
 #@+leo-ver=5-thin
 #@+node:gcross.20101123222425.2239: * @thin CMakeLists.txt
 add_library(CodeCategorize
+    "column_pauli_sets.cc"
     "commutator.cc"
     "constrained_operator_space.cc"
     "constraints.cc"
@@ -20,6 +21,7 @@ add_library(CodeCategorize
 target_link_libraries(CodeCategorize
     gecodesearch
     gecodeint
+    gecodeset
     gecodekernel
     gecodesupport
     gecodeminimodel

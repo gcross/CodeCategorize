@@ -9,6 +9,7 @@
 <v t="gcross.20101116210206.1249"><vh>@chapters</vh></v>
 <v t="gcross.20101123173026.1546"><vh>@thin CMakeLists.txt</vh></v>
 <v t="gcross.20101116210424.1673"><vh>@path includes</vh>
+<v t="gcross.20101123222425.4449"><vh>@thin column_pauli_sets.hh</vh></v>
 <v t="gcross.20101123222425.2472"><vh>@thin commutator.hh</vh></v>
 <v t="gcross.20101123222425.2840"><vh>@thin constrained_operator_space.hh</vh></v>
 <v t="gcross.20101123222425.2288"><vh>@thin constraints.hh</vh></v>
@@ -33,6 +34,7 @@
 <v t="gcross.20101123173026.1549"><vh>@thin CMakeLists.txt</vh></v>
 <v t="gcross.20101123222425.2235"><vh>@path common</vh>
 <v t="gcross.20101123222425.2239"><vh>@thin CMakeLists.txt</vh></v>
+<v t="gcross.20101123222425.4486"><vh>@thin column_pauli_sets.cc</vh></v>
 <v t="gcross.20101123222425.3650"><vh>@thin commutator.cc</vh></v>
 <v t="gcross.20101123222425.3723"><vh>@thin constrained_operator_space.cc</vh></v>
 <v t="gcross.20101117113704.1319"><vh>@thin constraints.cc</vh></v>
@@ -62,6 +64,7 @@
 </v>
 <v t="gcross.20101116210424.1676"><vh>@path tests</vh>
 <v t="gcross.20101123173026.1551"><vh>@thin CMakeLists.txt</vh></v>
+<v t="gcross.20101123222425.4468"><vh>@thin column_pauli_sets.cc</vh></v>
 <v t="gcross.20101123222425.4013"><vh>@thin commutator.cc</vh></v>
 <v t="gcross.20101123222425.4092"><vh>@thin constraints.cc</vh></v>
 <v t="gcross.20101123222425.4124"><vh>@path constraints</vh>
