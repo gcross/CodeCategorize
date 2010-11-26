@@ -25,12 +25,13 @@ SpecialCaseXZConstrainedOperatorSpace::SpecialCaseXZConstrainedOperatorSpace(int
     , special_case_is_present(*this,0,1)
     , special_case_is_present_as_int(*this,0,1)
 {
+    const int first_column = number_of_operators % 2;
     BoolMatrix X_matrix = getXMatrix(),
                Z_matrix = getZMatrix();
-    rel(*this,BOT_AND,X_matrix.row(0),first_row_X);
-    rel(*this,BOT_OR ,Z_matrix.row(0),first_row_Z);
-    rel(*this,BOT_OR ,X_matrix.row(1),second_row_X);
-    rel(*this,BOT_AND,Z_matrix.row(1),second_row_Z);
+    rel(*this,BOT_AND,X_matrix.slice(first_column,number_of_qubits,0,1),first_row_X);
+    rel(*this,BOT_OR ,Z_matrix.slice(first_column,number_of_qubits,0,1),first_row_Z);
+    rel(*this,BOT_OR ,X_matrix.slice(first_column,number_of_qubits,1,2),second_row_X);
+    rel(*this,BOT_AND,Z_matrix.slice(first_column,number_of_qubits,1,2),second_row_Z);
 
     BoolVarArgs expected_to_be_true, expected_to_be_false;
     expected_to_be_true << first_row_X << second_row_Z;
@@ -56,7 +57,7 @@ SpecialCaseXZConstrainedOperatorSpace::SpecialCaseXZConstrainedOperatorSpace(int
     IntMatrix O_matrix = getOMatrix();
     IntVarArgs symbols;
     symbols << special_case_is_present_as_int;
-    for(int i = 0; i < number_of_qubits; ++i) {
+    for(int i = first_column; i < number_of_qubits; ++i) {
         symbols << O_matrix.slice(i,i+1,2,number_of_operators);
     }
     extensional(*this,symbols,d);

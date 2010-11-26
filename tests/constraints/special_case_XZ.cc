@@ -17,17 +17,18 @@ using namespace CodeCategorize;
 testSuite(Constraints) { subSuite(SpecialCaseXZ) {
 
 void runTest(int number_of_operators,int number_of_qubits) {
+    const int first_column = number_of_operators % 2;
     SpecialCaseXZConstrainedOperatorSpace* m = new SpecialCaseXZConstrainedOperatorSpace(number_of_operators,number_of_qubits);
     DFS<SpecialCaseXZConstrainedOperatorSpace> e(m);
     delete m;
     for(m = e.next(); m != NULL; m = e.next()) {
         IntMatrix O_matrix = m->getOMatrix();
         int first_X = -1, first_Z = -1, index = 0;
-        for(int i = 0; i < number_of_qubits; ++i) {
+        for(int i = first_column; i < number_of_qubits; ++i) {
             if(O_matrix(i,0).val() != 1) goto skip;
             if(O_matrix(i,1).val() != 2) goto skip;
         }
-        for(int i = 0; i < number_of_qubits; ++i) {
+        for(int i = first_column; i < number_of_qubits; ++i) {
             for(int j = 2; j < number_of_operators; ++j, ++index) {
                 if(first_X == -1 && O_matrix(i,j).val() == 1) first_X = index;
                 if(first_Z == -1 && O_matrix(i,j).val() == 2) first_Z = index;
