@@ -1,5 +1,5 @@
 //@+leo-ver=5-thin
-//@+node:gcross.20101121135345.1473: * @thin test_utils.hh
+//@+node:gcross.20101123222425.4266: * @thin test_utils.hh
 //@@language cplusplus
 
 #ifndef TEST_UTILS_HH
