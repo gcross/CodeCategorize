@@ -24,6 +24,7 @@ AllConstraintsOddRowsOperatorSpace::AllConstraintsOddRowsOperatorSpace(int numbe
     , MinimalWeightOperatorSpace(number_of_operators,number_of_qubits)
     , CommutatorOperatorSpace(number_of_operators,number_of_qubits)
     , AntiCommutatorCountOrderedOperatorSpace(number_of_operators,number_of_qubits)
+    , AntiCommutatorCountMinusLastOrderedOperatorSpace(number_of_operators,number_of_qubits)
     , AntiCommutatorQubitCountSequenceOrderedOperatorSpace(number_of_operators,number_of_qubits)
     , SpecialCaseXZConstrainedOperatorSpace(number_of_operators,number_of_qubits)
 {
@@ -41,6 +42,7 @@ AllConstraintsOddRowsOperatorSpace::AllConstraintsOddRowsOperatorSpace(bool shar
     , MinimalWeightOperatorSpace(share,s)
     , CommutatorOperatorSpace(share,s)
     , AntiCommutatorCountOrderedOperatorSpace(share,s)
+    , AntiCommutatorCountMinusLastOrderedOperatorSpace(share,s)
     , AntiCommutatorQubitCountSequenceOrderedOperatorSpace(share,s)
     , SpecialCaseXZConstrainedOperatorSpace(share,s)
 {
