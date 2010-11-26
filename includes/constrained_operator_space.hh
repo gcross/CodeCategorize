@@ -15,6 +15,7 @@
 #include "constraints/row_ordered/first_column.hh"
 #include "constraints/row_ordered/weight.hh"
 #include "constraints/row_ordered/weight_and_first_column.hh"
+#include "constraints/special_case_XZ.hh"
 #include "operator_space.hh"
 //@-<< Includes >>
 
@@ -31,6 +32,7 @@ struct AllConstraintsOddRowsOperatorSpace
     , public MinimalWeightOperatorSpace
     , public AntiCommutatorCountOrderedOperatorSpace
     , public AntiCommutatorQubitCountSequenceOrderedOperatorSpace
+    , public SpecialCaseXZConstrainedOperatorSpace
 {
 
     //@+others
@@ -49,6 +51,7 @@ struct AllConstraintsEvenRowsOperatorSpace
     , public MinimalWeightOperatorSpace
     , public AntiCommutatorCountOrderedOperatorSpace
     , public AntiCommutatorQubitCountSequenceOrderedOperatorSpace
+    , public SpecialCaseXZConstrainedOperatorSpace
 {
 
     //@+others

@@ -25,6 +25,7 @@ AllConstraintsOddRowsOperatorSpace::AllConstraintsOddRowsOperatorSpace(int numbe
     , CommutatorOperatorSpace(number_of_operators,number_of_qubits)
     , AntiCommutatorCountOrderedOperatorSpace(number_of_operators,number_of_qubits)
     , AntiCommutatorQubitCountSequenceOrderedOperatorSpace(number_of_operators,number_of_qubits)
+    , SpecialCaseXZConstrainedOperatorSpace(number_of_operators,number_of_qubits)
 {
     assert(number_of_operators % 2 == 1);
     postFirstColumnSpecialCaseConstraint(*this);
@@ -41,6 +42,7 @@ AllConstraintsOddRowsOperatorSpace::AllConstraintsOddRowsOperatorSpace(bool shar
     , CommutatorOperatorSpace(share,s)
     , AntiCommutatorCountOrderedOperatorSpace(share,s)
     , AntiCommutatorQubitCountSequenceOrderedOperatorSpace(share,s)
+    , SpecialCaseXZConstrainedOperatorSpace(share,s)
 {
 }
 //@+node:gcross.20101123222425.3748: *4* copy
@@ -59,6 +61,7 @@ AllConstraintsEvenRowsOperatorSpace::AllConstraintsEvenRowsOperatorSpace(int num
     , CommutatorOperatorSpace(number_of_operators,number_of_qubits)
     , AntiCommutatorCountOrderedOperatorSpace(number_of_operators,number_of_qubits)
     , AntiCommutatorQubitCountSequenceOrderedOperatorSpace(number_of_operators,number_of_qubits)
+    , SpecialCaseXZConstrainedOperatorSpace(number_of_operators,number_of_qubits)
 {
     assert(number_of_operators % 2 == 0);
     postColumnXZYOrderingConstraints(*this);
@@ -74,6 +77,7 @@ AllConstraintsEvenRowsOperatorSpace::AllConstraintsEvenRowsOperatorSpace(bool sh
     , CommutatorOperatorSpace(share,s)
     , AntiCommutatorCountOrderedOperatorSpace(share,s)
     , AntiCommutatorQubitCountSequenceOrderedOperatorSpace(share,s)
+    , SpecialCaseXZConstrainedOperatorSpace(share,s)
 {
 }
 //@+node:gcross.20101123222425.3751: *4* copy
