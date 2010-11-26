@@ -18,6 +18,7 @@
 <v t="gcross.20101123222425.2380"><vh>@thin row_ordered.hh</vh></v>
 <v t="gcross.20101123222425.2886"><vh>@path row_ordered</vh>
 <v t="gcross.20101123222425.3085"><vh>@thin anti_commutator_count.hh</vh></v>
+<v t="gcross.20101123222425.4343"><vh>@thin anti_commutator_count_minus_last.hh</vh></v>
 <v t="gcross.20101123222425.3113"><vh>@thin anti_commutator_qubit_count_sequence.hh</vh></v>
 <v t="gcross.20101123222425.2933"><vh>@thin first_column.hh</vh></v>
 <v t="gcross.20101123222425.2748"><vh>@thin weight.hh</vh></v>
@@ -41,6 +42,7 @@
 <v t="gcross.20101123222425.3471"><vh>@thin row_ordered.cc</vh></v>
 <v t="gcross.20101123222425.3802"><vh>@path row_ordered</vh>
 <v t="gcross.20101123222425.3908"><vh>@thin anti_commutator_count.cc</vh></v>
+<v t="gcross.20101123222425.4354"><vh>@thin anti_commutator_count_minus_last.cc</vh></v>
 <v t="gcross.20101123222425.3780"><vh>@thin anti_commutator_qubit_count_sequence.cc</vh></v>
 <v t="gcross.20101123222425.3854"><vh>@thin first_column.cc</vh></v>
 <v t="gcross.20101123222425.3821"><vh>@thin weight.cc</vh></v>

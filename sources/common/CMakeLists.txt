@@ -8,6 +8,7 @@ add_library(CodeCategorize
     "constraints/minimal_weight.cc"
     "constraints/row_ordered.cc"
     "constraints/row_ordered/anti_commutator_count.cc"
+    "constraints/row_ordered/anti_commutator_count_minus_last.cc"
     "constraints/row_ordered/anti_commutator_qubit_count_sequence.cc"
     "constraints/row_ordered/first_column.cc"
     "constraints/row_ordered/weight.cc"
