@@ -7,6 +7,7 @@ add_executable(test EXCLUDE_FROM_ALL
     "constraints/minimal_weight.cc"
     "constraints/row_ordered.cc"
     "constraints/special_case_XZ.cc"
+    "constraints/XZY_ordered.cc"
     "operator_space.cc"
     "test_utils.cc"
 )

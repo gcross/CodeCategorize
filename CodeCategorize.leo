@@ -26,6 +26,7 @@
 <v t="gcross.20101123222425.3025"><vh>@thin weight_and_first_column.hh</vh></v>
 </v>
 <v t="gcross.20101123222425.3923"><vh>@thin special_case_XZ.hh</vh></v>
+<v t="gcross.20101126142808.1688"><vh>@thin XZY_ordered.hh</vh></v>
 </v>
 <v t="gcross.20101116210424.1511"><vh>@thin operator_space.hh</vh></v>
 <v t="gcross.20101123222425.2564"><vh>@thin utilities.hh</vh></v>
@@ -51,6 +52,7 @@
 <v t="gcross.20101123222425.3884"><vh>@thin weight_and_first_column.cc</vh></v>
 </v>
 <v t="gcross.20101123222425.3934"><vh>@thin special_case_XZ.cc</vh></v>
+<v t="gcross.20101126142808.1699"><vh>@thin XZY_ordered.cc</vh></v>
 </v>
 <v t="gcross.20101116210424.1514"><vh>@thin operator_space.cc</vh></v>
 <v t="gcross.20101123222425.3274"><vh>@thin utilities.cc</vh></v>
@@ -72,6 +74,7 @@
 <v t="gcross.20101123222425.4170"><vh>@thin minimal_weight.cc</vh></v>
 <v t="gcross.20101117133000.1340"><vh>@thin row_ordered.cc</vh></v>
 <v t="gcross.20101123222425.4207"><vh>@thin special_case_XZ.cc</vh></v>
+<v t="gcross.20101126142808.1720"><vh>@thin XZY_ordered.cc</vh></v>
 </v>
 <v t="gcross.20101116210424.2275"><vh>@thin operator_space.cc</vh></v>
 <v t="gcross.20101123222425.4266"><vh>@thin test_utils.hh</vh></v>
