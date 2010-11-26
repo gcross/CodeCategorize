@@ -22,6 +22,7 @@ struct ColumnOrderedOperatorSpace : public virtual OperatorSpace {
 
     //@+others
     //@+node:gcross.20101118114009.1431: *3* (fields)
+    int number_of_ties;
     BoolVarArray ties;
     //@+node:gcross.20101118114009.1432: *3* (constructors)
     ColumnOrderedOperatorSpace(int number_of_operators, int number_of_qubits);
