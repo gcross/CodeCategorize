@@ -317,7 +317,7 @@ void runTest(int number_of_operators, int number_of_qubits) {
     delete m;
     for(m = e.next(); m != NULL; m = e.next()) {
         IntMatrix O_matrix = m->getOMatrix(),
-                  orderings_matrix(m->orderings,number_of_operators,number_of_qubits);
+                  unsorted_orderings_matrix(m->unsorted_orderings,number_of_operators,number_of_qubits);
         for(int i = 0; i < number_of_qubits; ++i) {
             int counts[3] = {0,0,0};
             for(int j = 0; j < number_of_operators; ++j) {
@@ -338,7 +338,7 @@ void runTest(int number_of_operators, int number_of_qubits) {
                 labels[3] = 0; labels[2] = 1; labels[1] = 2;
             }
             for(int j = 0; j < number_of_operators; ++j) {
-                assertEqual(labels[O_matrix(i,j).val()],orderings_matrix(j,i).val());
+                assertEqual(labels[O_matrix(i,j).val()],unsorted_orderings_matrix(j,i).val());
             }
         }
         delete m;

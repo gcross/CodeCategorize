@@ -27,7 +27,7 @@ struct PauliGroupsRowOrderedOperatorSpace
 
     //@+others
     //@+node:gcross.20101126220444.1908: *3* (fields)
-    IntVarArray pauli_orderings, orderings;
+    IntVarArray pauli_orderings, unsorted_orderings, orderings;
     BoolVarArray XZ, ZY, XY, interpair_ties, intrapair_ties;
     //@+node:gcross.20101126220444.1909: *3* (constructors)
     PauliGroupsRowOrderedOperatorSpace(int number_of_operators, int number_of_qubits);

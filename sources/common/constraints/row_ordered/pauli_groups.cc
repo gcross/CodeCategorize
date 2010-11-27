@@ -24,6 +24,7 @@ PauliGroupsRowOrderedOperatorSpace::PauliGroupsRowOrderedOperatorSpace(
     , ColumnPauliSetsOperatorSpace(number_of_operators,number_of_qubits)
     , OperatorSpace(number_of_operators,number_of_qubits)
     , pauli_orderings(*this,number_of_qubits*3,0,3)
+    , unsorted_orderings(*this,number_of_qubits*number_of_operators,0,2)
     , orderings(*this,number_of_qubits*number_of_operators,0,2)
     , XZ(*this,number_of_qubits,0,1)
     , ZY(*this,number_of_qubits,0,1)
@@ -32,6 +33,7 @@ PauliGroupsRowOrderedOperatorSpace::PauliGroupsRowOrderedOperatorSpace(
     , interpair_ties(*this,number_of_qubits*max(number_of_pairs-1,0),0,1)
 {
     IntMatrix  pauli_orderings_matrix(pauli_orderings,3,number_of_qubits),
+               unsorted_orderings_matrix(unsorted_orderings,number_of_operators,number_of_qubits),
                orderings_matrix(orderings,number_of_operators,number_of_qubits),
                O_matrix = getOMatrix();
     BoolMatrix intrapair_ties_matrix(intrapair_ties,number_of_pairs,number_of_qubits),
@@ -85,9 +87,10 @@ PauliGroupsRowOrderedOperatorSpace::PauliGroupsRowOrderedOperatorSpace(
         for(int j = 0; j < number_of_operators; ++j) {
             rel(*this,
                 (O_matrix(i,j) == 0 && orderings_matrix(j,i) == 4)
-              ^ (orderings_matrix(j,i) == element(pauli_orderings_matrix.row(i),O_matrix(i,j)-1))
+              ^ (unsorted_orderings_matrix(j,i) == element(pauli_orderings_matrix.row(i),O_matrix(i,j)-1))
             );
         }
+        sorted(*this,unsorted_orderings_matrix.row(i),orderings_matrix.row(i));
         postOrderingConstraint
             (orderings_matrix.row(i)
             ,intrapair_ties_matrix.row(i)
@@ -103,6 +106,7 @@ PauliGroupsRowOrderedOperatorSpace::PauliGroupsRowOrderedOperatorSpace(bool shar
 {
     pauli_orderings.update(*this,share,s.pauli_orderings);
     orderings.update(*this,share,s.orderings);
+    unsorted_orderings.update(*this,share,s.unsorted_orderings);
     intrapair_ties.update(*this,share,s.intrapair_ties);
     interpair_ties.update(*this,share,s.interpair_ties);
 }
