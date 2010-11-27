@@ -18,24 +18,28 @@ using namespace Gecode;
 //@+node:gcross.20101123222425.3680: *3* (constructors)
 CommutatorOperatorSpace::CommutatorOperatorSpace(int number_of_operators, int number_of_qubits)
     : OperatorSpace(number_of_operators,number_of_qubits)
-    , number_of_commutators(number_of_operators*(number_of_operators-1))
+    , number_of_commutators(number_of_operators*(number_of_operators-1)/2)
     , anti_commuting_qubits(*this,number_of_commutators*number_of_qubits,0,1)
     , anti_commuting_qubit_counts_minus_hidden_qubits(*this,number_of_operators*number_of_operators,0,number_of_qubits)
     , anti_commuting_qubit_counts(*this,number_of_operators*number_of_operators,0,number_of_qubits+1)
     , anti_commuting_operators(*this,number_of_operators*number_of_operators,0,1)
+    , commutator_matrix(number_of_operators,number_of_operators)
 {
-    BoolMatrix anti_commuting_qubits_matrix(anti_commuting_qubits,number_of_qubits,number_of_commutators),
-               anti_commuting_operators_matrix(anti_commuting_operators,number_of_operators,number_of_operators),
+    BoolMatrix anti_commuting_qubits_matrix = getAntiCommutingQubitsMatrix(),
+               anti_commuting_operators_matrix = getAntiCommutatorMatrix(),
                X_matrix = getXMatrix(),
                Z_matrix = getZMatrix();
-    IntMatrix  anti_commuting_qubit_counts_minus_hidden_qubits_matrix(anti_commuting_qubit_counts_minus_hidden_qubits,number_of_operators,number_of_operators),
-                anti_commuting_qubit_counts_matrix(anti_commuting_qubit_counts,number_of_operators,number_of_operators);
+    IntMatrix  anti_commuting_qubit_counts_minus_hidden_qubits_matrix = getAntiCommutingQubitCountsMinusHiddenQubitsMatrix(),
+               anti_commuting_qubit_counts_matrix = getAntiCommutingQubitCountsMatrix();
     int commutator_number = 0;
     for(int i = 0; i < number_of_operators; ++i) {
         rel(*this,anti_commuting_qubit_counts_minus_hidden_qubits_matrix(i,i) == 0);
         rel(*this,anti_commuting_qubit_counts_matrix(i,i) == 0);
         rel(*this,anti_commuting_operators_matrix(i,i) == 0);
+        commutator_matrix(i,i) = -1;
         for(int j = i+1; j < number_of_operators; ++j) {
+            commutator_matrix(i,j) = commutator_number;
+            commutator_matrix(j,i) = commutator_number;
             for(int k = 0; k < number_of_qubits; ++k) {
                 rel(*this,anti_commuting_qubits_matrix(k,commutator_number) ==
                     (X_matrix(k,i) && Z_matrix(k,j))
@@ -59,6 +63,7 @@ CommutatorOperatorSpace::CommutatorOperatorSpace(int number_of_operators, int nu
 
 CommutatorOperatorSpace::CommutatorOperatorSpace(bool share, CommutatorOperatorSpace& s)
     : OperatorSpace(share,s)
+    , number_of_commutators(s.number_of_commutators)
 {
     anti_commuting_qubits.update(*this,share,s.anti_commuting_qubits);
     anti_commuting_operators.update(*this,share,s.anti_commuting_operators);

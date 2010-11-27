@@ -8,6 +8,7 @@
 //@+<< Includes >>
 //@+node:gcross.20101123222425.2473: ** << Includes >>
 #include <gecode/int.hh>
+#include <boost/numeric/ublas/matrix.hpp>
 
 #include "operator_space.hh"
 //@-<< Includes >>
@@ -24,6 +25,8 @@ struct CommutatorOperatorSpace : public virtual OperatorSpace {
     //@+node:gcross.20101123222425.2480: *3* (fields)
     int number_of_commutators;
 
+    boost::numeric::ublas::matrix<int> commutator_matrix;
+
     BoolVarArray anti_commuting_qubits, anti_commuting_operators;
     IntVarArray anti_commuting_qubit_counts_minus_hidden_qubits, anti_commuting_qubit_counts;
     //@+node:gcross.20101123222425.2481: *3* (constructors)
@@ -31,6 +34,7 @@ struct CommutatorOperatorSpace : public virtual OperatorSpace {
     CommutatorOperatorSpace(bool share, CommutatorOperatorSpace& s);
     //@+node:gcross.20101123222425.2482: *3* (methods)
     virtual Space* copy(bool share);
+    BoolMatrix getAntiCommutingQubitsMatrix() { return BoolMatrix(anti_commuting_qubits,number_of_qubits,number_of_commutators); }
     BoolMatrix getAntiCommutatorMatrix() { return BoolMatrix(anti_commuting_operators,number_of_operators,number_of_operators); }
     IntMatrix getAntiCommutingQubitCountsMatrix() { return IntMatrix(anti_commuting_qubit_counts,number_of_operators,number_of_operators); }
     IntMatrix getAntiCommutingQubitCountsMinusHiddenQubitsMatrix() { return IntMatrix(anti_commuting_qubit_counts_minus_hidden_qubits,number_of_operators,number_of_operators); }
