@@ -14,37 +14,61 @@ using namespace Gecode;
 
 //@+others
 //@+node:gcross.20101123222425.3725: ** Classes
-//@+node:gcross.20101123222425.3746: *3* struct AllConstraintsOddRowsOperatorSpace
-//@+node:gcross.20101123222425.3747: *4* (constructors)
-AllConstraintsOddRowsOperatorSpace::AllConstraintsOddRowsOperatorSpace(int number_of_operators, int number_of_qubits)
+//@+node:gcross.20101126220444.1931: *3* struct AllConstraintsBaseOperatorSpace
+//@+node:gcross.20101126220444.1932: *4* (constructors)
+AllConstraintsBaseOperatorSpace::AllConstraintsBaseOperatorSpace(int number_of_operators, int number_of_qubits)
     : OperatorSpace(number_of_operators,number_of_qubits)
     , RowOrderedOperatorSpace(number_of_operators,number_of_qubits)
-    , WeightAndFirstColumnXRowOrderedOperatorSpace(number_of_operators,number_of_qubits)
+    , WeightRowOrderedOperatorSpace(number_of_operators,number_of_qubits)
     , ColumnOrderedOperatorSpace(number_of_operators,number_of_qubits)
     , MinimalWeightOperatorSpace(number_of_operators,number_of_qubits)
     , CommutatorOperatorSpace(number_of_operators,number_of_qubits)
     , AntiCommutatorCountOrderedOperatorSpace(number_of_operators,number_of_qubits)
-    , AntiCommutatorLastOperatorSequenceOrderedOperatorSpace(number_of_operators,number_of_qubits)
     , AntiCommutatorQubitCountSequenceOrderedOperatorSpace(number_of_operators,number_of_qubits)
     , SpecialCaseXZConstrainedOperatorSpace(number_of_operators,number_of_qubits)
 {
-    assert(number_of_operators % 2 == 1);
-    postFirstColumnSpecialCaseConstraint(*this);
     postColumnXZYOrderingConstraints(*this);
     postNonTrivialWeightConstraints(*this);
 }
 
-AllConstraintsOddRowsOperatorSpace::AllConstraintsOddRowsOperatorSpace(bool share, AllConstraintsOddRowsOperatorSpace& s)
+AllConstraintsBaseOperatorSpace::AllConstraintsBaseOperatorSpace(bool share, AllConstraintsBaseOperatorSpace& s)
     : OperatorSpace(share,s)
     , RowOrderedOperatorSpace(share,s)
-    , WeightAndFirstColumnXRowOrderedOperatorSpace(share,s)
+    , WeightRowOrderedOperatorSpace(share,s)
     , ColumnOrderedOperatorSpace(share,s)
     , MinimalWeightOperatorSpace(share,s)
     , CommutatorOperatorSpace(share,s)
     , AntiCommutatorCountOrderedOperatorSpace(share,s)
-    , AntiCommutatorLastOperatorSequenceOrderedOperatorSpace(share,s)
     , AntiCommutatorQubitCountSequenceOrderedOperatorSpace(share,s)
     , SpecialCaseXZConstrainedOperatorSpace(share,s)
+{
+}
+//@+node:gcross.20101126220444.1933: *4* copy
+Space* AllConstraintsBaseOperatorSpace::copy(bool share)
+{
+    return new AllConstraintsBaseOperatorSpace(share,*this);
+}
+//@+node:gcross.20101123222425.3746: *3* struct AllConstraintsOddRowsOperatorSpace
+//@+node:gcross.20101123222425.3747: *4* (constructors)
+AllConstraintsOddRowsOperatorSpace::AllConstraintsOddRowsOperatorSpace(int number_of_operators, int number_of_qubits)
+    : OperatorSpace(number_of_operators,number_of_qubits)
+    , AllConstraintsBaseOperatorSpace(number_of_operators,number_of_qubits)
+    , RowOrderedOperatorSpace(number_of_operators,number_of_qubits)
+    , CommutatorOperatorSpace(number_of_operators,number_of_qubits)
+    , AntiCommutatorLastOperatorSequenceOrderedOperatorSpace(number_of_operators,number_of_qubits)
+    , FirstColumnXRowOrderedOperatorSpace(number_of_operators,number_of_qubits)
+{
+    assert(number_of_operators % 2 == 1);
+    postFirstColumnSpecialCaseConstraint(*this);
+}
+
+AllConstraintsOddRowsOperatorSpace::AllConstraintsOddRowsOperatorSpace(bool share, AllConstraintsOddRowsOperatorSpace& s)
+    : OperatorSpace(share,s)
+    , AllConstraintsBaseOperatorSpace(share,s)
+    , RowOrderedOperatorSpace(share,s)
+    , CommutatorOperatorSpace(share,s)
+    , AntiCommutatorLastOperatorSequenceOrderedOperatorSpace(share,s)
+    , FirstColumnXRowOrderedOperatorSpace(share,s)
 {
 }
 //@+node:gcross.20101123222425.3748: *4* copy
@@ -56,30 +80,18 @@ Space* AllConstraintsOddRowsOperatorSpace::copy(bool share)
 //@+node:gcross.20101123222425.3750: *4* (constructors)
 AllConstraintsEvenRowsOperatorSpace::AllConstraintsEvenRowsOperatorSpace(int number_of_operators, int number_of_qubits)
     : OperatorSpace(number_of_operators,number_of_qubits)
+    , AllConstraintsBaseOperatorSpace(number_of_operators,number_of_qubits)
     , RowOrderedOperatorSpace(number_of_operators,number_of_qubits)
-    , WeightRowOrderedOperatorSpace(number_of_operators,number_of_qubits)
-    , ColumnOrderedOperatorSpace(number_of_operators,number_of_qubits)
-    , MinimalWeightOperatorSpace(number_of_operators,number_of_qubits)
     , CommutatorOperatorSpace(number_of_operators,number_of_qubits)
-    , AntiCommutatorCountOrderedOperatorSpace(number_of_operators,number_of_qubits)
-    , AntiCommutatorQubitCountSequenceOrderedOperatorSpace(number_of_operators,number_of_qubits)
-    , SpecialCaseXZConstrainedOperatorSpace(number_of_operators,number_of_qubits)
 {
     assert(number_of_operators % 2 == 0);
-    postColumnXZYOrderingConstraints(*this);
-    postNonTrivialWeightConstraints(*this);
 }
 
 AllConstraintsEvenRowsOperatorSpace::AllConstraintsEvenRowsOperatorSpace(bool share, AllConstraintsEvenRowsOperatorSpace& s)
     : OperatorSpace(share,s)
+    , AllConstraintsBaseOperatorSpace(share,s)
     , RowOrderedOperatorSpace(share,s)
-    , WeightRowOrderedOperatorSpace(share,s)
-    , ColumnOrderedOperatorSpace(share,s)
-    , MinimalWeightOperatorSpace(share,s)
     , CommutatorOperatorSpace(share,s)
-    , AntiCommutatorCountOrderedOperatorSpace(share,s)
-    , AntiCommutatorQubitCountSequenceOrderedOperatorSpace(share,s)
-    , SpecialCaseXZConstrainedOperatorSpace(share,s)
 {
 }
 //@+node:gcross.20101123222425.3751: *4* copy

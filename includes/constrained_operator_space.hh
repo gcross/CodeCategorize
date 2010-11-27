@@ -26,15 +26,30 @@ using namespace Gecode;
 
 //@+others
 //@+node:gcross.20101123222425.2842: ** Classes
-//@+node:gcross.20101123222425.2879: *3* struct AllConstraintsOddRowsOperatorSpace
-struct AllConstraintsOddRowsOperatorSpace
-    : public WeightAndFirstColumnXRowOrderedOperatorSpace
+//@+node:gcross.20101126220444.1925: *3* struct AllConstraintsBaseOperatorSpace
+struct AllConstraintsBaseOperatorSpace
+    : public WeightRowOrderedOperatorSpace
     , public ColumnOrderedOperatorSpace
     , public MinimalWeightOperatorSpace
     , public AntiCommutatorCountOrderedOperatorSpace
     , public AntiCommutatorQubitCountSequenceOrderedOperatorSpace
-    , public AntiCommutatorLastOperatorSequenceOrderedOperatorSpace
     , public SpecialCaseXZConstrainedOperatorSpace
+{
+
+    //@+others
+    //@+node:gcross.20101126220444.1926: *4* (constructors)
+    AllConstraintsBaseOperatorSpace(int number_of_operators, int number_of_qubits);
+    AllConstraintsBaseOperatorSpace(bool share, AllConstraintsBaseOperatorSpace& s);
+    //@+node:gcross.20101126220444.1927: *4* (methods)
+    virtual Space* copy(bool share);
+    //@-others
+
+};
+//@+node:gcross.20101123222425.2879: *3* struct AllConstraintsOddRowsOperatorSpace
+struct AllConstraintsOddRowsOperatorSpace
+    : public AllConstraintsBaseOperatorSpace
+    , public FirstColumnXRowOrderedOperatorSpace
+    , public AntiCommutatorLastOperatorSequenceOrderedOperatorSpace
 {
 
     //@+others
@@ -48,12 +63,7 @@ struct AllConstraintsOddRowsOperatorSpace
 };
 //@+node:gcross.20101123222425.2882: *3* struct AllConstraintsEvenRowsOperatorSpace
 struct AllConstraintsEvenRowsOperatorSpace
-    : public WeightRowOrderedOperatorSpace
-    , public ColumnOrderedOperatorSpace
-    , public MinimalWeightOperatorSpace
-    , public AntiCommutatorCountOrderedOperatorSpace
-    , public AntiCommutatorQubitCountSequenceOrderedOperatorSpace
-    , public SpecialCaseXZConstrainedOperatorSpace
+    : public AllConstraintsBaseOperatorSpace
 {
 
     //@+others
