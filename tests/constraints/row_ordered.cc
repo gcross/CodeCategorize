@@ -15,6 +15,7 @@
 #include "constraints/row_ordered/anti_commutator_last_operator_sequence.hh"
 #include "constraints/row_ordered/anti_commutator_qubit_count_sequence.hh"
 #include "constraints/row_ordered/first_column.hh"
+#include "constraints/row_ordered/pauli_groups.hh"
 #include "constraints/row_ordered/weight.hh"
 #include "constraints/row_ordered/weight_and_first_column.hh"
 
@@ -305,6 +306,56 @@ testCase(_4x2) {
     }
 }
 //@-others
+
+}
+//@+node:gcross.20101126220444.1921: *3* PauliGroups
+subSuite(PauliGroups) {
+
+void runTest(int number_of_operators, int number_of_qubits) {
+    PauliGroupsRowOrderedOperatorSpace* m = new PauliGroupsRowOrderedOperatorSpace(number_of_operators,number_of_qubits);
+    DFS<PauliGroupsRowOrderedOperatorSpace> e(m);
+    delete m;
+    for(m = e.next(); m != NULL; m = e.next()) {
+        IntMatrix O_matrix = m->getOMatrix(),
+                  orderings_matrix(m->orderings,number_of_operators,number_of_qubits);
+        for(int i = 0; i < number_of_qubits; ++i) {
+            int counts[3] = {0,0,0};
+            for(int j = 0; j < number_of_operators; ++j) {
+                if(O_matrix(i,j).val() > 0) ++counts[O_matrix(i,j).val()-1];
+            }
+            int labels[4] = {4,-1,-1,-1};
+            if(counts[0] >= counts[1] && counts[1] >= counts[2]) {
+                labels[1] = 0; labels[2] = 1; labels[3] = 2;
+            } else if(counts[0] >= counts[2] && counts[2] >= counts[1]) {
+                labels[1] = 0; labels[3] = 1; labels[2] = 2;
+            } else if(counts[1] >= counts[0] && counts[0] >= counts[2]) {
+                labels[2] = 0; labels[1] = 1; labels[3] = 2;
+            } else if(counts[1] >= counts[2] && counts[2] >= counts[0]) {
+                labels[2] = 0; labels[3] = 1; labels[1] = 2;
+            } else if(counts[2] >= counts[0] && counts[0] >= counts[1]) {
+                labels[3] = 0; labels[1] = 1; labels[2] = 2;
+            } else if(counts[2] >= counts[1] && counts[1] >= counts[0]) {
+                labels[3] = 0; labels[2] = 1; labels[1] = 2;
+            }
+            for(int j = 0; j < number_of_operators; ++j) {
+                assertEqual(labels[O_matrix(i,j).val()],orderings_matrix(j,i).val());
+            }
+        }
+        delete m;
+    }
+}
+
+testCase(_1x1) { runTest(1,1); }
+testCase(_1x2) { runTest(1,2); }
+testCase(_1x3) { runTest(1,3); }
+testCase(_2x1) { runTest(2,1); }
+testCase(_2x2) { runTest(2,2); }
+testCase(_2x3) { runTest(2,3); }
+testCase(_3x1) { runTest(3,1); }
+testCase(_3x2) { runTest(3,2); }
+testCase(_3x3) { runTest(3,3); }
+testCase(_4x1) { runTest(4,1); }
+testCase(_5x1) { runTest(5,1); }
 
 }
 //@+node:gcross.20101123222425.4260: *3* Weight

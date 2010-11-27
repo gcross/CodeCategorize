@@ -13,6 +13,7 @@ add_library(CodeCategorize
     "constraints/row_ordered/anti_commutator_last_operator_sequence.cc"
     "constraints/row_ordered/anti_commutator_qubit_count_sequence.cc"
     "constraints/row_ordered/first_column.cc"
+    "constraints/row_ordered/pauli_groups.cc"
     "constraints/row_ordered/weight.cc"
     "constraints/row_ordered/weight_and_first_column.cc"
     "constraints/special_case_XZ.cc"
