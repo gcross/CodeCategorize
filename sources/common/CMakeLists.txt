@@ -10,6 +10,7 @@ add_library(CodeCategorize
     "constraints/row_ordered.cc"
     "constraints/row_ordered/anti_commutator_count.cc"
     "constraints/row_ordered/anti_commutator_count_minus_last.cc"
+    "constraints/row_ordered/anti_commutator_last_operator_sequence.cc"
     "constraints/row_ordered/anti_commutator_qubit_count_sequence.cc"
     "constraints/row_ordered/first_column.cc"
     "constraints/row_ordered/weight.cc"
