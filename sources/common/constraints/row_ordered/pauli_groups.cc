@@ -23,72 +23,60 @@ PauliGroupsRowOrderedOperatorSpace::PauliGroupsRowOrderedOperatorSpace(
     : RowOrderedOperatorSpace(number_of_operators,number_of_qubits)
     , ColumnPauliSetsOperatorSpace(number_of_operators,number_of_qubits)
     , OperatorSpace(number_of_operators,number_of_qubits)
-    , pauli_orderings(*this,number_of_qubits*3,0,3)
-    , unsorted_orderings(*this,number_of_qubits*number_of_operators,0,2)
-    , orderings(*this,number_of_qubits*number_of_operators,0,2)
+    , pauli_orderings(*this,number_of_qubits*4,0,3)
+    , unsorted_orderings(*this,number_of_qubits*number_of_operators,0,3)
+    , orderings(*this,number_of_qubits*number_of_operators,0,3)
     , XZ(*this,number_of_qubits,0,1)
     , ZY(*this,number_of_qubits,0,1)
     , XY(*this,number_of_qubits,0,1)
     , intrapair_ties(*this,number_of_qubits*number_of_pairs,0,1)
     , interpair_ties(*this,number_of_qubits*max(number_of_pairs-1,0),0,1)
 {
-    IntMatrix  pauli_orderings_matrix(pauli_orderings,3,number_of_qubits),
+    IntMatrix  pauli_orderings_matrix(pauli_orderings,4,number_of_qubits),
                unsorted_orderings_matrix(unsorted_orderings,number_of_operators,number_of_qubits),
                orderings_matrix(orderings,number_of_operators,number_of_qubits),
                O_matrix = getOMatrix();
     BoolMatrix intrapair_ties_matrix(intrapair_ties,number_of_pairs,number_of_qubits),
                interpair_ties_matrix(interpair_ties,max(number_of_pairs-1,0),number_of_qubits);
-    for(int i = 0; i < number_of_qubits; ++i) {
+    for(int i = number_of_qubits-1; i >= 0; --i) {
         XZ[i] = expr(*this,cardinality(X_sets[i]) >= cardinality(Z_sets[i]));
         ZY[i] = expr(*this,cardinality(Z_sets[i]) >= cardinality(Y_sets[i]));
         XY[i] = expr(*this,cardinality(X_sets[i]) >= cardinality(Y_sets[i]));
+        pauli_orderings_matrix(0,i) = expr(*this,3);
         rel(*this,
-            (XZ[i] && ZY[i]) >>
-            (   pauli_orderings_matrix(0,i) == 0
+            (XZ[i] && ZY[i]
+             && pauli_orderings_matrix(1,i) == 0
+             && pauli_orderings_matrix(2,i) == 1
+             && pauli_orderings_matrix(3,i) == 2
+            )
+          ^ (XY[i] && !ZY[i]
+             && pauli_orderings_matrix(1,i) == 0
+             && pauli_orderings_matrix(3,i) == 1
+             && pauli_orderings_matrix(2,i) == 2
+            )
+          ^ (!XY[i] && XZ[i]
+             && pauli_orderings_matrix(3,i) == 0
              && pauli_orderings_matrix(1,i) == 1
              && pauli_orderings_matrix(2,i) == 2
             )
-        );
-        rel(*this,
-            (XY[i] && !ZY[i]) >>
-            (   pauli_orderings_matrix(0,i) == 0
+          ^ (!ZY[i] && !XZ[i]
+             && pauli_orderings_matrix(3,i) == 0
              && pauli_orderings_matrix(2,i) == 1
              && pauli_orderings_matrix(1,i) == 2
             )
-        );
-        rel(*this,
-            (!XY[i] && XZ[i]) >>
-            (   pauli_orderings_matrix(2,i) == 0
-             && pauli_orderings_matrix(0,i) == 1
+          ^ (ZY[i] && !XY[i]
+             && pauli_orderings_matrix(2,i) == 0
+             && pauli_orderings_matrix(3,i) == 1
              && pauli_orderings_matrix(1,i) == 2
             )
-        );
-        rel(*this,
-            (!ZY[i] && !XZ[i]) >>
-            (   pauli_orderings_matrix(2,i) == 0
+          ^ (!XZ[i] && XY[i]
+             && pauli_orderings_matrix(2,i) == 0
              && pauli_orderings_matrix(1,i) == 1
-             && pauli_orderings_matrix(0,i) == 2
-            )
-        );
-        rel(*this,
-            (ZY[i] && !XY[i]) >>
-            (   pauli_orderings_matrix(1,i) == 0
-             && pauli_orderings_matrix(2,i) == 1
-             && pauli_orderings_matrix(0,i) == 2
-            )
-        );
-        rel(*this,
-            (!XZ[i] && XY[i]) >>
-            (   pauli_orderings_matrix(1,i) == 0
-             && pauli_orderings_matrix(0,i) == 1
-             && pauli_orderings_matrix(2,i) == 2
+             && pauli_orderings_matrix(3,i) == 2
             )
         );
         for(int j = 0; j < number_of_operators; ++j) {
-            rel(*this,
-                (O_matrix(i,j) == 0 && orderings_matrix(j,i) == 4)
-              ^ (unsorted_orderings_matrix(j,i) == element(pauli_orderings_matrix.row(i),O_matrix(i,j)-1))
-            );
+            element(*this,pauli_orderings_matrix.row(i),O_matrix(i,j),unsorted_orderings_matrix(j,i));
         }
         sorted(*this,unsorted_orderings_matrix.row(i),orderings_matrix.row(i));
         postOrderingConstraint
