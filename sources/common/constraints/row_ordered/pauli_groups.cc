@@ -26,9 +26,9 @@ PauliGroupsRowOrderedOperatorSpace::PauliGroupsRowOrderedOperatorSpace(
     , pauli_orderings(*this,number_of_qubits*4,0,3)
     , unsorted_orderings(*this,number_of_qubits*number_of_operators,0,3)
     , orderings(*this,number_of_qubits*number_of_operators,0,3)
-    , X_set_sizes(*this,number_of_qubits,0,1)
-    , Y_set_sizes(*this,number_of_qubits,0,1)
-    , Z_set_sizes(*this,number_of_qubits,0,1)
+    , X_set_sizes(*this,number_of_qubits,0,number_of_operators)
+    , Y_set_sizes(*this,number_of_qubits,0,number_of_operators)
+    , Z_set_sizes(*this,number_of_qubits,0,number_of_operators)
     , intrapair_ties(*this,number_of_qubits*number_of_pairs,0,1)
     , interpair_ties(*this,number_of_qubits*max(number_of_pairs-1,0),0,1)
 {
