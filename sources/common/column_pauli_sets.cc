@@ -36,7 +36,7 @@ ColumnPauliSetsOperatorSpace::ColumnPauliSetsOperatorSpace(int number_of_operato
         Z_sets[i] = expr(*this,Z_bit_sets[i] - X_bit_sets[i]);
         Y_sets[i] = expr(*this,X_bit_sets[i] & Z_bit_sets[i]);
         channel(*this,non_trivial_matrix.col(i),non_trivial_sets[i]);
-        I_sets[i] = expr(*this,-non_trivial_sets[i]);
+        I_sets[i] = expr(*this,IntSet(0,number_of_operators-1)-non_trivial_sets[i]);
     }
 }
 
