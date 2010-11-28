@@ -75,6 +75,7 @@
 <v t="gcross.20101123222425.4092"><vh>@thin constraints.cc</vh></v>
 <v t="gcross.20101123222425.4124"><vh>@path constraints</vh>
 <v t="gcross.20101123222425.4141"><vh>@thin column_ordered.cc</vh></v>
+<v t="gcross.20101127142618.1751"><vh>@thin interactions.cc</vh></v>
 <v t="gcross.20101123222425.4170"><vh>@thin minimal_weight.cc</vh></v>
 <v t="gcross.20101117133000.1340"><vh>@thin row_ordered.cc</vh></v>
 <v t="gcross.20101123222425.4207"><vh>@thin special_case_XZ.cc</vh></v>

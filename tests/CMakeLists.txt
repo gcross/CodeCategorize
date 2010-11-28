@@ -5,6 +5,7 @@ add_executable(test EXCLUDE_FROM_ALL
     "commutator.cc"
     "constraints.cc"
     "constraints/column_ordered.cc"
+    "constraints/interactions.cc"
     "constraints/minimal_weight.cc"
     "constraints/row_ordered.cc"
     "constraints/special_case_XZ.cc"

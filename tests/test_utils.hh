@@ -8,12 +8,19 @@
 //@+<< Includes >>
 //@+node:gcross.20101121135345.1483: ** << Includes >>
 #include <gecode/int.hh>
+#include <vector>
+
+#include "operator_space.hh"
 
 using namespace Gecode;
+using namespace CodeCategorize;
+using namespace std;
 //@-<< Includes >>
 
 //@+others
 //@+node:gcross.20101121135345.1481: ** Functions
+vector<long> gatherSolutions(OperatorSpace* m);
+long longFromOperatorSpace(OperatorSpace* m);
 void validateNonTrivial(const BoolVarArray& X, const BoolVarArray& Z, const BoolVarArray& non_trivial);
 //@-others
 
