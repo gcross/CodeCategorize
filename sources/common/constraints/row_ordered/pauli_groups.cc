@@ -26,9 +26,9 @@ PauliGroupsRowOrderedOperatorSpace::PauliGroupsRowOrderedOperatorSpace(
     , pauli_orderings(*this,number_of_qubits*4,0,3)
     , unsorted_orderings(*this,number_of_qubits*number_of_operators,0,3)
     , orderings(*this,number_of_qubits*number_of_operators,0,3)
-    , XZ(*this,number_of_qubits,0,1)
-    , ZY(*this,number_of_qubits,0,1)
-    , XY(*this,number_of_qubits,0,1)
+    , X_set_sizes(*this,number_of_qubits,0,1)
+    , Y_set_sizes(*this,number_of_qubits,0,1)
+    , Z_set_sizes(*this,number_of_qubits,0,1)
     , intrapair_ties(*this,number_of_qubits*number_of_pairs,0,1)
     , interpair_ties(*this,number_of_qubits*max(number_of_pairs-1,0),0,1)
 {
@@ -38,52 +38,33 @@ PauliGroupsRowOrderedOperatorSpace::PauliGroupsRowOrderedOperatorSpace(
                O_matrix = getOMatrix();
     BoolMatrix intrapair_ties_matrix(intrapair_ties,number_of_pairs,number_of_qubits),
                interpair_ties_matrix(interpair_ties,max(number_of_pairs-1,0),number_of_qubits);
-    for(int i = number_of_qubits-1; i >= 0; --i) {
-        XZ[i] = expr(*this,cardinality(X_sets[i]) >= cardinality(Z_sets[i]));
-        ZY[i] = expr(*this,cardinality(Z_sets[i]) >= cardinality(Y_sets[i]));
-        XY[i] = expr(*this,cardinality(X_sets[i]) >= cardinality(Y_sets[i]));
-        pauli_orderings_matrix(0,i) = expr(*this,3);
-        rel(*this,
-            (XZ[i] && ZY[i]
-             && pauli_orderings_matrix(1,i) == 0
-             && pauli_orderings_matrix(2,i) == 1
-             && pauli_orderings_matrix(3,i) == 2
-            )
-          ^ (XY[i] && !ZY[i]
-             && pauli_orderings_matrix(1,i) == 0
-             && pauli_orderings_matrix(3,i) == 1
-             && pauli_orderings_matrix(2,i) == 2
-            )
-          ^ (!XY[i] && XZ[i]
-             && pauli_orderings_matrix(3,i) == 0
-             && pauli_orderings_matrix(1,i) == 1
-             && pauli_orderings_matrix(2,i) == 2
-            )
-          ^ (!ZY[i] && !XZ[i]
-             && pauli_orderings_matrix(3,i) == 0
-             && pauli_orderings_matrix(2,i) == 1
-             && pauli_orderings_matrix(1,i) == 2
-            )
-          ^ (ZY[i] && !XY[i]
-             && pauli_orderings_matrix(2,i) == 0
-             && pauli_orderings_matrix(3,i) == 1
-             && pauli_orderings_matrix(1,i) == 2
-            )
-          ^ (!XZ[i] && XY[i]
-             && pauli_orderings_matrix(2,i) == 0
-             && pauli_orderings_matrix(1,i) == 1
-             && pauli_orderings_matrix(3,i) == 2
-            )
-        );
+    for(int i = 0; i < number_of_qubits; ++i) {
+        cardinality(*this,X_sets[i],X_set_sizes[i]);
+        cardinality(*this,Y_sets[i],Y_set_sizes[i]);
+        cardinality(*this,Z_sets[i],Z_set_sizes[i]);
+        #define pauliGroupRelation(O1,O2,N1,N2,_CMP_) \
+            rel(*this,(O1##_set_sizes[i] _CMP_ O2##_set_sizes[i]) >> (pauli_orderings_matrix(N1,i) _CMP_ pauli_orderings_matrix(N2,i)));
+        #define pauliGroupRelations(O1,O2,N1,N2) \
+            pauliGroupRelation(O1,O2,N1,N2,>); \
+            pauliGroupRelation(O1,O2,N1,N2,==); \
+            pauliGroupRelation(O1,O2,N1,N2,<);
+        pauliGroupRelations(X,Z,1,2);
+        pauliGroupRelations(Z,Y,2,3);
+        pauliGroupRelations(X,Y,1,3);
+        for(int o = 1; o <= 3; ++o) {
+            rel(*this,pauli_orderings_matrix(o,i) < pauli_orderings_matrix(0,i));
+        }
         for(int j = 0; j < number_of_operators; ++j) {
             element(*this,pauli_orderings_matrix.row(i),O_matrix(i,j),unsorted_orderings_matrix(j,i));
         }
-        sorted(*this,unsorted_orderings_matrix.row(i),orderings_matrix.row(i));
         postOrderingConstraint
             (orderings_matrix.row(i)
             ,intrapair_ties_matrix.row(i)
             ,interpair_ties_matrix.row(i)
             );
+    }
+    for(int i = 0; i < number_of_operators; ++i) {
+        sorted(*this,unsorted_orderings_matrix.col(i),orderings_matrix.col(i));
     }
 }
 
@@ -93,8 +74,11 @@ PauliGroupsRowOrderedOperatorSpace::PauliGroupsRowOrderedOperatorSpace(bool shar
     , OperatorSpace(share,s)
 {
     pauli_orderings.update(*this,share,s.pauli_orderings);
-    orderings.update(*this,share,s.orderings);
     unsorted_orderings.update(*this,share,s.unsorted_orderings);
+    orderings.update(*this,share,s.orderings);
+    X_set_sizes.update(*this,share,s.X_set_sizes);
+    Y_set_sizes.update(*this,share,s.Y_set_sizes);
+    Z_set_sizes.update(*this,share,s.Z_set_sizes);
     intrapair_ties.update(*this,share,s.intrapair_ties);
     interpair_ties.update(*this,share,s.interpair_ties);
 }
