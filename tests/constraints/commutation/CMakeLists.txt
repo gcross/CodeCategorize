@@ -1,0 +1,14 @@
+set(COMMUTATION_SOURCES
+    constraints/commutation/AntiCommutatorCountOrdered-AntiCommutatorQubitCountSequenceOrdered.cc
+    constraints/commutation/AntiCommutatorCountOrdered-FirstColumnXRowOrdered.cc
+    constraints/commutation/AntiCommutatorCountOrdered-PauliGroupsRowOrdered.cc
+    constraints/commutation/AntiCommutatorCountOrdered-WeightRowOrdered.cc
+    constraints/commutation/AntiCommutatorCountMinusLastOrdered-AntiCommutatorLastOperatorSequenceOrdered.cc
+    constraints/commutation/AntiCommutatorQubitCountSequenceOrdered-FirstColumnXRowOrdered.cc
+    constraints/commutation/AntiCommutatorQubitCountSequenceOrdered-PauliGroupsRowOrdered.cc
+    constraints/commutation/AntiCommutatorQubitCountSequenceOrdered-WeightRowOrdered.cc
+    constraints/commutation/FirstColumnXRowOrdered-PauliGroupsRowOrdered.cc
+    constraints/commutation/FirstColumnXRowOrdered-WeightRowOrdered.cc
+    constraints/commutation/PauliGroupsRowOrdered-WeightRowOrdered.cc
+     PARENT_SCOPE
+)

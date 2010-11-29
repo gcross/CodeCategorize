@@ -1,0 +1,37 @@
+set(COMPATIBILITY_SOURCES
+    constraints/compatibility/AntiCommutatorCountOrdered-ColumnOrdered.cc
+    constraints/compatibility/AntiCommutatorCountOrdered-MinimalWeight.cc
+    constraints/compatibility/AntiCommutatorCountOrdered-SpecialCaseXZConstrained.cc
+    constraints/compatibility/AntiCommutatorCountOrdered-XZYOrdered.cc
+    constraints/compatibility/AntiCommutatorCountMinusLastOrdered-ColumnOrdered.cc
+    constraints/compatibility/AntiCommutatorCountMinusLastOrdered-MinimalWeight.cc
+    constraints/compatibility/AntiCommutatorCountMinusLastOrdered-SpecialCaseXZConstrained.cc
+    constraints/compatibility/AntiCommutatorCountMinusLastOrdered-XZYOrdered.cc
+    constraints/compatibility/AntiCommutatorQubitCountSequenceOrdered-ColumnOrdered.cc
+    constraints/compatibility/AntiCommutatorQubitCountSequenceOrdered-MinimalWeight.cc
+    constraints/compatibility/AntiCommutatorQubitCountSequenceOrdered-SpecialCaseXZConstrained.cc
+    constraints/compatibility/AntiCommutatorQubitCountSequenceOrdered-XZYOrdered.cc
+    constraints/compatibility/AntiCommutatorLastOperatorSequenceOrdered-ColumnOrdered.cc
+    constraints/compatibility/AntiCommutatorLastOperatorSequenceOrdered-MinimalWeight.cc
+    constraints/compatibility/AntiCommutatorLastOperatorSequenceOrdered-SpecialCaseXZConstrained.cc
+    constraints/compatibility/AntiCommutatorLastOperatorSequenceOrdered-XZYOrdered.cc
+    constraints/compatibility/FirstColumnXRowOrdered-ColumnOrdered.cc
+    constraints/compatibility/FirstColumnXRowOrdered-MinimalWeight.cc
+    constraints/compatibility/FirstColumnXRowOrdered-SpecialCaseXZConstrained.cc
+    constraints/compatibility/FirstColumnXRowOrdered-XZYOrdered.cc
+    constraints/compatibility/PauliGroupsRowOrdered-ColumnOrdered.cc
+    constraints/compatibility/PauliGroupsRowOrdered-MinimalWeight.cc
+    constraints/compatibility/PauliGroupsRowOrdered-SpecialCaseXZConstrained.cc
+    constraints/compatibility/PauliGroupsRowOrdered-XZYOrdered.cc
+    constraints/compatibility/WeightRowOrdered-ColumnOrdered.cc
+    constraints/compatibility/WeightRowOrdered-MinimalWeight.cc
+    constraints/compatibility/WeightRowOrdered-SpecialCaseXZConstrained.cc
+    constraints/compatibility/WeightRowOrdered-XZYOrdered.cc
+    constraints/compatibility/ColumnOrdered-MinimalWeight.cc
+    constraints/compatibility/ColumnOrdered-SpecialCaseXZConstrained.cc
+    constraints/compatibility/ColumnOrdered-XZYOrdered.cc
+    constraints/compatibility/MinimalWeight-SpecialCaseXZConstrained.cc
+    constraints/compatibility/MinimalWeight-XZYOrdered.cc
+    constraints/compatibility/SpecialCaseXZConstrained-XZYOrdered.cc
+     PARENT_SCOPE
+)

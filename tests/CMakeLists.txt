@@ -1,6 +1,19 @@
 #@+leo-ver=5-thin
 #@+node:gcross.20101123173026.1551: * @thin CMakeLists.txt
-add_subdirectory("constraints/interactions")
+#@+<< Macros >>
+#@+node:gcross.20101128193219.1847: ** << Macros >>
+macro(makeTestProgram program-name)
+    add_executable(${program-name} EXCLUDE_FROM_ALL ${${program-name}-SOURCES})
+    target_link_libraries(${program-name} CodeCategorize unit-- unit--main)
+    set_property(TARGET ${program-name} PROPERTY RUNTIME_OUTPUT_DIRECTORY .)
+endmacro(makeTestProgram)
+#@-<< Macros >>
+
+#@+<< Includes >>
+#@+node:gcross.20101128193219.1850: ** << Includes >>
+add_subdirectory("constraints/compatibility")
+add_subdirectory("constraints/commutation")
+#@-<< Includes >>
 
 #@+others
 #@+node:gcross.20101128153132.1775: ** test
@@ -25,18 +38,21 @@ set(test-SOURCES
     test_utils_tests.cc
 )
 
-add_executable(test EXCLUDE_FROM_ALL ${test-SOURCES})
-target_link_libraries(test CodeCategorize unit-- unit--main interactions)
-set_property(TARGET test PROPERTY RUNTIME_OUTPUT_DIRECTORY .)
-#@+node:gcross.20101128153132.1776: ** test-constraint-interactions
-set(test-constraint-interactions-SOURCES
-    ${INTERACTIONS_SOURCES} 
+makeTestProgram(test)
+#@+node:gcross.20101128153132.1776: ** test-constraint-compatibility
+set(test-constraint-compatibility-SOURCES
+    ${COMPATIBILITY_SOURCES} 
     test_utils.cc
 )
 
-add_executable(test-constraint-interactions EXCLUDE_FROM_ALL ${test-constraint-interactions-SOURCES})
-target_link_libraries(test-constraint-interactions CodeCategorize unit-- unit--main)
-set_property(TARGET test-constraint-interactions PROPERTY RUNTIME_OUTPUT_DIRECTORY .)
+makeTestProgram(test-constraint-compatibility)
+#@+node:gcross.20101128193219.1849: ** test-constraint-commutation
+set(test-constraint-commutation-SOURCES
+    ${COMMUTATION_SOURCES} 
+    test_utils.cc
+)
+
+makeTestProgram(test-constraint-commutation)
 #@+node:gcross.20101128173348.1867: ** test-constraints-row-ordered
 set(test-constraints-row-ordered-SOURCES
     constraints/row_ordered.cc
@@ -50,8 +66,6 @@ set(test-constraints-row-ordered-SOURCES
     test_utils.cc
 )
 
-add_executable(test-constraints-row-ordered EXCLUDE_FROM_ALL ${test-constraints-row-ordered-SOURCES})
-target_link_libraries(test-constraints-row-ordered CodeCategorize unit-- unit--main)
-set_property(TARGET test-constraints-row-ordered PROPERTY RUNTIME_OUTPUT_DIRECTORY .)
+makeTestProgram(test-constraints-row-ordered)
 #@-others
 #@-leo

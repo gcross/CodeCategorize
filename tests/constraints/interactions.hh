@@ -54,8 +54,8 @@ template <class T1,class T2> struct ConstraintInteractionOperatorSpace
     {
         return new ConstraintInteractionOperatorSpace(share,*this);
     }
-    //@+node:gcross.20101128173348.1853: *3* runTest
-    static void runTest(int number_of_operators, int number_of_qubits) {
+    //@+node:gcross.20101128173348.1853: *3* runCompatibilityTest
+    static void runCompatibilityTest(int number_of_operators, int number_of_qubits) {
         vector<long> solutions_intersection;
         {
             vector<long> solutions_1 = gatherSolutions(new T1(number_of_operators,number_of_qubits));
@@ -86,26 +86,71 @@ template <class T1,class T2> struct ConstraintInteractionOperatorSpace
             assertTrue(solutions_difference.empty() && "combining the two constraints *adds* solutions");
         }
     }
+    //@+node:gcross.20101128193219.1853: *3* runCommutationTest
+    static void runCommutationTest(int number_of_operators, int number_of_qubits) {
+        long number_of_solutions_12 = countSolutions(new ConstraintInteractionOperatorSpace<T1,T2>(number_of_operators,number_of_qubits));
+        long number_of_solutions_21 = countSolutions(new ConstraintInteractionOperatorSpace<T2,T1>(number_of_operators,number_of_qubits));
+        assertEqual(number_of_solutions_12,number_of_solutions_21);
+    }
     //@-others
 
 };
 //@+node:gcross.20101128173348.1854: ** Macros
-#define runTestFor(T1,T2,m,n) \
-    testCase( _##m##x##n ) { ConstraintInteractionOperatorSpace< T1##OperatorSpace , T2##OperatorSpace >::runTest(m,n); };
+#define runCompatibilityTestFor(T1,T2,m,n) \
+    testCase( _##m##x##n ) { ConstraintInteractionOperatorSpace< T1##OperatorSpace , T2##OperatorSpace >::runCompatibilityTest(m,n); };
 
-#define runTestsFor(T1,T2)              \
-    testSuite(Constraint_Interactions) {\
-        subSuite( T1##_and_##T2 ) {     \
-            runTestFor(T1,T2,2,1);      \
-            runTestFor(T1,T2,2,2);      \
-            runTestFor(T1,T2,2,3);      \
-            runTestFor(T1,T2,3,1);      \
-            runTestFor(T1,T2,3,2);      \
-            runTestFor(T1,T2,3,3);      \
-            runTestFor(T1,T2,4,1);      \
-            runTestFor(T1,T2,4,2);      \
-            runTestFor(T1,T2,5,1);      \
-        };                              \
+#define runCompatibilityTestsFor(T1,T2)              \
+    testSuite(Constraint_Compatibility) {            \
+        subSuite( T1##_and_##T2 ) {                  \
+            runCompatibilityTestFor(T1,T2,2,1);      \
+            runCompatibilityTestFor(T1,T2,2,2);      \
+            runCompatibilityTestFor(T1,T2,2,3);      \
+            runCompatibilityTestFor(T1,T2,3,1);      \
+            runCompatibilityTestFor(T1,T2,3,2);      \
+            runCompatibilityTestFor(T1,T2,3,3);      \
+            runCompatibilityTestFor(T1,T2,4,1);      \
+            runCompatibilityTestFor(T1,T2,4,2);      \
+            runCompatibilityTestFor(T1,T2,5,1);      \
+        };                                           \
+    }
+#define runCommutationTestFor(T1,T2,m,n) \
+    testCase( _##m##x##n ) { ConstraintInteractionOperatorSpace< T1##OperatorSpace , T2##OperatorSpace >::runCommutationTest(m,n); };
+
+#define runEvenRowCommutationTestsFor(T1,T2)         \
+    testSuite(Constraint_Commutation) {              \
+        subSuite( T1##_and_##T2 ) {                  \
+            runCommutationTestFor(T1,T2,2,1);        \
+            runCommutationTestFor(T1,T2,2,2);        \
+            runCommutationTestFor(T1,T2,2,3);        \
+            runCommutationTestFor(T1,T2,4,1);        \
+            runCommutationTestFor(T1,T2,4,2);        \
+        };                                           \
+    }
+
+#define runOddRowCommutationTestsFor(T1,T2)          \
+    testSuite(Constraint_Commutation) {              \
+        subSuite( T1##_and_##T2 ) {                  \
+            runCommutationTestFor(T1,T2,3,1);        \
+            runCommutationTestFor(T1,T2,3,2);        \
+            runCommutationTestFor(T1,T2,3,3);        \
+            runCommutationTestFor(T1,T2,5,1);        \
+        };                                           \
+    }
+
+
+#define runCommutationTestsFor(T1,T2)                \
+    testSuite(Constraint_Commutation) {              \
+        subSuite( T1##_and_##T2 ) {                  \
+            runCommutationTestFor(T1,T2,2,1);        \
+            runCommutationTestFor(T1,T2,2,2);        \
+            runCommutationTestFor(T1,T2,2,3);        \
+            runCommutationTestFor(T1,T2,3,1);        \
+            runCommutationTestFor(T1,T2,3,2);        \
+            runCommutationTestFor(T1,T2,3,3);        \
+            runCommutationTestFor(T1,T2,4,1);        \
+            runCommutationTestFor(T1,T2,4,2);        \
+            runCommutationTestFor(T1,T2,5,1);        \
+        };                                           \
     }
 //@-others
 //@-leo

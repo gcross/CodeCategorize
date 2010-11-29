@@ -1,5 +1,5 @@
 #@+leo-ver=5-thin
-#@+node:gcross.20101128173348.1858: * @thin interactions/make-interaction-tests.py
+#@+node:gcross.20101128173348.1858: * @thin compatibility/make-compatibility-tests.py
 from __future__ import print_function
 from itertools import combinations_with_replacement
 
@@ -21,6 +21,9 @@ sources = []
 
 for ((constraint1,file1),(constraint2,file2)) in combinations_with_replacement(tests,2):
     if constraint1 == constraint2: continue
+    is_row1 = file1.find("row_ordered") > -1
+    is_row2 = file2.find("row_ordered") > -1
+    if(is_row1 and is_row2): continue
     source = "{constraint1}-{constraint2}.cc".format(**locals())
     sources.append(source);
     with open(source,"w") as f: print("""\
@@ -28,13 +31,13 @@ for ((constraint1,file1),(constraint2,file2)) in combinations_with_replacement(t
 #include "constraints/{file1}.hh"
 #include "constraints/{file2}.hh"
 
-runTestsFor({constraint1},{constraint2});
+runCompatibilityTestsFor({constraint1},{constraint2});
 """.format(**locals()),file=f)
 
 with open("CMakeLists.txt","w") as f:
-    print("set(INTERACTIONS_SOURCES",file=f)
+    print("set(COMPATIBILITY_SOURCES",file=f)
     for source in sources:
-        print("    constraints/interactions/{}".format(source),file=f)
+        print("    constraints/compatibility/{}".format(source),file=f)
     print("     PARENT_SCOPE",file=f)
     print(")",file=f)
 #@-leo
