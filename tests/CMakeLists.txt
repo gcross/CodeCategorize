@@ -13,6 +13,7 @@ endmacro(makeTestProgram)
 #@+node:gcross.20101128193219.1850: ** << Includes >>
 add_subdirectory("constraints/compatibility")
 add_subdirectory("constraints/commutation")
+include_directories(".")
 #@-<< Includes >>
 
 #@+others
