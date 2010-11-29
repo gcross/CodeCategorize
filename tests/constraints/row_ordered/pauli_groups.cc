@@ -44,6 +44,7 @@ void runTest(int number_of_operators, int number_of_qubits) {
                     tryRelation(==);
                     tryRelation(>);
                 }
+                assertTrue(pauli_orderings_matrix(j+1,i).val() > pauli_orderings_matrix(0,i).val());
             }
             for(int j = 0; j < number_of_operators; ++j) {
                 assertEqual(pauli_orderings_matrix(O_matrix(i,j).val(),i).val(),unsorted_orderings_matrix(j,i).val());
