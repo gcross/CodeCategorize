@@ -14,7 +14,18 @@ using namespace std;
 
 //@+others
 //@+node:gcross.20101121135345.1477: ** Functions
-//@+node:gcross.20101127142618.1766: *3* gatherSolutions
+//@+node:gcross.20101127142618.1766: *3* countSolutions
+long countSolutions(OperatorSpace* m) {
+    DFS<OperatorSpace> e(m);
+    delete m;
+    long number_of_solutions = 0;
+    for(m = e.next(); m != NULL; m = e.next()) {
+        ++number_of_solutions;
+        delete m;
+    }
+    return number_of_solutions;
+}
+//@+node:gcross.20101128173348.1865: *3* gatherSolutions
 vector<long> gatherSolutions(OperatorSpace* m) {
     DFS<OperatorSpace> e(m);
     delete m;

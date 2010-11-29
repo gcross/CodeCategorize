@@ -75,12 +75,22 @@
 <v t="gcross.20101123222425.4092"><vh>@thin constraints.cc</vh></v>
 <v t="gcross.20101123222425.4124"><vh>@path constraints</vh>
 <v t="gcross.20101123222425.4141"><vh>@thin column_ordered.cc</vh></v>
+<v t="gcross.20101128173348.1848"><vh>@thin interactions.hh</vh></v>
+<v t="gcross.20101128173348.1858"><vh>@thin interactions/make-interaction-tests.py</vh></v>
 <v t="gcross.20101123222425.4170"><vh>@thin minimal_weight.cc</vh></v>
 <v t="gcross.20101117133000.1340"><vh>@thin row_ordered.cc</vh></v>
+<v t="gcross.20101128153132.1778"><vh>@path row_ordered</vh>
+<v t="gcross.20101128153132.1805"><vh>@thin anti_commutator_count.cc</vh></v>
+<v t="gcross.20101128153132.1836"><vh>@thin anti_commutator_count_minus_last.cc</vh></v>
+<v t="gcross.20101128153132.1842"><vh>@thin anti_commutator_last_operator_sequence.cc</vh></v>
+<v t="gcross.20101128153132.1848"><vh>@thin first_column.cc</vh></v>
+<v t="gcross.20101128173348.1788"><vh>@thin pauli_groups.cc</vh></v>
+<v t="gcross.20101128173348.1804"><vh>@thin weight.cc</vh></v>
+<v t="gcross.20101128153132.1871"><vh>@thin weight_and_first_column.cc</vh></v>
+</v>
 <v t="gcross.20101123222425.4207"><vh>@thin special_case_XZ.cc</vh></v>
 <v t="gcross.20101126142808.1720"><vh>@thin XZY_ordered.cc</vh></v>
 </v>
-<v t="gcross.20101127142618.1751"><vh>@thin constraint_interactions.cc</vh></v>
 <v t="gcross.20101116210424.2275"><vh>@thin operator_space.cc</vh></v>
 <v t="gcross.20101123222425.4266"><vh>@thin test_utils.hh</vh></v>
 <v t="gcross.20101123222425.4269"><vh>@thin test_utils.cc</vh></v>
@@ -99,5 +109,6 @@
 <t tx="gcross.20101123222425.3421"></t>
 <t tx="gcross.20101123222425.3802"></t>
 <t tx="gcross.20101123222425.4124"></t>
+<t tx="gcross.20101128153132.1778"></t>
 </tnodes>
 </leo_file>

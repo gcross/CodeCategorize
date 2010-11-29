@@ -19,6 +19,7 @@ using namespace std;
 
 //@+others
 //@+node:gcross.20101121135345.1481: ** Functions
+long countSolutions(OperatorSpace* m);
 vector<long> gatherSolutions(OperatorSpace* m);
 long longFromOperatorSpace(OperatorSpace* m);
 void validateNonTrivial(const BoolVarArray& X, const BoolVarArray& Z, const BoolVarArray& non_trivial);

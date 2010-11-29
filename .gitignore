@@ -12,3 +12,6 @@ Makefile
 cmake_install.cmake
 *.a
 test
+test-constraint-interactions
+test-constraints-row-ordered
+tests/constraints/interactions/*.cc
