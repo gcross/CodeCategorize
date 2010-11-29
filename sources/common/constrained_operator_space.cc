@@ -26,8 +26,9 @@ AllConstraintsBaseOperatorSpace::AllConstraintsBaseOperatorSpace(int number_of_o
     , AntiCommutatorCountOrderedOperatorSpace(number_of_operators,number_of_qubits)
     , AntiCommutatorQubitCountSequenceOrderedOperatorSpace(number_of_operators,number_of_qubits)
     , SpecialCaseXZConstrainedOperatorSpace(number_of_operators,number_of_qubits)
+    , ColumnPauliSetsOperatorSpace(number_of_operators,number_of_qubits)
+    , XZYOrderedOperatorSpace(number_of_operators,number_of_qubits)
 {
-    postColumnXZYOrderingConstraints(*this);
     postNonTrivialWeightConstraints(*this);
 }
 
@@ -41,6 +42,8 @@ AllConstraintsBaseOperatorSpace::AllConstraintsBaseOperatorSpace(bool share, All
     , AntiCommutatorCountOrderedOperatorSpace(share,s)
     , AntiCommutatorQubitCountSequenceOrderedOperatorSpace(share,s)
     , SpecialCaseXZConstrainedOperatorSpace(share,s)
+    , ColumnPauliSetsOperatorSpace(share,s)
+    , XZYOrderedOperatorSpace(share,s)
 {
 }
 //@+node:gcross.20101126220444.1933: *4* copy
@@ -57,6 +60,7 @@ AllConstraintsOddRowsOperatorSpace::AllConstraintsOddRowsOperatorSpace(int numbe
     , CommutatorOperatorSpace(number_of_operators,number_of_qubits)
     , AntiCommutatorLastOperatorSequenceOrderedOperatorSpace(number_of_operators,number_of_qubits)
     , FirstColumnXRowOrderedOperatorSpace(number_of_operators,number_of_qubits)
+    , ColumnPauliSetsOperatorSpace(number_of_operators,number_of_qubits)
 {
     assert(number_of_operators % 2 == 1);
     postFirstColumnSpecialCaseConstraint(*this);
@@ -69,6 +73,7 @@ AllConstraintsOddRowsOperatorSpace::AllConstraintsOddRowsOperatorSpace(bool shar
     , CommutatorOperatorSpace(share,s)
     , AntiCommutatorLastOperatorSequenceOrderedOperatorSpace(share,s)
     , FirstColumnXRowOrderedOperatorSpace(share,s)
+    , ColumnPauliSetsOperatorSpace(share,s)
 {
 }
 //@+node:gcross.20101123222425.3748: *4* copy
@@ -83,6 +88,7 @@ AllConstraintsEvenRowsOperatorSpace::AllConstraintsEvenRowsOperatorSpace(int num
     , AllConstraintsBaseOperatorSpace(number_of_operators,number_of_qubits)
     , RowOrderedOperatorSpace(number_of_operators,number_of_qubits)
     , CommutatorOperatorSpace(number_of_operators,number_of_qubits)
+    , ColumnPauliSetsOperatorSpace(number_of_operators,number_of_qubits)
 {
     assert(number_of_operators % 2 == 0);
 }
@@ -92,6 +98,7 @@ AllConstraintsEvenRowsOperatorSpace::AllConstraintsEvenRowsOperatorSpace(bool sh
     , AllConstraintsBaseOperatorSpace(share,s)
     , RowOrderedOperatorSpace(share,s)
     , CommutatorOperatorSpace(share,s)
+    , ColumnPauliSetsOperatorSpace(share,s)
 {
 }
 //@+node:gcross.20101123222425.3751: *4* copy
