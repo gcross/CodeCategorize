@@ -65,7 +65,7 @@ void RowOrderedOperatorSpace::postOrderingConstraint(
             ));
         interpair_ties_[i] =
             expr(*this,
-                  interpair_ties_[i]
+                  interpair_ties[i]
                && ordering[2*i+0] == ordering[2*(i+1)+0]
                && ordering[2*i+1] == ordering[2*(i+1)+1]
             );
