@@ -1,5 +1,5 @@
 //@+leo-ver=5-thin
-//@+node:gcross.20101127142618.1751: * @thin interactions.cc
+//@+node:gcross.20101127142618.1751: * @thin constraint_interactions.cc
 //@@language cplusplus
 
 //@+<< Includes >>
@@ -13,6 +13,15 @@
 #include "constraints/column_ordered.hh"
 #include "constraints/minimal_weight.hh"
 #include "constraints/row_ordered.hh"
+#include "constraints/row_ordered/anti_commutator_count.hh"
+#include "constraints/row_ordered/anti_commutator_count_minus_last.hh"
+#include "constraints/row_ordered/anti_commutator_qubit_count_sequence.hh"
+#include "constraints/row_ordered/anti_commutator_last_operator_sequence.hh"
+#include "constraints/row_ordered/first_column.hh"
+#include "constraints/row_ordered/pauli_groups.hh"
+#include "constraints/row_ordered/weight.hh"
+#include "constraints/special_case_XZ.hh"
+#include "constraints/XZY_ordered.hh"
 #include "operator_space.hh"
 
 #include "test_utils.hh"
@@ -96,9 +105,6 @@ template <class T1,class T2> struct ConstraintInteractionOperatorSpace
     testCase( _##m##x##n ) { ConstraintInteractionOperatorSpace< T1##OperatorSpace , T2##OperatorSpace >::runTest(m,n); };
 #define runTestsFor(T1,T2)     \
     subSuite( T1##_and_##T2 ) {  \
-        runTestFor(T1,T2,1,1); \
-        runTestFor(T1,T2,1,2); \
-        runTestFor(T1,T2,1,3); \
         runTestFor(T1,T2,2,1); \
         runTestFor(T1,T2,2,2); \
         runTestFor(T1,T2,2,3); \
@@ -108,11 +114,73 @@ template <class T1,class T2> struct ConstraintInteractionOperatorSpace
         runTestFor(T1,T2,4,1); \
         runTestFor(T1,T2,4,2); \
         runTestFor(T1,T2,5,1); \
-        runTestFor(T1,T2,5,2); \
     };
 //@+node:gcross.20101127142618.1768: ** Tests
 testSuite(Constraint_Interactions) {
     runTestsFor(ColumnOrdered,MinimalWeight);
+    runTestsFor(ColumnOrdered,AntiCommutatorCountOrdered);
+    runTestsFor(ColumnOrdered,AntiCommutatorCountMinusLastOrdered);
+    runTestsFor(ColumnOrdered,AntiCommutatorQubitCountSequenceOrdered);
+    runTestsFor(ColumnOrdered,AntiCommutatorLastOperatorSequenceOrdered);
+    runTestsFor(ColumnOrdered,FirstColumnXRowOrdered);
+    runTestsFor(ColumnOrdered,PauliGroupsRowOrdered);
+    runTestsFor(ColumnOrdered,WeightRowOrdered);
+    runTestsFor(ColumnOrdered,SpecialCaseXZConstrained);
+    runTestsFor(ColumnOrdered,XZYOrdered);
+
+    runTestsFor(MinimalWeight,AntiCommutatorCountOrdered);
+    runTestsFor(MinimalWeight,AntiCommutatorCountMinusLastOrdered);
+    runTestsFor(MinimalWeight,AntiCommutatorQubitCountSequenceOrdered);
+    runTestsFor(MinimalWeight,AntiCommutatorLastOperatorSequenceOrdered);
+    runTestsFor(MinimalWeight,FirstColumnXRowOrdered);
+    runTestsFor(MinimalWeight,PauliGroupsRowOrdered);
+    runTestsFor(MinimalWeight,WeightRowOrdered);
+    runTestsFor(MinimalWeight,SpecialCaseXZConstrained);
+    runTestsFor(MinimalWeight,XZYOrdered);
+
+    runTestsFor(AntiCommutatorCountOrdered,AntiCommutatorCountMinusLastOrdered);
+    runTestsFor(AntiCommutatorCountOrdered,AntiCommutatorQubitCountSequenceOrdered);
+    runTestsFor(AntiCommutatorCountOrdered,AntiCommutatorLastOperatorSequenceOrdered);
+    runTestsFor(AntiCommutatorCountOrdered,FirstColumnXRowOrdered);
+    runTestsFor(AntiCommutatorCountOrdered,PauliGroupsRowOrdered);
+    runTestsFor(AntiCommutatorCountOrdered,WeightRowOrdered);
+    runTestsFor(AntiCommutatorCountOrdered,SpecialCaseXZConstrained);
+    runTestsFor(AntiCommutatorCountOrdered,XZYOrdered);
+
+    runTestsFor(AntiCommutatorCountMinusLastOrdered,AntiCommutatorQubitCountSequenceOrdered);
+    runTestsFor(AntiCommutatorCountMinusLastOrdered,AntiCommutatorLastOperatorSequenceOrdered);
+    runTestsFor(AntiCommutatorCountMinusLastOrdered,FirstColumnXRowOrdered);
+    runTestsFor(AntiCommutatorCountMinusLastOrdered,PauliGroupsRowOrdered);
+    runTestsFor(AntiCommutatorCountMinusLastOrdered,WeightRowOrdered);
+    runTestsFor(AntiCommutatorCountMinusLastOrdered,SpecialCaseXZConstrained);
+    runTestsFor(AntiCommutatorCountMinusLastOrdered,XZYOrdered);
+
+    runTestsFor(AntiCommutatorQubitCountSequenceOrdered,AntiCommutatorLastOperatorSequenceOrdered);
+    runTestsFor(AntiCommutatorQubitCountSequenceOrdered,FirstColumnXRowOrdered);
+    runTestsFor(AntiCommutatorQubitCountSequenceOrdered,PauliGroupsRowOrdered);
+    runTestsFor(AntiCommutatorQubitCountSequenceOrdered,WeightRowOrdered);
+    runTestsFor(AntiCommutatorQubitCountSequenceOrdered,SpecialCaseXZConstrained);
+    runTestsFor(AntiCommutatorQubitCountSequenceOrdered,XZYOrdered);
+
+    runTestsFor(AntiCommutatorLastOperatorSequenceOrdered,FirstColumnXRowOrdered);
+    runTestsFor(AntiCommutatorLastOperatorSequenceOrdered,PauliGroupsRowOrdered);
+    runTestsFor(AntiCommutatorLastOperatorSequenceOrdered,WeightRowOrdered);
+    runTestsFor(AntiCommutatorLastOperatorSequenceOrdered,SpecialCaseXZConstrained);
+    runTestsFor(AntiCommutatorLastOperatorSequenceOrdered,XZYOrdered);
+
+    runTestsFor(FirstColumnXRowOrdered,PauliGroupsRowOrdered);
+    runTestsFor(FirstColumnXRowOrdered,WeightRowOrdered);
+    runTestsFor(FirstColumnXRowOrdered,SpecialCaseXZConstrained);
+    runTestsFor(FirstColumnXRowOrdered,XZYOrdered);
+
+    runTestsFor(PauliGroupsRowOrdered,WeightRowOrdered);
+    runTestsFor(PauliGroupsRowOrdered,SpecialCaseXZConstrained);
+    runTestsFor(PauliGroupsRowOrdered,XZYOrdered);
+
+    runTestsFor(WeightRowOrdered,SpecialCaseXZConstrained);
+    runTestsFor(WeightRowOrdered,XZYOrdered);
+
+    runTestsFor(SpecialCaseXZConstrained,XZYOrdered);
 };
 //@-others
 //@-leo
