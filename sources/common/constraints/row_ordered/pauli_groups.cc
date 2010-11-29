@@ -42,18 +42,96 @@ PauliGroupsRowOrderedOperatorSpace::PauliGroupsRowOrderedOperatorSpace(
         cardinality(*this,X_sets[i],X_set_sizes[i]);
         cardinality(*this,Y_sets[i],Y_set_sizes[i]);
         cardinality(*this,Z_sets[i],Z_set_sizes[i]);
-        #define pauliGroupRelation(O1,O2,N1,N2,_CMP_) \
-            rel(*this,(O1##_set_sizes[i] _CMP_ O2##_set_sizes[i]) >> (pauli_orderings_matrix(N1,i) _CMP_ pauli_orderings_matrix(N2,i)));
-        #define pauliGroupRelations(O1,O2,N1,N2) \
-            pauliGroupRelation(O1,O2,N1,N2,>); \
-            pauliGroupRelation(O1,O2,N1,N2,==); \
-            pauliGroupRelation(O1,O2,N1,N2,<);
-        pauliGroupRelations(X,Z,1,2);
-        pauliGroupRelations(Z,Y,2,3);
-        pauliGroupRelations(X,Y,1,3);
-        for(int o = 1; o <= 3; ++o) {
-            rel(*this,pauli_orderings_matrix(o,i) < pauli_orderings_matrix(0,i));
-        }
+        rel(*this,
+            (X_set_sizes[i] < Z_set_sizes[i] && (
+                (Z_set_sizes[i] <  Y_set_sizes[i]
+                 && pauli_orderings_matrix(0,i) == 0
+                 && pauli_orderings_matrix(1,i) == 1
+                 && pauli_orderings_matrix(2,i) == 2
+                 && pauli_orderings_matrix(3,i) == 3
+                )
+             ^  (Z_set_sizes[i] == Y_set_sizes[i]
+                 && pauli_orderings_matrix(0,i) == 0
+                 && pauli_orderings_matrix(1,i) == 1
+                 && pauli_orderings_matrix(2,i) == 2
+                 && pauli_orderings_matrix(3,i) == 2
+                )
+             ^  (Z_set_sizes[i] >  Y_set_sizes[i] && (
+                    (X_set_sizes[i] <  Y_set_sizes[i]
+                     && pauli_orderings_matrix(0,i) == 0
+                     && pauli_orderings_matrix(1,i) == 1
+                     && pauli_orderings_matrix(2,i) == 3
+                     && pauli_orderings_matrix(3,i) == 2
+                    )
+                 ^  (X_set_sizes[i] == Y_set_sizes[i]
+                     && pauli_orderings_matrix(0,i) == 0
+                     && pauli_orderings_matrix(1,i) == 1
+                     && pauli_orderings_matrix(2,i) == 2
+                     && pauli_orderings_matrix(3,i) == 1
+                    )
+                 ^  (X_set_sizes[i] >  Y_set_sizes[i]
+                     && pauli_orderings_matrix(0,i) == 0
+                     && pauli_orderings_matrix(1,i) == 2
+                     && pauli_orderings_matrix(2,i) == 3
+                     && pauli_orderings_matrix(3,i) == 1
+                    )
+                ))
+            ))
+         ^  (X_set_sizes[i] == Z_set_sizes[i] && (
+                (Z_set_sizes[i] <  Y_set_sizes[i]
+                 && pauli_orderings_matrix(0,i) == 0
+                 && pauli_orderings_matrix(1,i) == 1
+                 && pauli_orderings_matrix(2,i) == 1
+                 && pauli_orderings_matrix(3,i) == 2
+                )
+             ^  (Z_set_sizes[i] == Y_set_sizes[i]
+                 && pauli_orderings_matrix(0,i) == 0
+                 && pauli_orderings_matrix(1,i) == 1
+                 && pauli_orderings_matrix(2,i) == 1
+                 && pauli_orderings_matrix(3,i) == 1
+                )
+             ^  (Z_set_sizes[i] >  Y_set_sizes[i]
+                 && pauli_orderings_matrix(0,i) == 0
+                 && pauli_orderings_matrix(1,i) == 2
+                 && pauli_orderings_matrix(2,i) == 2
+                 && pauli_orderings_matrix(3,i) == 1
+                )
+            ))
+         ^  (X_set_sizes[i] > Z_set_sizes[i] && (
+                (Z_set_sizes[i] <  Y_set_sizes[i] && (
+                    (X_set_sizes[i] <  Y_set_sizes[i]
+                     && pauli_orderings_matrix(0,i) == 0
+                     && pauli_orderings_matrix(1,i) == 2
+                     && pauli_orderings_matrix(2,i) == 1
+                     && pauli_orderings_matrix(3,i) == 3
+                    )
+                 ^  (X_set_sizes[i] == Y_set_sizes[i]
+                     && pauli_orderings_matrix(0,i) == 0
+                     && pauli_orderings_matrix(1,i) == 2
+                     && pauli_orderings_matrix(2,i) == 1
+                     && pauli_orderings_matrix(3,i) == 2
+                    )
+                 ^  (X_set_sizes[i] >  Y_set_sizes[i]
+                     && pauli_orderings_matrix(0,i) == 0
+                     && pauli_orderings_matrix(1,i) == 3
+                     && pauli_orderings_matrix(2,i) == 1
+                     && pauli_orderings_matrix(3,i) == 2
+                    )
+                ))
+             ^  (Z_set_sizes[i] == Y_set_sizes[i]
+                 && pauli_orderings_matrix(0,i) == 0
+                 && pauli_orderings_matrix(1,i) == 2
+                 && pauli_orderings_matrix(2,i) == 1
+                 && pauli_orderings_matrix(3,i) == 1
+                )
+             ^  (Z_set_sizes[i] >  Y_set_sizes[i]
+                 && pauli_orderings_matrix(0,i) == 0
+                 && pauli_orderings_matrix(1,i) == 3
+                 && pauli_orderings_matrix(2,i) == 2
+                 && pauli_orderings_matrix(3,i) == 1
+                )
+            ))
+        );
         for(int j = 0; j < number_of_operators; ++j) {
             element(*this,pauli_orderings_matrix.row(i),O_matrix(i,j),unsorted_orderings_matrix(j,i));
         }
