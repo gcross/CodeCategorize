@@ -14,6 +14,7 @@
 #include "constraints/row_ordered/anti_commutator_last_operator_sequence.hh"
 #include "constraints/row_ordered/anti_commutator_qubit_count_sequence.hh"
 #include "constraints/row_ordered/first_column.hh"
+#include "constraints/row_ordered/pauli_groups.hh"
 #include "constraints/row_ordered/weight.hh"
 #include "constraints/row_ordered/weight_and_first_column.hh"
 #include "constraints/special_case_XZ.hh"
@@ -29,13 +30,12 @@ using namespace Gecode;
 //@+node:gcross.20101123222425.2842: ** Classes
 //@+node:gcross.20101126220444.1925: *3* struct AllConstraintsBaseOperatorSpace
 struct AllConstraintsBaseOperatorSpace
-    : public WeightRowOrderedOperatorSpace
-    , public ColumnOrderedOperatorSpace
+    : public ColumnOrderedOperatorSpace
     , public MinimalWeightOperatorSpace
-    , public AntiCommutatorCountOrderedOperatorSpace
     , public AntiCommutatorQubitCountSequenceOrderedOperatorSpace
     , public SpecialCaseXZConstrainedOperatorSpace
     , public XZYOrderedOperatorSpace
+    , public PauliGroupsRowOrderedOperatorSpace
 {
 
     //@+others
@@ -50,7 +50,6 @@ struct AllConstraintsBaseOperatorSpace
 //@+node:gcross.20101123222425.2879: *3* struct AllConstraintsOddRowsOperatorSpace
 struct AllConstraintsOddRowsOperatorSpace
     : public AllConstraintsBaseOperatorSpace
-    , public FirstColumnXRowOrderedOperatorSpace
     , public AntiCommutatorLastOperatorSequenceOrderedOperatorSpace
 {
 
