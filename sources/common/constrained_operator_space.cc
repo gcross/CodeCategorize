@@ -4,7 +4,6 @@
 
 //@+<< Includes >>
 //@+node:gcross.20101123222425.3724: ** << Includes >>
-#include "constraints.hh"
 #include "constrained_operator_space.hh"
 //@-<< Includes >>
 
@@ -27,9 +26,8 @@ AllConstraintsBaseOperatorSpace::AllConstraintsBaseOperatorSpace(int number_of_o
     , ColumnPauliSetsOperatorSpace(number_of_operators,number_of_qubits)
     , XZYOrderedOperatorSpace(number_of_operators,number_of_qubits)
     , PauliGroupsRowOrderedOperatorSpace(number_of_operators,number_of_qubits)
-{
-    postNonTrivialWeightConstraints(*this);
-}
+    , NonTrivialOperatorSpace(number_of_operators,number_of_qubits)
+{ }
 
 AllConstraintsBaseOperatorSpace::AllConstraintsBaseOperatorSpace(bool share, AllConstraintsBaseOperatorSpace& s)
     : OperatorSpace(share,s)
@@ -42,8 +40,8 @@ AllConstraintsBaseOperatorSpace::AllConstraintsBaseOperatorSpace(bool share, All
     , ColumnPauliSetsOperatorSpace(share,s)
     , XZYOrderedOperatorSpace(share,s)
     , PauliGroupsRowOrderedOperatorSpace(share,s)
-{
-}
+    , NonTrivialOperatorSpace(share,s)
+{ }
 //@+node:gcross.20101126220444.1933: *4* copy
 Space* AllConstraintsBaseOperatorSpace::copy(bool share)
 {
@@ -58,9 +56,9 @@ AllConstraintsOddRowsOperatorSpace::AllConstraintsOddRowsOperatorSpace(int numbe
     , CommutatorOperatorSpace(number_of_operators,number_of_qubits)
     , AntiCommutatorLastOperatorSequenceOrderedOperatorSpace(number_of_operators,number_of_qubits)
     , ColumnPauliSetsOperatorSpace(number_of_operators,number_of_qubits)
+    , FirstColumnXZOperatorSpace(number_of_operators,number_of_qubits)
 {
     assert(number_of_operators % 2 == 1);
-    postFirstColumnSpecialCaseConstraint(*this);
 }
 
 AllConstraintsOddRowsOperatorSpace::AllConstraintsOddRowsOperatorSpace(bool share, AllConstraintsOddRowsOperatorSpace& s)
@@ -70,6 +68,7 @@ AllConstraintsOddRowsOperatorSpace::AllConstraintsOddRowsOperatorSpace(bool shar
     , CommutatorOperatorSpace(share,s)
     , AntiCommutatorLastOperatorSequenceOrderedOperatorSpace(share,s)
     , ColumnPauliSetsOperatorSpace(share,s)
+    , FirstColumnXZOperatorSpace(share,s)
 {
 }
 //@+node:gcross.20101123222425.3748: *4* copy

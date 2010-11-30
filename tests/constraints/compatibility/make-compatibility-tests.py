@@ -12,7 +12,9 @@ tests = [
     ("PauliGroupsRowOrdered","row_ordered/pauli_groups"),
     ("WeightRowOrdered","row_ordered/weight"),
     ("ColumnOrdered","column_ordered"),
+    ("FirstColumnXZ","first_column_XZ"),
     ("MinimalWeight","minimal_weight"),
+    ("NonTrivial","non_trivial"),
     ("SpecialCaseXZConstrained","special_case_XZ"),
     ("XZYOrdered","XZY_ordered"),
     ]

@@ -21,9 +21,10 @@ include_directories(".")
 set(test-SOURCES
     column_pauli_sets.cc
     commutator.cc
-    constraints.cc
     constraints/column_ordered.cc
+    constraints/first_column_XZ.cc
     constraints/minimal_weight.cc
+    constraints/non_trivial.cc
     constraints/row_ordered.cc
     constraints/row_ordered/anti_commutator_count.cc
     constraints/row_ordered/anti_commutator_count_minus_last.cc

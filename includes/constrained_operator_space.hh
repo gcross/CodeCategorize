@@ -8,7 +8,9 @@
 //@+<< Includes >>
 //@+node:gcross.20101123222425.2841: ** << Includes >>
 #include "constraints/column_ordered.hh"
+#include "constraints/first_column_XZ.hh"
 #include "constraints/minimal_weight.hh"
+#include "constraints/non_trivial.hh"
 #include "constraints/row_ordered.hh"
 #include "constraints/row_ordered/anti_commutator_count.hh"
 #include "constraints/row_ordered/anti_commutator_last_operator_sequence.hh"
@@ -36,6 +38,7 @@ struct AllConstraintsBaseOperatorSpace
     , public SpecialCaseXZConstrainedOperatorSpace
     , public XZYOrderedOperatorSpace
     , public PauliGroupsRowOrderedOperatorSpace
+    , public NonTrivialOperatorSpace
 {
 
     //@+others
@@ -51,6 +54,7 @@ struct AllConstraintsBaseOperatorSpace
 struct AllConstraintsOddRowsOperatorSpace
     : public AllConstraintsBaseOperatorSpace
     , public AntiCommutatorLastOperatorSequenceOrderedOperatorSpace
+    , public FirstColumnXZOperatorSpace
 {
 
     //@+others
