@@ -32,7 +32,6 @@ int main(int argc, char** argv) {
         int number_of_solutions = 0;
         for(m = e.next(); m != NULL; m = e.next()) {
             ++number_of_solutions;
-            if(number_of_solutions % 1000000 == 0) cout << number_of_solutions << endl;
             delete m;
         }
         cout << number_of_operators << ": " << number_of_solutions << endl;
