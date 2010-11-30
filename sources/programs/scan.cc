@@ -104,11 +104,11 @@ int main(int argc, char** argv) {
     int number_of_qubits = atoi(argv[1]),
         number_of_operators = atoi(argv[2]);
     if(number_of_operators < 3) {
-        cout << "The number of operators must be three or greater." << endl;
+        cerr << "The number of operators must be three or greater." << endl;
         return -1;
     }
     if(number_of_operators >= 2*number_of_qubits-1) {
-        cout << "The number of operators must be less than two times the number of qubits minus one (# < " << (2*number_of_qubits-1) << ")." << endl;
+        cerr << "The number of operators must be less than two times the number of qubits minus one (# < " << (2*number_of_qubits-1) << ")." << endl;
         return -1;
     }
     switch(number_of_qubits) {
