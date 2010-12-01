@@ -19,7 +19,7 @@ using namespace std;
 //@+node:gcross.20101118114009.1516: ** main
 int main(int argc, char** argv) {
     if(argc < 2) {
-        cout << "Usage: count-solutions <# of qubits>" << endl;
+        cout << "Usage: count-all-solutions <# of qubits> <weight>" << endl;
         return 1;
     }
     int number_of_qubits = atoi(argv[1]);
