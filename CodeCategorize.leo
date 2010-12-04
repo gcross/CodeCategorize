@@ -68,7 +68,7 @@
 <v t="gcross.20101118114009.1507"><vh>@thin count-solutions.cc</vh></v>
 <v t="gcross.20101118114009.1514"><vh>@thin count-all-solutions.cc</vh></v>
 <v t="gcross.20101122101448.1534"><vh>@thin print-solutions.cc</vh></v>
-<v t="gcross.20101129210852.1817"><vh>@thin scan.cc</vh></v>
+<v t="gcross.20101129210852.1817"><vh>@thin scan-solutions.cc</vh></v>
 </v>
 </v>
 <v t="gcross.20101116210424.1676"><vh>@path tests</vh>

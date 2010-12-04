@@ -1,5 +1,5 @@
 //@+leo-ver=5-thin
-//@+node:gcross.20101129210852.1817: * @thin scan.cc
+//@+node:gcross.20101129210852.1817: * @thin scan-solutions.cc
 //@@language cplusplus
 
 //@+<< Includes >>

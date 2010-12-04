@@ -9,5 +9,5 @@ endmacro(makeProgram)
 makeProgram(count-solutions)
 makeProgram(count-all-solutions)
 makeProgram(print-solutions)
-makeProgram(scan)
+makeProgram(scan-solutions)
 #@-leo
