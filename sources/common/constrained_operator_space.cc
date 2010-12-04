@@ -49,8 +49,8 @@ Space* AllConstraintsBaseOperatorSpace::copy(bool share)
 }
 //@+node:gcross.20101123222425.3746: *3* struct AllConstraintsOddRowsOperatorSpace
 //@+node:gcross.20101123222425.3747: *4* (constructors)
-AllConstraintsOddRowsOperatorSpace::AllConstraintsOddRowsOperatorSpace(int number_of_operators, int number_of_qubits)
-    : OperatorSpace(number_of_operators,number_of_qubits)
+AllConstraintsOddRowsOperatorSpace::AllConstraintsOddRowsOperatorSpace(int number_of_operators, int number_of_qubits, optional<int> maximum_weight)
+    : OperatorSpace(number_of_operators,number_of_qubits,maximum_weight)
     , AllConstraintsBaseOperatorSpace(number_of_operators,number_of_qubits)
     , RowOrderedOperatorSpace(number_of_operators,number_of_qubits)
     , CommutatorOperatorSpace(number_of_operators,number_of_qubits)
@@ -78,8 +78,8 @@ Space* AllConstraintsOddRowsOperatorSpace::copy(bool share)
 }
 //@+node:gcross.20101123222425.3749: *3* struct AllConstraintsEvenRowsOperatorSpace
 //@+node:gcross.20101123222425.3750: *4* (constructors)
-AllConstraintsEvenRowsOperatorSpace::AllConstraintsEvenRowsOperatorSpace(int number_of_operators, int number_of_qubits)
-    : OperatorSpace(number_of_operators,number_of_qubits)
+AllConstraintsEvenRowsOperatorSpace::AllConstraintsEvenRowsOperatorSpace(int number_of_operators, int number_of_qubits, optional<int> maximum_weight)
+    : OperatorSpace(number_of_operators,number_of_qubits,maximum_weight)
     , AllConstraintsBaseOperatorSpace(number_of_operators,number_of_qubits)
     , RowOrderedOperatorSpace(number_of_operators,number_of_qubits)
     , CommutatorOperatorSpace(number_of_operators,number_of_qubits)
@@ -103,13 +103,13 @@ Space* AllConstraintsEvenRowsOperatorSpace::copy(bool share)
 }
 //@+node:gcross.20101123222425.3752: ** Functions
 //@+node:gcross.20101123222425.3757: *3* constructConstrainedOperatorSpace
-OperatorSpace* constructConstrainedOperatorSpace(int number_of_qubits,int number_of_operators) {
+OperatorSpace* constructConstrainedOperatorSpace(int number_of_qubits,int number_of_operators,optional<int> maximum_weight) {
     return number_of_operators % 2 == 0
         ? dynamic_cast<OperatorSpace*>(
-            new AllConstraintsEvenRowsOperatorSpace(number_of_operators,number_of_qubits-number_of_operators/2)
+            new AllConstraintsEvenRowsOperatorSpace(number_of_operators,number_of_qubits-number_of_operators/2,maximum_weight)
           )
         : dynamic_cast<OperatorSpace*>(
-            new AllConstraintsOddRowsOperatorSpace(number_of_operators,number_of_qubits-number_of_operators/2)
+            new AllConstraintsOddRowsOperatorSpace(number_of_operators,number_of_qubits-number_of_operators/2,maximum_weight)
           )
         ;
 }

@@ -7,6 +7,7 @@
 
 //@+<< Includes >>
 //@+node:gcross.20101116210424.1512: ** << Includes >>
+#include <boost/optional.hpp>
 #include <codequest.hpp>
 #include <gecode/int.hh>
 #include <gecode/minimodel.hh>
@@ -19,6 +20,7 @@ using namespace Gecode;
 namespace CodeCategorize {
 
 using namespace Gecode;
+using namespace boost;
 using namespace std;
 
 //@+others
@@ -32,12 +34,14 @@ struct OperatorSpace : public Space {
 
     //@+others
     //@+node:gcross.20101116210424.1674: *3* (fields)
-    int number_of_operators, number_of_qubits, number_of_variables, number_of_pairs, total_number_of_qubits;
+    bool odd_number_of_rows;
+    int number_of_operators, number_of_qubits, number_of_variables, number_of_pairs, total_number_of_qubits, last_row, last_even_row;
+    optional<int> maximum_weight;
 
     BoolVarArray X, Z, non_trivial;
     IntVarArray O, weights;
     //@+node:gcross.20101116210424.1675: *3* (constructors)
-    OperatorSpace(int number_of_operators, int number_of_qubits);
+    OperatorSpace(int number_of_operators, int number_of_qubits, optional<int> maximum_weight=none);
     OperatorSpace(bool share, OperatorSpace& s);
     //@+node:gcross.20101117133000.1468: *3* (methods)
     virtual Space* copy(bool share);

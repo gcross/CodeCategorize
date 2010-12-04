@@ -17,11 +17,11 @@ using namespace Gecode;
 //@+others
 //@+node:gcross.20101123222425.3595: ** struct MinimalWeightOperatorSpace
 //@+node:gcross.20101123222425.3596: *3* (constructors)
-MinimalWeightOperatorSpace::MinimalWeightOperatorSpace(int number_of_operators, int number_of_qubits)
-    : OperatorSpace(number_of_operators,number_of_qubits)
-    , number_of_products(computeNumberOfProducts(number_of_operators,number_of_qubits))
+MinimalWeightOperatorSpace::MinimalWeightOperatorSpace(int number_of_operators, int number_of_qubits, optional<int> maximum_weight)
+    : OperatorSpace(number_of_operators,number_of_qubits,maximum_weight)
+    , maximum_number_of_factors(maximum_weight ? min(number_of_qubits,*maximum_weight) : number_of_qubits)
+    , number_of_products(computeNumberOfProducts())
     , number_of_variables(number_of_qubits*number_of_products)
-    , maximum_number_of_factors(min(number_of_qubits,number_of_products))
     , products_X(*this,number_of_variables,0,1)
     , products_Z(*this,number_of_variables,0,1)
     , products_non_trivial(*this,number_of_variables,0,1)
@@ -136,10 +136,9 @@ MinimalWeightOperatorSpace::MinimalWeightOperatorSpace(bool share, MinimalWeight
     products_minimum_weights.update(*this,share,s.products_weights);
 }
 //@+node:gcross.20101123222425.3597: *3* computeNumberOfProducts
-int MinimalWeightOperatorSpace::computeNumberOfProducts(int number_of_operators, int number_of_qubits) {
-    int number_of_pairs = number_of_operators / 2;
+int MinimalWeightOperatorSpace::computeNumberOfProducts() {
     int number_of_products = number_of_pairs;
-    for(int k = 2; k <= min(number_of_pairs,number_of_qubits); ++k) {
+    for(int k = 2; k <= maximum_number_of_factors; ++k) {
         int x = choose(number_of_pairs,k);
         for(int i = 0; i < k; ++i) x *= 3;
         number_of_products += x;

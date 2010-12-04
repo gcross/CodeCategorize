@@ -24,19 +24,19 @@ struct MinimalWeightOperatorSpace : public virtual OperatorSpace {
 
     //@+others
     //@+node:gcross.20101123222425.2692: *3* (fields)
-    int number_of_products, number_of_variables, maximum_number_of_factors;
+    int maximum_number_of_factors, number_of_products, number_of_variables;
 
     BoolVarArray products_X, products_Z, products_non_trivial;
     IntVarArray products_weights, products_minimum_weights;
     //@+node:gcross.20101123222425.2693: *3* (constructors)
-    MinimalWeightOperatorSpace(int number_of_operators, int number_of_qubits);
+    MinimalWeightOperatorSpace(int number_of_operators, int number_of_qubits, optional<int> minimum_weight=none);
     MinimalWeightOperatorSpace(bool share, MinimalWeightOperatorSpace& s);
     //@+node:gcross.20101123222425.2694: *3* (methods)
     virtual Space* copy(bool share);
 
     private:
 
-    static int computeNumberOfProducts(int number_of_operators, int number_of_qubits);
+    int computeNumberOfProducts();
     void formProductAndPostConstraints(
         const BoolVarArgs& X1,
         const BoolVarArgs& Z1,

@@ -59,7 +59,7 @@ struct AllConstraintsOddRowsOperatorSpace
 
     //@+others
     //@+node:gcross.20101123222425.2880: *4* (constructors)
-    AllConstraintsOddRowsOperatorSpace(int number_of_operators, int number_of_qubits);
+    AllConstraintsOddRowsOperatorSpace(int number_of_operators, int number_of_qubits, optional<int> maximum_weight);
     AllConstraintsOddRowsOperatorSpace(bool share, AllConstraintsOddRowsOperatorSpace& s);
     //@+node:gcross.20101123222425.2881: *4* (methods)
     virtual Space* copy(bool share);
@@ -73,7 +73,7 @@ struct AllConstraintsEvenRowsOperatorSpace
 
     //@+others
     //@+node:gcross.20101123222425.2883: *4* (constructors)
-    AllConstraintsEvenRowsOperatorSpace(int number_of_operators, int number_of_qubits);
+    AllConstraintsEvenRowsOperatorSpace(int number_of_operators, int number_of_qubits, optional<int> maximum_weight);
     AllConstraintsEvenRowsOperatorSpace(bool share, AllConstraintsEvenRowsOperatorSpace& s);
     //@+node:gcross.20101123222425.2884: *4* (methods)
     virtual Space* copy(bool share);
@@ -81,7 +81,7 @@ struct AllConstraintsEvenRowsOperatorSpace
 
 };
 //@+node:gcross.20101123222425.2885: ** Functions
-OperatorSpace* constructConstrainedOperatorSpace(int number_of_qubits,int number_of_operators);
+OperatorSpace* constructConstrainedOperatorSpace(int number_of_qubits,int number_of_operators,optional<int> maximum_weight=none);
 //@-others
 
 }

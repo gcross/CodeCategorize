@@ -64,6 +64,39 @@ template<int number_of_operators, int number_of_qubits> void runUpdateValidation
         delete m;
     }
 }
+//@+node:gcross.20101203210234.1831: *3* runMaximumWeightTest
+void runMaximumWeightTest(int number_of_operators, int number_of_qubits, int maximum_weight) {
+    int number_of_solutions = 0;
+    {
+        OperatorSpace* m = new OperatorSpace(number_of_operators,number_of_qubits,make_optional(maximum_weight));
+        DFS<OperatorSpace> e(m);
+        delete m;
+        for(m = e.next(); m != NULL; m = e.next()) {
+            vector<dynamic_quantum_operator> operators = m->getOperators();
+            for(int i = 0; i < number_of_operators; ++i) {
+                assertTrue(operators[i].weight() <= maximum_weight);
+            }
+            ++number_of_solutions;
+            delete m;
+        }
+    }
+    int correct_number_of_solutions = 0;
+    {
+        OperatorSpace* m = new OperatorSpace(number_of_operators,number_of_qubits);
+        DFS<OperatorSpace> e(m);
+        delete m;
+        for(m = e.next(); m != NULL; m = e.next()) {
+            vector<dynamic_quantum_operator> operators = m->getOperators();
+            for(int i = 0; i < number_of_operators; ++i) {
+                if(operators[i].weight() > maximum_weight) goto skip;
+            }
+            ++correct_number_of_solutions;
+            skip:
+            delete m;
+        }
+    }
+    assertEqual(correct_number_of_solutions,number_of_solutions);
+}
 //@+node:gcross.20101116210424.2279: ** Tests
 testSuite(OperatorSpace_) {
 
@@ -120,6 +153,12 @@ testCase(correct_properties) {
 testCase(correct_operators) { runOperatorValidationTest(1,1); }
 //@+node:gcross.20101123222425.2047: *4* correct update
 testCase(correct_update) { runUpdateValidationTest<1,1>(); }
+//@+node:gcross.20101203210234.1830: *4* maximum weight
+subSuite(maximum_weight) {
+    testCase(_0) { runMaximumWeightTest(1,1,0); }
+    testCase(_1) { runMaximumWeightTest(1,1,1); }
+    testCase(_2) { runMaximumWeightTest(1,1,2); }
+}
 //@-others
 
 }
@@ -176,6 +215,13 @@ testCase(correct_properties) {
 testCase(correct_operators) { runOperatorValidationTest(1,2); }
 //@+node:gcross.20101123222425.2051: *4* correct update
 testCase(correct_update) { runUpdateValidationTest<1,2>(); }
+//@+node:gcross.20101203210234.1833: *4* maximum weight
+subSuite(maximum_weight) {
+    testCase(_0) { runMaximumWeightTest(1,2,0); }
+    testCase(_1) { runMaximumWeightTest(1,2,1); }
+    testCase(_2) { runMaximumWeightTest(1,2,2); }
+    testCase(_3) { runMaximumWeightTest(1,2,3); }
+}
 //@-others
 
 }
@@ -232,6 +278,12 @@ testCase(correct_properties) {
 testCase(correct_operators) { runOperatorValidationTest(2,1); }
 //@+node:gcross.20101123222425.2053: *4* correct update
 testCase(correct_update) { runUpdateValidationTest<2,1>(); }
+//@+node:gcross.20101203210234.1835: *4* maximum weight
+subSuite(maximum_weight) {
+    testCase(_0) { runMaximumWeightTest(2,1,0); }
+    testCase(_1) { runMaximumWeightTest(2,1,1); }
+    testCase(_2) { runMaximumWeightTest(2,1,2); }
+}
 //@-others
 
 }
@@ -293,6 +345,13 @@ testCase(correct_properties) {
 testCase(correct_operators) { runOperatorValidationTest(2,2); }
 //@+node:gcross.20101123222425.2055: *4* correct update
 testCase(correct_update) { runUpdateValidationTest<2,2>(); }
+//@+node:gcross.20101203210234.1837: *4* maximum weight
+subSuite(maximum_weight) {
+    testCase(_0) { runMaximumWeightTest(2,2,0); }
+    testCase(_1) { runMaximumWeightTest(2,2,1); }
+    testCase(_2) { runMaximumWeightTest(2,2,2); }
+    testCase(_3) { runMaximumWeightTest(2,2,3); }
+}
 //@-others
 
 }
@@ -354,6 +413,12 @@ testCase(correct_properties) {
 testCase(correct_operators) { runOperatorValidationTest(3,3); }
 //@+node:gcross.20101123222425.2057: *4* correct update
 testCase(correct_update) { runUpdateValidationTest<3,3>(); }
+//@+node:gcross.20101203210234.1839: *4* maximum weight
+subSuite(maximum_weight) {
+    testCase(_0) { runMaximumWeightTest(3,3,0); }
+    testCase(_1) { runMaximumWeightTest(3,3,1); }
+    testCase(_2) { runMaximumWeightTest(3,3,2); }
+}
 //@-others
 
 }
