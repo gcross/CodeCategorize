@@ -1,5 +1,5 @@
 #@+leo-ver=5-thin
-#@+node:gcross.20101128173348.1858: * @thin compatibility/make-compatibility-tests.py
+#@+node:gcross.20101129164055.1922: * @thin compatibility/make-compatibility-tests.py
 from __future__ import print_function
 from itertools import combinations_with_replacement
 

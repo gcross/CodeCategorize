@@ -4,7 +4,7 @@
 #@+node:gcross.20101128193219.1847: ** << Macros >>
 macro(makeTestProgram program-name)
     add_executable(${program-name} EXCLUDE_FROM_ALL ${${program-name}-SOURCES})
-    target_link_libraries(${program-name} CodeCategorize unit-- unit--main)
+    target_link_libraries(${program-name} CodeCategorize illuminate illuminate-main ${Boost_LIBRARIES})
     set_property(TARGET ${program-name} PROPERTY RUNTIME_OUTPUT_DIRECTORY .)
 endmacro(makeTestProgram)
 #@-<< Macros >>

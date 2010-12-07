@@ -7,7 +7,7 @@
 #include <boost/foreach.hpp>
 #include <gecode/int.hh>
 #include <iostream>
-#include <unit--.hpp>
+#include <illuminate.hpp>
 
 #include "constraints/row_ordered/anti_commutator_count_minus_last.hh"
 
@@ -18,7 +18,7 @@ using namespace CodeCategorize;
 
 //@+others
 //@+node:gcross.20101128153132.1838: ** Tests
-testSuite(Constraints) { subSuite(RowOrdered) { subSuite(AntiCommutatorCountMinusLast) {
+TEST_SUITE(Constraints) { TEST_SUITE(RowOrdered) { TEST_SUITE(AntiCommutatorCountMinusLast) {
 
 void runCountTest(int number_of_operators, int number_of_qubits) {
     AntiCommutatorCountMinusLastOrderedOperatorSpace* m = new AntiCommutatorCountMinusLastOrderedOperatorSpace(number_of_operators,number_of_qubits);
@@ -31,18 +31,18 @@ void runCountTest(int number_of_operators, int number_of_qubits) {
             for(int j = 0; j < number_of_operators-1; ++j) {
                 if(operators[i]&&operators[j]) ++number_of_anti_commuting_operators;
             }
-            assertEqual(number_of_anti_commuting_operators,m->number_of_anti_commuting_operators[i].val());
+            ASSERT_EQ(number_of_anti_commuting_operators,m->number_of_anti_commuting_operators[i].val());
         }
         delete m;
     }
 }
 
-testCase(_2x1) { runCountTest(2,1); }
-testCase(_2x2) { runCountTest(2,2); }
-testCase(_3x1) { runCountTest(3,1); }
-testCase(_3x2) { runCountTest(3,2); }
-testCase(_4x1) { runCountTest(4,1); }
-testCase(_4x2) { runCountTest(4,2); }
+TEST_CASE(_2x1) { runCountTest(2,1); }
+TEST_CASE(_2x2) { runCountTest(2,2); }
+TEST_CASE(_3x1) { runCountTest(3,1); }
+TEST_CASE(_3x2) { runCountTest(3,2); }
+TEST_CASE(_4x1) { runCountTest(4,1); }
+TEST_CASE(_4x2) { runCountTest(4,2); }
 
 } } }
 //@-others

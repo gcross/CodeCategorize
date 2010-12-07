@@ -4,7 +4,7 @@
 
 //@+<< Includes >>
 //@+node:gcross.20101123222425.4469: ** << Includes >>
-#include <unit--.hpp>
+#include <illuminate.hpp>
 
 #include "column_pauli_sets.hh"
 
@@ -14,7 +14,7 @@ using namespace CodeCategorize;
 
 //@+others
 //@+node:gcross.20101123222425.4491: ** Tests
-testSuite(ColumnPauliSets) {
+TEST_SUITE(ColumnPauliSets) {
 
 void runTests(int number_of_operators, int number_of_qubits) {
     ColumnPauliSetsOperatorSpace* m = new ColumnPauliSetsOperatorSpace(number_of_operators,number_of_qubits);
@@ -28,36 +28,36 @@ void runTests(int number_of_operators, int number_of_qubits) {
         for(int i = 0; i < number_of_qubits; ++i) {
             for(int j = 0; j < number_of_operators; ++j) {
                 if(X_matrix(i,j).val()) {
-                    assertTrue(m->X_bit_sets[i].contains(j));
+                    ASSERT_TRUE(m->X_bit_sets[i].contains(j));
                 } else {
-                    assertTrue(m->X_bit_sets[i].notContains(j));
+                    ASSERT_TRUE(m->X_bit_sets[i].notContains(j));
                 }
                 if(Z_matrix(i,j).val()) {
-                    assertTrue(m->Z_bit_sets[i].contains(j));
+                    ASSERT_TRUE(m->Z_bit_sets[i].contains(j));
                 } else {
-                    assertTrue(m->Z_bit_sets[i].notContains(j));
+                    ASSERT_TRUE(m->Z_bit_sets[i].notContains(j));
                 }
                 if(O_matrix(i,j).val() == 0) {
-                    assertTrue(m->I_sets[i].contains(j));
-                    assertTrue(m->non_trivial_sets[i].notContains(j));
+                    ASSERT_TRUE(m->I_sets[i].contains(j));
+                    ASSERT_TRUE(m->non_trivial_sets[i].notContains(j));
                 } else {
-                    assertTrue(m->I_sets[i].notContains(j));
-                    assertTrue(m->non_trivial_sets[i].contains(j));
+                    ASSERT_TRUE(m->I_sets[i].notContains(j));
+                    ASSERT_TRUE(m->non_trivial_sets[i].contains(j));
                 }
                 if(O_matrix(i,j).val() == 1) {
-                    assertTrue(m->X_sets[i].contains(j));
+                    ASSERT_TRUE(m->X_sets[i].contains(j));
                 } else {
-                    assertTrue(m->X_sets[i].notContains(j));
+                    ASSERT_TRUE(m->X_sets[i].notContains(j));
                 }
                 if(O_matrix(i,j).val() == 2) {
-                    assertTrue(m->Z_sets[i].contains(j));
+                    ASSERT_TRUE(m->Z_sets[i].contains(j));
                 } else {
-                    assertTrue(m->Z_sets[i].notContains(j));
+                    ASSERT_TRUE(m->Z_sets[i].notContains(j));
                 }
                 if(O_matrix(i,j).val() == 3) {
-                    assertTrue(m->Y_sets[i].contains(j));
+                    ASSERT_TRUE(m->Y_sets[i].contains(j));
                 } else {
-                    assertTrue(m->Y_sets[i].notContains(j));
+                    ASSERT_TRUE(m->Y_sets[i].notContains(j));
                 }
             }
         }
@@ -65,15 +65,15 @@ void runTests(int number_of_operators, int number_of_qubits) {
     }
 }
 
-testCase(_1x1) { runTests(1,1); }
-testCase(_1x2) { runTests(1,2); }
-testCase(_1x3) { runTests(1,3); }
-testCase(_2x1) { runTests(2,1); }
-testCase(_2x2) { runTests(2,2); }
-testCase(_2x3) { runTests(2,3); }
-testCase(_3x1) { runTests(3,1); }
-testCase(_3x2) { runTests(3,2); }
-testCase(_4x1) { runTests(4,1); }
+TEST_CASE(_1x1) { runTests(1,1); }
+TEST_CASE(_1x2) { runTests(1,2); }
+TEST_CASE(_1x3) { runTests(1,3); }
+TEST_CASE(_2x1) { runTests(2,1); }
+TEST_CASE(_2x2) { runTests(2,2); }
+TEST_CASE(_2x3) { runTests(2,3); }
+TEST_CASE(_3x1) { runTests(3,1); }
+TEST_CASE(_3x2) { runTests(3,2); }
+TEST_CASE(_4x1) { runTests(4,1); }
 
 }
 //@-others

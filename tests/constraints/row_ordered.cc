@@ -7,7 +7,7 @@
 #include <boost/foreach.hpp>
 #include <gecode/int.hh>
 #include <iostream>
-#include <unit--.hpp>
+#include <illuminate.hpp>
 
 #include "constraints/row_ordered.hh"
 
@@ -20,7 +20,7 @@ using namespace CodeCategorize;
 
 //@+others
 //@+node:gcross.20101117133000.1531: ** Tests
-testSuite(Constraints) { subSuite(RowOrdered) {
+TEST_SUITE(Constraints) { TEST_SUITE(RowOrdered) {
 
 //@+<< Helpers >>
 //@+node:gcross.20101128193219.1809: *3* << Helpers >>
@@ -62,20 +62,20 @@ template<int number_of_pairs_,int number_of_constraints> struct TestClass : publ
 };
 //@+node:gcross.20101128193219.1810: *4* createTest
 #define createTest(test_name,number_of_pairs,number_of_constraints,correct_number_of_solutions,...) \
-    testCase(test_name) { \
+    TEST_CASE(test_name) { \
         int ordering_values[number_of_constraints][2*number_of_pairs] = {__VA_ARGS__}; \
-        assertEqual(correct_number_of_solutions,countSolutions(new TestClass<number_of_pairs,number_of_constraints>(ordering_values))); \
+        ASSERT_EQ(correct_number_of_solutions,countSolutions(new TestClass<number_of_pairs,number_of_constraints>(ordering_values))); \
     }
 //@-others
 //@-<< Helpers >>
 
 //@+others
 //@+node:gcross.20101128193219.1803: *3* 1 pair
-subSuite(_1_pair) {
+TEST_SUITE(_1_pair) {
 
     //@+others
     //@+node:gcross.20101128193219.1812: *4* 1 constraint
-    subSuite(_1_constraint) {
+    TEST_SUITE(_1_constraint) {
         createTest(_10,1,1,1
             ,1,0
         );
@@ -84,7 +84,7 @@ subSuite(_1_pair) {
         );
     }
     //@+node:gcross.20101128193219.1813: *4* 2 constraints
-    subSuite(_2_constraints) {
+    TEST_SUITE(_2_constraints) {
         createTest(_10_10,1,2,1
             ,1,0
             ,1,0
@@ -123,7 +123,7 @@ subSuite(_1_pair) {
         );
     }
     //@+node:gcross.20101128193219.1814: *4* 3 constraints
-    subSuite(_3_constraints) {
+    TEST_SUITE(_3_constraints) {
         createTest(_00_00_10,1,3,1
             ,0,0
             ,0,0
@@ -149,11 +149,11 @@ subSuite(_1_pair) {
 
 }
 //@+node:gcross.20101128193219.1815: *3* 2 pairs
-subSuite(_2_pairs) {
+TEST_SUITE(_2_pairs) {
 
     //@+others
     //@+node:gcross.20101128193219.1817: *4* 1 constraint
-    subSuite(_1_constraint) {
+    TEST_SUITE(_1_constraint) {
         createTest(_1010,2,1,1
             ,1,0,1,0
         );
@@ -183,7 +183,7 @@ subSuite(_2_pairs) {
         );
     }
     //@+node:gcross.20101128193219.1819: *4* 2 constraints
-    subSuite(_2_constraints) {
+    TEST_SUITE(_2_constraints) {
         createTest(_1010_0101,2,2,1
             ,1,0,1,0
             ,0,1,0,1
@@ -222,7 +222,7 @@ subSuite(_2_pairs) {
         );
     }
     //@+node:gcross.20101128193219.1821: *4* 3 constraints
-    subSuite(_3_constraints) {
+    TEST_SUITE(_3_constraints) {
         createTest(_1010_0101_0100,2,3,1
             ,1,0,1,0
             ,0,1,0,1
@@ -248,11 +248,11 @@ subSuite(_2_pairs) {
 
 }
 //@+node:gcross.20101128193219.1822: *3* 3 pairs
-subSuite(_3_pairs) {
+TEST_SUITE(_3_pairs) {
 
     //@+others
     //@+node:gcross.20101128193219.1824: *4* 1 constraint
-    subSuite(_1_constraint) {
+    TEST_SUITE(_1_constraint) {
         createTest(_111000,3,1,1
             ,1,1,1,0,0,0
         );
@@ -264,7 +264,7 @@ subSuite(_3_pairs) {
         );
     }
     //@+node:gcross.20101128193219.1826: *4* 2 constraints
-    subSuite(_2_constraints) {
+    TEST_SUITE(_2_constraints) {
         createTest(_111000_011011,3,2,0
             ,1,1,1,0,0,0
             ,0,1,1,0,1,1
@@ -299,7 +299,7 @@ subSuite(_3_pairs) {
         );
     }
     //@+node:gcross.20101128193219.1828: *4* 3 constraints
-    subSuite(_3_constraints) {
+    TEST_SUITE(_3_constraints) {
         createTest(_111000_011011_111000,3,3,0
             ,1,1,1,0,0,0
             ,0,1,1,0,1,1

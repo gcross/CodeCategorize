@@ -4,7 +4,7 @@
 
 //@+<< Includes >>
 //@+node:gcross.20101126142808.1721: ** << Includes >>
-#include <unit--.hpp>
+#include <illuminate.hpp>
 
 #include "constraints/XZY_ordered.hh"
 
@@ -14,11 +14,11 @@ using namespace CodeCategorize;
 
 //@+others
 //@+node:gcross.20101126142808.1723: ** ColumnXZYOrdering
-testSuite(Constraints) { subSuite(XZYOrdered) {
+TEST_SUITE(Constraints) { TEST_SUITE(XZYOrdered) {
 
 //@+others
 //@+node:gcross.20101126142808.1724: *3* _1x1
-testCase(_1x1) {
+TEST_CASE(_1x1) {
     XZYOrderedOperatorSpace* m = new XZYOrderedOperatorSpace(1,1);
     DFS<XZYOrderedOperatorSpace> e(m);
     delete m;
@@ -27,10 +27,10 @@ testCase(_1x1) {
         ++number_of_solutions;
         delete m;
     }
-    assertEqual(0,number_of_solutions);
+    ASSERT_EQ(0,number_of_solutions);
 }
 //@+node:gcross.20101126142808.1725: *3* _1x2
-testCase(_1x2) {
+TEST_CASE(_1x2) {
     XZYOrderedOperatorSpace* m = new XZYOrderedOperatorSpace(1,2);
     DFS<XZYOrderedOperatorSpace> e(m);
     delete m;
@@ -39,24 +39,24 @@ testCase(_1x2) {
         ++number_of_solutions;
         delete m;
     }
-    assertEqual(0,number_of_solutions);
+    ASSERT_EQ(0,number_of_solutions);
 }
 //@+node:gcross.20101126142808.1726: *3* _2x1
-testCase(_2x1) {
+TEST_CASE(_2x1) {
     XZYOrderedOperatorSpace* m = new XZYOrderedOperatorSpace(2,1);
     DFS<XZYOrderedOperatorSpace> e(m);
     delete m;
     int number_of_solutions = 0;
     for(m = e.next(); m != NULL; m = e.next()) {
-        assertEqual(1,m->O[0].val());
-        assertEqual(2,m->O[1].val());
+        ASSERT_EQ(1,m->O[0].val());
+        ASSERT_EQ(2,m->O[1].val());
         ++number_of_solutions;
         delete m;
     }
-    assertEqual(1,number_of_solutions);
+    ASSERT_EQ(1,number_of_solutions);
 }
 //@+node:gcross.20101126142808.1727: *3* _2x2
-testCase(_2x2) {
+TEST_CASE(_2x2) {
     XZYOrderedOperatorSpace* m = new XZYOrderedOperatorSpace(2,2);
     DFS<XZYOrderedOperatorSpace> e(m);
     delete m;
@@ -65,16 +65,16 @@ testCase(_2x2) {
         IntMatrix O_matrix = m->getOMatrix();
         for(int column = 0; column < 2; ++column) {
             for(int row = 0; row < 2; ++row) {
-                assertEqual(row+1,O_matrix(column,row).val());
+                ASSERT_EQ(row+1,O_matrix(column,row).val());
             }
         }
         ++number_of_solutions;
         delete m;
     }
-    assertEqual(1,number_of_solutions);
+    ASSERT_EQ(1,number_of_solutions);
 }
 //@+node:gcross.20101126142808.1728: *3* _3x3
-testCase(_3x3) {
+TEST_CASE(_3x3) {
     XZYOrderedOperatorSpace* m = new XZYOrderedOperatorSpace(3,3);
     DFS<XZYOrderedOperatorSpace> e(m);
     delete m;
@@ -95,15 +95,15 @@ testCase(_3x3) {
                             break;
                 }
             }
-            assertTrue(first_X != -1);
-            assertTrue(first_Z != -1);
-            assertTrue(first_X <= first_Z);
-            assertTrue(first_Z <= first_Y);
+            ASSERT_TRUE(first_X != -1);
+            ASSERT_TRUE(first_Z != -1);
+            ASSERT_TRUE(first_X <= first_Z);
+            ASSERT_TRUE(first_Z <= first_Y);
         }
         ++number_of_solutions;
         delete m;
     }
-    assertEqual(7*7*7,number_of_solutions);
+    ASSERT_EQ(7*7*7,number_of_solutions);
 }
 //@-others
 

@@ -4,7 +4,7 @@
 
 //@+<< Includes >>
 //@+node:gcross.20101128153132.1767: ** << Includes >>
-#include <unit--.hpp>
+#include <illuminate.hpp>
 
 #include "test_utils.hh"
 
@@ -14,15 +14,15 @@ using namespace std;
 
 //@+others
 //@+node:gcross.20101128153132.1772: ** Tests
-testSuite(Test_Utils) {
+TEST_SUITE(Test_Utils) {
 
 //@+others
 //@+node:gcross.20101128153132.1773: *3* longFromOperatorSpace
-subSuite(longFromOperatorSpace_) {
+TEST_SUITE(longFromOperatorSpace_) {
 
 //@+others
 //@+node:gcross.20101128153132.1774: *4* correctly ordered
-subSuite(correctly_ordered) {
+TEST_SUITE(correctly_ordered) {
 
 void runTest(int number_of_operators, int number_of_qubits) {
     OperatorSpace* m = new OperatorSpace(number_of_operators,number_of_qubits);
@@ -30,14 +30,14 @@ void runTest(int number_of_operators, int number_of_qubits) {
     delete m;
     long last = 0;
     for(m = e.next(); m != NULL; m = e.next()) {
-        assertEqual(last,longFromOperatorSpace(m));
+        ASSERT_EQ(last,longFromOperatorSpace(m));
         ++last;
         delete m;
     }
 }
 
 #define doTest(m,n) \
-    testCase( _##m##x##n ) { runTest(m,n); };
+    TEST_CASE( _##m##x##n ) { runTest(m,n); };
 
 doTest(1,1);
 doTest(1,2);

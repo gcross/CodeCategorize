@@ -7,7 +7,7 @@
 #include <boost/foreach.hpp>
 #include <gecode/int.hh>
 #include <iostream>
-#include <unit--.hpp>
+#include <illuminate.hpp>
 
 #include "constraints/row_ordered/anti_commutator_last_operator_sequence.hh"
 
@@ -18,7 +18,7 @@ using namespace CodeCategorize;
 
 //@+others
 //@+node:gcross.20101128153132.1844: ** Tests
-testSuite(Constraints) { subSuite(RowOrdered) { subSuite(AntiCommutatorLastOperatorSequence) {
+TEST_SUITE(Constraints) { TEST_SUITE(RowOrdered) { TEST_SUITE(AntiCommutatorLastOperatorSequence) {
 
 void runCountTest(int number_of_operators, int number_of_qubits) {
     AntiCommutatorLastOperatorSequenceOrderedOperatorSpace* m = new AntiCommutatorLastOperatorSequenceOrderedOperatorSpace(number_of_operators,number_of_qubits);
@@ -34,19 +34,19 @@ void runCountTest(int number_of_operators, int number_of_qubits) {
             dynamic_quantum_operator op = operators[i];
             for(int j = 0; j < number_of_qubits; ++j) {
                 const int q = j+m->number_of_pairs;
-                assertEqual((op.X[q]&last_operator.Z[q])^(op.Z[q]&last_operator.X[q]),matrix(j,i).val());
+                ASSERT_EQ((op.X[q]&last_operator.Z[q])^(op.Z[q]&last_operator.X[q]),matrix(j,i).val());
             }
         }
         delete m;
     }
 }
 
-testCase(_2x1) { runCountTest(2,1); }
-testCase(_2x2) { runCountTest(2,2); }
-testCase(_3x1) { runCountTest(3,1); }
-testCase(_3x2) { runCountTest(3,2); }
-testCase(_4x1) { runCountTest(4,1); }
-testCase(_4x2) { runCountTest(4,2); }
+TEST_CASE(_2x1) { runCountTest(2,1); }
+TEST_CASE(_2x2) { runCountTest(2,2); }
+TEST_CASE(_3x1) { runCountTest(3,1); }
+TEST_CASE(_3x2) { runCountTest(3,2); }
+TEST_CASE(_4x1) { runCountTest(4,1); }
+TEST_CASE(_4x2) { runCountTest(4,2); }
 
 } } }
 //@-others

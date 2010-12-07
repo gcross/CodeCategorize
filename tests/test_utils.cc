@@ -4,7 +4,7 @@
 
 //@+<< Includes >>
 //@+node:gcross.20101121135345.1485: ** << Includes >>
-#include <unit--.hpp>
+#include <illuminate.hpp>
 
 #include "test_utils.hh"
 
@@ -48,7 +48,7 @@ long longFromOperatorSpace(OperatorSpace* m) {
 //@+node:gcross.20101121135345.1478: *3* validateNonTrivial
 void validateNonTrivial(const BoolVarArray& X, const BoolVarArray& Z, const BoolVarArray& non_trivial) {
     for(int i = 0; i < non_trivial.size(); ++i) {
-        assertEqual(X[i].val() || Z[i].val(),non_trivial[i].val());
+        ASSERT_EQ(X[i].val() || Z[i].val(),non_trivial[i].val());
     }
 }
 //@-others

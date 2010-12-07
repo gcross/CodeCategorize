@@ -1,5 +1,5 @@
 #@+leo-ver=5-thin
-#@+node:gcross.20101128193219.1844: * @thin commutation/make-commutation-tests.py
+#@+node:gcross.20101129164055.1921: * @thin commutation/make-commutation-tests.py
 from __future__ import print_function
 from itertools import combinations_with_replacement
 

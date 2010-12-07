@@ -3,6 +3,10 @@
 cmake_minimum_required (VERSION 2.6)
 project (CodeCategorize)
 
+find_package( Boost 1.40 COMPONENTS thread )
+link_directories ( ${Boost_LIBRARY_DIRS} )
+include_directories ( ${Boost_INCLUDE_DIRS} )
+
 if( NOT CMAKE_BUILD_TYPE )
 set( CMAKE_BUILD_TYPE "RelWithDebInfo" )
 endif ()

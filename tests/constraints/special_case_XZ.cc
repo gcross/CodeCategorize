@@ -4,7 +4,7 @@
 
 //@+<< Includes >>
 //@+node:gcross.20101123222425.4208: ** << Includes >>
-#include <unit--.hpp>
+#include <illuminate.hpp>
 
 #include "constraints/special_case_XZ.hh"
 
@@ -14,7 +14,7 @@ using namespace CodeCategorize;
 
 //@+others
 //@+node:gcross.20101123222425.4232: ** Tests
-testSuite(Constraints) { subSuite(SpecialCaseXZ) {
+TEST_SUITE(Constraints) { TEST_SUITE(SpecialCaseXZ) {
 
 void runTest(int number_of_operators,int number_of_qubits) {
     const int first_column = number_of_operators % 2;
@@ -34,20 +34,20 @@ void runTest(int number_of_operators,int number_of_qubits) {
                 if(first_Z == -1 && O_matrix(i,j).val() == 2) first_Z = index;
             }
         }
-        assertTrue(first_Z == -1 || first_X != -1 && first_X < first_Z);
+        ASSERT_TRUE(first_Z == -1 || first_X != -1 && first_X < first_Z);
         skip:
         delete m;
     }
 }
 
-testCase(_2x1) { runTest(2,1); }
-testCase(_2x2) { runTest(2,2); }
-testCase(_2x3) { runTest(2,3); }
-testCase(_3x1) { runTest(3,1); }
-testCase(_3x2) { runTest(3,2); }
-testCase(_3x3) { runTest(3,3); }
-testCase(_4x1) { runTest(4,1); }
-testCase(_4x2) { runTest(4,2); }
+TEST_CASE(_2x1) { runTest(2,1); }
+TEST_CASE(_2x2) { runTest(2,2); }
+TEST_CASE(_2x3) { runTest(2,3); }
+TEST_CASE(_3x1) { runTest(3,1); }
+TEST_CASE(_3x2) { runTest(3,2); }
+TEST_CASE(_3x3) { runTest(3,3); }
+TEST_CASE(_4x1) { runTest(4,1); }
+TEST_CASE(_4x2) { runTest(4,2); }
 
 } }
 //@-others
