@@ -78,6 +78,7 @@
 <v t="gcross.20101123222425.4124"><vh>@path constraints</vh>
 <v t="gcross.20101123222425.4141"><vh>@thin column_ordered.cc</vh></v>
 <v t="gcross.20101129164055.1921"><vh>@thin commutation/make-commutation-tests.py</vh></v>
+<v t="gcross.20101209010739.1843"><vh>@thin commutation-compatibility/make-commutation-compatibility-tests.py</vh></v>
 <v t="gcross.20101129164055.1922"><vh>@thin compatibility/make-compatibility-tests.py</vh></v>
 <v t="gcross.20101129164055.1853"><vh>@thin first_column_XZ.cc</vh></v>
 <v t="gcross.20101128173348.1848"><vh>@thin interactions.hh</vh></v>

@@ -13,6 +13,7 @@ endmacro(makeTestProgram)
 #@+node:gcross.20101128193219.1850: ** << Includes >>
 add_subdirectory("constraints/compatibility")
 add_subdirectory("constraints/commutation")
+add_subdirectory("constraints/commutation-compatibility")
 include_directories(".")
 #@-<< Includes >>
 
@@ -55,6 +56,13 @@ set(test-constraint-commutation-SOURCES
 )
 
 makeTestProgram(test-constraint-commutation)
+#@+node:gcross.20101209010739.1845: ** test-constraint-commutation-compatability
+set(test-constraint-commutation-compatibility-SOURCES
+    ${COMMUTATION_COMPATIBILITY_SOURCES}
+    test_utils.cc
+)
+
+makeTestProgram(test-constraint-commutation-compatibility)
 #@+node:gcross.20101128173348.1867: ** test-constraints-row-ordered
 set(test-constraints-row-ordered-SOURCES
     constraints/row_ordered.cc

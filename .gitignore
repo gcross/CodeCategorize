@@ -14,5 +14,6 @@ cmake_install.cmake
 test
 test-constraint-compatibility
 test-constraint-commutation
+test-constraint-commutation-compatibility
 test-constraints-row-ordered
 tests/constraints/interactions/*.cc
