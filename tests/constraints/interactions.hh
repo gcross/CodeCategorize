@@ -116,17 +116,6 @@ template <class T1,class T2> struct ConstraintInteractionOperatorSpace
 #define runCommutationTestFor(T1,T2,m,n) \
     TEST_CASE( _##m##x##n ) { ConstraintInteractionOperatorSpace< T1##OperatorSpace , T2##OperatorSpace >::runCommutationTest(m,n); };
 
-#define runEvenRowCommutationTestsFor(T1,T2)         \
-    TEST_SUITE(Constraint_Commutation) {              \
-        TEST_SUITE( T1##_and_##T2 ) {                  \
-            runCommutationTestFor(T1,T2,2,1);        \
-            runCommutationTestFor(T1,T2,2,2);        \
-            runCommutationTestFor(T1,T2,2,3);        \
-            runCommutationTestFor(T1,T2,4,1);        \
-            runCommutationTestFor(T1,T2,4,2);        \
-        };                                           \
-    }
-
 #define runOddRowCommutationTestsFor(T1,T2)          \
     TEST_SUITE(Constraint_Commutation) {              \
         TEST_SUITE( T1##_and_##T2 ) {                  \
