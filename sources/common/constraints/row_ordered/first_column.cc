@@ -22,6 +22,7 @@ FirstColumnXRowOrderedOperatorSpace::FirstColumnXRowOrderedOperatorSpace(
 )
     : RowOrderedOperatorSpace(number_of_operators,number_of_qubits)
     , OperatorSpace(number_of_operators,number_of_qubits)
+    , FirstColumnXZOperatorSpace(number_of_operators,number_of_qubits)
     , first_column_X(*this,number_of_operators,0,1)
     , intrapair_ties(*this,number_of_pairs,0,1)
     , interpair_ties(*this,max(number_of_pairs-1,0),0,1)
@@ -34,6 +35,7 @@ FirstColumnXRowOrderedOperatorSpace::FirstColumnXRowOrderedOperatorSpace(
 FirstColumnXRowOrderedOperatorSpace::FirstColumnXRowOrderedOperatorSpace(bool share, FirstColumnXRowOrderedOperatorSpace& s)
     : RowOrderedOperatorSpace(share,s)
     , OperatorSpace(share,s)
+    , FirstColumnXZOperatorSpace(share,s)
 {
     first_column_X.update(*this,share,s.first_column_X);
     intrapair_ties.update(*this,share,s.intrapair_ties);

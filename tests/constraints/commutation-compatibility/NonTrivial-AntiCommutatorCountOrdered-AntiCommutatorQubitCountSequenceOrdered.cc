@@ -4,4 +4,3 @@
 #include "constraints/row_ordered/anti_commutator_qubit_count_sequence.hh"
 
 runCommutationCompatibilityTestsFor(NonTrivial,AntiCommutatorCountOrdered,AntiCommutatorQubitCountSequenceOrdered);
-

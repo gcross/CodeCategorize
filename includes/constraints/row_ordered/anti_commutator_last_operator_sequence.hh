@@ -10,6 +10,7 @@
 #include <gecode/int.hh>
 
 #include "commutator.hh"
+#include "constraints/first_column_XZ.hh"
 #include "constraints/row_ordered.hh"
 #include "operator_space.hh"
 //@-<< Includes >>
@@ -23,6 +24,7 @@ using namespace Gecode;
 struct AntiCommutatorLastOperatorSequenceOrderedOperatorSpace
     : public virtual RowOrderedOperatorSpace
     , public virtual CommutatorOperatorSpace
+    , public virtual FirstColumnXZOperatorSpace
 {
 
     //@+others

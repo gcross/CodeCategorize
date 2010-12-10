@@ -3,5 +3,4 @@
 #include "constraints/row_ordered/first_column.hh"
 #include "constraints/row_ordered/weight.hh"
 
-runOddRowCommutationCompatibilityTestsFor(NonTrivial,FirstColumnXRowOrdered,WeightRowOrdered);
-
+runOddRowsCommutationCompatibilityTestsFor(NonTrivial,FirstColumnXRowOrdered,WeightRowOrdered);

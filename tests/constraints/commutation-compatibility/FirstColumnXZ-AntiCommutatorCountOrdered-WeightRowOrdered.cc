@@ -3,5 +3,4 @@
 #include "constraints/row_ordered/anti_commutator_count.hh"
 #include "constraints/row_ordered/weight.hh"
 
-runOddRowCommutationCompatibilityTestsFor(FirstColumnXZ,AntiCommutatorCountOrdered,WeightRowOrdered);
-
+runOddRowsCommutationCompatibilityTestsForFirstColumnXZAnd(AntiCommutatorCountOrdered,WeightRowOrdered);

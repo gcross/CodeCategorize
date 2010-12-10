@@ -3,4 +3,3 @@
 #include "constraints/non_trivial.hh"
 
 runCompatibilityTestsFor(MinimalWeight,NonTrivial);
-

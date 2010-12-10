@@ -41,12 +41,10 @@ void runCountTest(int number_of_operators, int number_of_qubits) {
     }
 }
 
-TEST_CASE(_2x1) { runCountTest(2,1); }
-TEST_CASE(_2x2) { runCountTest(2,2); }
 TEST_CASE(_3x1) { runCountTest(3,1); }
 TEST_CASE(_3x2) { runCountTest(3,2); }
-TEST_CASE(_4x1) { runCountTest(4,1); }
-TEST_CASE(_4x2) { runCountTest(4,2); }
+TEST_CASE(_5x1) { runCountTest(5,1); }
+TEST_CASE(_5x2) { runCountTest(5,2); }
 
 } } }
 //@-others

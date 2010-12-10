@@ -43,34 +43,6 @@ TEST_CASE(_1x2) {
     }
     ASSERT_EQ(4,number_of_solutions);
 }
-//@+node:gcross.20101129164055.1865: *3* _2x1
-TEST_CASE(_2x1) {
-    FirstColumnXZOperatorSpace* m = new FirstColumnXZOperatorSpace(2,1);
-    DFS<FirstColumnXZOperatorSpace> e(m);
-    delete m;
-    int number_of_solutions = 0;
-    for(m = e.next(); m != NULL; m = e.next()) {
-        ASSERT_EQ(0,m->getZMatrix()(0,0).val());
-        ASSERT_EQ(Z,m->getOMatrix()(0,1).val());
-        ++number_of_solutions;
-        delete m;
-    }
-    ASSERT_EQ(2,number_of_solutions);
-}
-//@+node:gcross.20101129164055.1866: *3* _2x2
-TEST_CASE(_2x2) {
-    FirstColumnXZOperatorSpace* m = new FirstColumnXZOperatorSpace(2,2);
-    DFS<FirstColumnXZOperatorSpace> e(m);
-    delete m;
-    int number_of_solutions = 0;
-    for(m = e.next(); m != NULL; m = e.next()) {
-        ASSERT_EQ(0,m->getZMatrix()(0,0).val());
-        ASSERT_EQ(Z,m->getOMatrix()(0,1).val());
-        ++number_of_solutions;
-        delete m;
-    }
-    ASSERT_EQ(32,number_of_solutions);
-}
 //@+node:gcross.20101129164055.1867: *3* _3x3
 TEST_CASE(_3x3) {
     FirstColumnXZOperatorSpace* m = new FirstColumnXZOperatorSpace(3,3);

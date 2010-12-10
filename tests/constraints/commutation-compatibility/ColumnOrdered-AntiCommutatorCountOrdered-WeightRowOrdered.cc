@@ -4,4 +4,3 @@
 #include "constraints/row_ordered/weight.hh"
 
 runCommutationCompatibilityTestsFor(ColumnOrdered,AntiCommutatorCountOrdered,WeightRowOrdered);
-

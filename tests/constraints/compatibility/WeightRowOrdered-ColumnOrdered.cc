@@ -3,4 +3,3 @@
 #include "constraints/column_ordered.hh"
 
 runCompatibilityTestsFor(WeightRowOrdered,ColumnOrdered);
-

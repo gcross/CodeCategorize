@@ -9,6 +9,7 @@
 //@+node:gcross.20101123222425.2934: ** << Includes >>
 #include <gecode/int.hh>
 
+#include "constraints/first_column_XZ.hh"
 #include "constraints/row_ordered.hh"
 #include "operator_space.hh"
 //@-<< Includes >>
@@ -19,7 +20,10 @@ using namespace Gecode;
 
 //@+others
 //@+node:gcross.20101123222425.2953: ** struct FirstColumnXRowOrderedOperatorSpace
-struct FirstColumnXRowOrderedOperatorSpace : public virtual RowOrderedOperatorSpace {
+struct FirstColumnXRowOrderedOperatorSpace
+    : public virtual RowOrderedOperatorSpace
+    , public virtual FirstColumnXZOperatorSpace 
+{
 
     //@+others
     //@+node:gcross.20101123222425.2954: *3* (fields)

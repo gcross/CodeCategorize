@@ -3,5 +3,4 @@
 #include "constraints/row_ordered/first_column.hh"
 #include "constraints/row_ordered/pauli_groups.hh"
 
-runOddRowCommutationCompatibilityTestsFor(XZYOrdered,FirstColumnXRowOrdered,PauliGroupsRowOrdered);
-
+runOddRowsCommutationCompatibilityTestsFor(XZYOrdered,FirstColumnXRowOrdered,PauliGroupsRowOrdered);

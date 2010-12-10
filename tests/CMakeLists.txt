@@ -33,7 +33,6 @@ set(test-SOURCES
     constraints/row_ordered/first_column.cc
     constraints/row_ordered/pauli_groups.cc
     constraints/row_ordered/weight.cc
-    constraints/row_ordered/weight_and_first_column.cc
     constraints/XZY_ordered.cc
     operator_space.cc
     test_utils.cc
@@ -71,7 +70,6 @@ set(test-constraints-row-ordered-SOURCES
     constraints/row_ordered/first_column.cc
     constraints/row_ordered/pauli_groups.cc
     constraints/row_ordered/weight.cc
-    constraints/row_ordered/weight_and_first_column.cc
     test_utils.cc
 )
 

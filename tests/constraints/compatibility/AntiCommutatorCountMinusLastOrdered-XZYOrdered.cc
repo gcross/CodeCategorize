@@ -3,4 +3,3 @@
 #include "constraints/XZY_ordered.hh"
 
 runCompatibilityTestsFor(AntiCommutatorCountMinusLastOrdered,XZYOrdered);
-

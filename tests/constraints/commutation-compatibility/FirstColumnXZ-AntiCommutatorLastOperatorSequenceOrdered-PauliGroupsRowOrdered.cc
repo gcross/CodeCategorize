@@ -3,5 +3,4 @@
 #include "constraints/row_ordered/anti_commutator_last_operator_sequence.hh"
 #include "constraints/row_ordered/pauli_groups.hh"
 
-runOddRowCommutationCompatibilityTestsFor(FirstColumnXZ,AntiCommutatorLastOperatorSequenceOrdered,PauliGroupsRowOrdered);
-
+runOddRowsCommutationCompatibilityTestsForFirstColumnXZAnd(AntiCommutatorLastOperatorSequenceOrdered,PauliGroupsRowOrdered);

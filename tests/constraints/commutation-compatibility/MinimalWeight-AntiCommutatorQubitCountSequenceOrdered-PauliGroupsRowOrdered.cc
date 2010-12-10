@@ -4,4 +4,3 @@
 #include "constraints/row_ordered/pauli_groups.hh"
 
 runCommutationCompatibilityTestsFor(MinimalWeight,AntiCommutatorQubitCountSequenceOrdered,PauliGroupsRowOrdered);
-

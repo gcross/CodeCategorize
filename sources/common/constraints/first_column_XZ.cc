@@ -19,6 +19,7 @@ using namespace Gecode;
 FirstColumnXZOperatorSpace::FirstColumnXZOperatorSpace(int number_of_operators, int number_of_qubits)
     : OperatorSpace(number_of_operators,number_of_qubits)
 {
+    assert(number_of_operators % 2 == 1);
     rel(*this,getOMatrix()(0,number_of_operators-1),IRT_EQ,2);
     rel(*this,getZMatrix().slice(0,1,0,number_of_operators-1),IRT_EQ,0);
 }

@@ -23,6 +23,7 @@ AntiCommutatorLastOperatorSequenceOrderedOperatorSpace::AntiCommutatorLastOperat
     : RowOrderedOperatorSpace(number_of_operators,number_of_qubits)
     , CommutatorOperatorSpace(number_of_operators,number_of_qubits)
     , OperatorSpace(number_of_operators,number_of_qubits)
+    , FirstColumnXZOperatorSpace(number_of_operators,number_of_qubits)
     , last_operator_anti_commuting_qubit_sequence(*this,number_of_operators*number_of_qubits,0,1)
     , intrapair_ties(*this,number_of_qubits*number_of_pairs,0,1)
     , interpair_ties(*this,number_of_qubits*max(number_of_pairs-1,0),0,1)
@@ -63,6 +64,7 @@ AntiCommutatorLastOperatorSequenceOrderedOperatorSpace::AntiCommutatorLastOperat
     : RowOrderedOperatorSpace(share,s)
     , CommutatorOperatorSpace(share,s)
     , OperatorSpace(share,s)
+    , FirstColumnXZOperatorSpace(share,s)
 {
     last_operator_anti_commuting_qubit_sequence.update(*this,share,s.last_operator_anti_commuting_qubit_sequence);
     intrapair_ties.update(*this,share,s.intrapair_ties);

@@ -2,5 +2,4 @@
 #include "constraints/row_ordered/anti_commutator_last_operator_sequence.hh"
 #include "constraints/column_ordered.hh"
 
-runCompatibilityTestsFor(AntiCommutatorLastOperatorSequenceOrdered,ColumnOrdered);
-
+runOddRowsCompatibilityTestsFor(AntiCommutatorLastOperatorSequenceOrdered,ColumnOrdered);

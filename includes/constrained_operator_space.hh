@@ -18,7 +18,6 @@
 #include "constraints/row_ordered/first_column.hh"
 #include "constraints/row_ordered/pauli_groups.hh"
 #include "constraints/row_ordered/weight.hh"
-#include "constraints/row_ordered/weight_and_first_column.hh"
 #include "constraints/special_case_XZ.hh"
 #include "constraints/XZY_ordered.hh"
 #include "operator_space.hh"
@@ -53,7 +52,7 @@ struct AllConstraintsBaseOperatorSpace
 struct AllConstraintsOddRowsOperatorSpace
     : public AllConstraintsBaseOperatorSpace
     , public AntiCommutatorLastOperatorSequenceOrderedOperatorSpace
-    , public FirstColumnXZOperatorSpace
+    , public virtual FirstColumnXZOperatorSpace
 {
 
     //@+others

@@ -3,4 +3,3 @@
 #include "constraints/minimal_weight.hh"
 
 runCompatibilityTestsFor(ColumnOrdered,MinimalWeight);
-

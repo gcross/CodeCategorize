@@ -2,5 +2,4 @@
 #include "constraints/row_ordered/first_column.hh"
 #include "constraints/XZY_ordered.hh"
 
-runCompatibilityTestsFor(FirstColumnXRowOrdered,XZYOrdered);
-
+runOddRowsCompatibilityTestsFor(FirstColumnXRowOrdered,XZYOrdered);

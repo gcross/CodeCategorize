@@ -10,6 +10,7 @@
 #include <illuminate.hpp>
 
 #include "constraints/row_ordered/first_column.hh"
+#include "test_utils.hh"
 
 using namespace std;
 using namespace Gecode;
@@ -23,31 +24,17 @@ TEST_SUITE(Constraints) { TEST_SUITE(RowOrdered) { TEST_SUITE(FirstColumnX) {
 //@+others
 //@+node:gcross.20101128153132.1858: *3* _1x1
 TEST_CASE(_1x1) {
-    FirstColumnXRowOrderedOperatorSpace* m = new FirstColumnXRowOrderedOperatorSpace(1,1);
-    DFS<FirstColumnXRowOrderedOperatorSpace> e(m);
-    delete m;
-    int number_of_solutions = 0;
-    for(m = e.next(); m != NULL; m = e.next()) {
-        ++number_of_solutions;
-        delete m;
-    }
-    ASSERT_EQ(4,number_of_solutions);
+    int number_of_solutions = countSolutions(new FirstColumnXRowOrderedOperatorSpace(1,1));
+    ASSERT_EQ(1,number_of_solutions);
 }
 //@+node:gcross.20101128153132.1859: *3* _1x2
 TEST_CASE(_1x2) {
-    FirstColumnXRowOrderedOperatorSpace* m = new FirstColumnXRowOrderedOperatorSpace(1,2);
-    DFS<FirstColumnXRowOrderedOperatorSpace> e(m);
-    delete m;
-    int number_of_solutions = 0;
-    for(m = e.next(); m != NULL; m = e.next()) {
-        ++number_of_solutions;
-        delete m;
-    }
-    ASSERT_EQ(16,number_of_solutions);
+    int number_of_solutions = countSolutions(new FirstColumnXRowOrderedOperatorSpace(1,2));
+    ASSERT_EQ(4,number_of_solutions);
 }
-//@+node:gcross.20101128153132.1860: *3* _2x1
-TEST_CASE(_2x1) {
-    FirstColumnXRowOrderedOperatorSpace* m = new FirstColumnXRowOrderedOperatorSpace(2,1);
+//@+node:gcross.20101128153132.1860: *3* _3x1
+TEST_CASE(_3x1) {
+    FirstColumnXRowOrderedOperatorSpace* m = new FirstColumnXRowOrderedOperatorSpace(3,1);
     DFS<FirstColumnXRowOrderedOperatorSpace> e(m);
     delete m;
     int number_of_solutions = 0;
@@ -56,11 +43,11 @@ TEST_CASE(_2x1) {
         ++number_of_solutions;
         delete m;
     }
-    ASSERT_EQ(12,number_of_solutions);
+    ASSERT_EQ(3,number_of_solutions);
 }
-//@+node:gcross.20101128153132.1861: *3* _2x2
-TEST_CASE(_2x2) {
-    FirstColumnXRowOrderedOperatorSpace* m = new FirstColumnXRowOrderedOperatorSpace(2,2);
+//@+node:gcross.20101128153132.1861: *3* _3x2
+TEST_CASE(_3x2) {
+    FirstColumnXRowOrderedOperatorSpace* m = new FirstColumnXRowOrderedOperatorSpace(3,2);
     DFS<FirstColumnXRowOrderedOperatorSpace> e(m);
     delete m;
     int number_of_solutions = 0;
@@ -70,11 +57,11 @@ TEST_CASE(_2x2) {
         ++number_of_solutions;
         delete m;
     }
-    ASSERT_EQ(12*16,number_of_solutions);
+    ASSERT_EQ(3*4*4*4,number_of_solutions);
 }
-//@+node:gcross.20101128153132.1862: *3* _4x2
-TEST_CASE(_4x2) {
-    FirstColumnXRowOrderedOperatorSpace* m = new FirstColumnXRowOrderedOperatorSpace(4,2);
+//@+node:gcross.20101128153132.1862: *3* _5x2
+TEST_CASE(_5x2) {
+    FirstColumnXRowOrderedOperatorSpace* m = new FirstColumnXRowOrderedOperatorSpace(5,2);
     DFS<FirstColumnXRowOrderedOperatorSpace> e(m);
     delete m;
     int number_of_solutions = 0;

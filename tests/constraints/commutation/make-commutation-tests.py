@@ -5,10 +5,10 @@ from itertools import combinations_with_replacement
 
 tests = [
     ("AntiCommutatorCountOrdered","row_ordered/anti_commutator_count",""),
-    ("AntiCommutatorCountMinusLastOrdered","row_ordered/anti_commutator_count_minus_last","OddRow"),
+    ("AntiCommutatorCountMinusLastOrdered","row_ordered/anti_commutator_count_minus_last","OddRows"),
     ("AntiCommutatorQubitCountSequenceOrdered","row_ordered/anti_commutator_qubit_count_sequence",""),
-    ("AntiCommutatorLastOperatorSequenceOrdered","row_ordered/anti_commutator_last_operator_sequence","OddRow"),
-    ("FirstColumnXRowOrdered","row_ordered/first_column",""),
+    ("AntiCommutatorLastOperatorSequenceOrdered","row_ordered/anti_commutator_last_operator_sequence","OddRows"),
+    ("FirstColumnXRowOrdered","row_ordered/first_column","OddRows"),
     ("PauliGroupsRowOrdered","row_ordered/pauli_groups",""),
     ("WeightRowOrdered","row_ordered/weight",""),
     ]
