@@ -15,7 +15,6 @@ tests = [
     ("FirstColumnXZ","first_column_XZ"),
     ("MinimalWeight","minimal_weight"),
     ("NonTrivial","non_trivial"),
-    ("SpecialCaseXZConstrained","special_case_XZ"),
     ("XZYOrdered","XZY_ordered"),
     ]
 

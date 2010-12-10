@@ -35,7 +35,6 @@ struct AllConstraintsBaseOperatorSpace
     : public ColumnOrderedOperatorSpace
     , public MinimalWeightOperatorSpace
     , public AntiCommutatorQubitCountSequenceOrderedOperatorSpace
-    , public SpecialCaseXZConstrainedOperatorSpace
     , public XZYOrderedOperatorSpace
     , public PauliGroupsRowOrderedOperatorSpace
     , public NonTrivialOperatorSpace

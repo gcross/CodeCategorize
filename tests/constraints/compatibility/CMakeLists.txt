@@ -3,58 +3,46 @@ set(COMPATIBILITY_SOURCES
     constraints/compatibility/AntiCommutatorCountOrdered-FirstColumnXZ.cc
     constraints/compatibility/AntiCommutatorCountOrdered-MinimalWeight.cc
     constraints/compatibility/AntiCommutatorCountOrdered-NonTrivial.cc
-    constraints/compatibility/AntiCommutatorCountOrdered-SpecialCaseXZConstrained.cc
     constraints/compatibility/AntiCommutatorCountOrdered-XZYOrdered.cc
     constraints/compatibility/AntiCommutatorCountMinusLastOrdered-ColumnOrdered.cc
     constraints/compatibility/AntiCommutatorCountMinusLastOrdered-FirstColumnXZ.cc
     constraints/compatibility/AntiCommutatorCountMinusLastOrdered-MinimalWeight.cc
     constraints/compatibility/AntiCommutatorCountMinusLastOrdered-NonTrivial.cc
-    constraints/compatibility/AntiCommutatorCountMinusLastOrdered-SpecialCaseXZConstrained.cc
     constraints/compatibility/AntiCommutatorCountMinusLastOrdered-XZYOrdered.cc
     constraints/compatibility/AntiCommutatorQubitCountSequenceOrdered-ColumnOrdered.cc
     constraints/compatibility/AntiCommutatorQubitCountSequenceOrdered-FirstColumnXZ.cc
     constraints/compatibility/AntiCommutatorQubitCountSequenceOrdered-MinimalWeight.cc
     constraints/compatibility/AntiCommutatorQubitCountSequenceOrdered-NonTrivial.cc
-    constraints/compatibility/AntiCommutatorQubitCountSequenceOrdered-SpecialCaseXZConstrained.cc
     constraints/compatibility/AntiCommutatorQubitCountSequenceOrdered-XZYOrdered.cc
     constraints/compatibility/AntiCommutatorLastOperatorSequenceOrdered-ColumnOrdered.cc
     constraints/compatibility/AntiCommutatorLastOperatorSequenceOrdered-FirstColumnXZ.cc
     constraints/compatibility/AntiCommutatorLastOperatorSequenceOrdered-MinimalWeight.cc
     constraints/compatibility/AntiCommutatorLastOperatorSequenceOrdered-NonTrivial.cc
-    constraints/compatibility/AntiCommutatorLastOperatorSequenceOrdered-SpecialCaseXZConstrained.cc
     constraints/compatibility/AntiCommutatorLastOperatorSequenceOrdered-XZYOrdered.cc
     constraints/compatibility/FirstColumnXRowOrdered-ColumnOrdered.cc
     constraints/compatibility/FirstColumnXRowOrdered-FirstColumnXZ.cc
     constraints/compatibility/FirstColumnXRowOrdered-MinimalWeight.cc
     constraints/compatibility/FirstColumnXRowOrdered-NonTrivial.cc
-    constraints/compatibility/FirstColumnXRowOrdered-SpecialCaseXZConstrained.cc
     constraints/compatibility/FirstColumnXRowOrdered-XZYOrdered.cc
     constraints/compatibility/PauliGroupsRowOrdered-ColumnOrdered.cc
     constraints/compatibility/PauliGroupsRowOrdered-FirstColumnXZ.cc
     constraints/compatibility/PauliGroupsRowOrdered-MinimalWeight.cc
     constraints/compatibility/PauliGroupsRowOrdered-NonTrivial.cc
-    constraints/compatibility/PauliGroupsRowOrdered-SpecialCaseXZConstrained.cc
     constraints/compatibility/PauliGroupsRowOrdered-XZYOrdered.cc
     constraints/compatibility/WeightRowOrdered-ColumnOrdered.cc
     constraints/compatibility/WeightRowOrdered-FirstColumnXZ.cc
     constraints/compatibility/WeightRowOrdered-MinimalWeight.cc
     constraints/compatibility/WeightRowOrdered-NonTrivial.cc
-    constraints/compatibility/WeightRowOrdered-SpecialCaseXZConstrained.cc
     constraints/compatibility/WeightRowOrdered-XZYOrdered.cc
     constraints/compatibility/ColumnOrdered-FirstColumnXZ.cc
     constraints/compatibility/ColumnOrdered-MinimalWeight.cc
     constraints/compatibility/ColumnOrdered-NonTrivial.cc
-    constraints/compatibility/ColumnOrdered-SpecialCaseXZConstrained.cc
     constraints/compatibility/ColumnOrdered-XZYOrdered.cc
     constraints/compatibility/FirstColumnXZ-MinimalWeight.cc
     constraints/compatibility/FirstColumnXZ-NonTrivial.cc
-    constraints/compatibility/FirstColumnXZ-SpecialCaseXZConstrained.cc
     constraints/compatibility/FirstColumnXZ-XZYOrdered.cc
     constraints/compatibility/MinimalWeight-NonTrivial.cc
-    constraints/compatibility/MinimalWeight-SpecialCaseXZConstrained.cc
     constraints/compatibility/MinimalWeight-XZYOrdered.cc
-    constraints/compatibility/NonTrivial-SpecialCaseXZConstrained.cc
     constraints/compatibility/NonTrivial-XZYOrdered.cc
-    constraints/compatibility/SpecialCaseXZConstrained-XZYOrdered.cc
      PARENT_SCOPE
 )
