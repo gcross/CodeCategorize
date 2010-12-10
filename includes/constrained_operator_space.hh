@@ -33,6 +33,7 @@ using namespace Gecode;
 struct AllConstraintsBaseOperatorSpace
     : public ColumnOrderedOperatorSpace
     , public MinimalWeightOperatorSpace
+    , public WeightRowOrderedOperatorSpace
     , public AntiCommutatorQubitCountSequenceOrderedOperatorSpace
     , public XZYOrderedOperatorSpace
     , public PauliGroupsRowOrderedOperatorSpace
