@@ -29,7 +29,7 @@ struct AntiCommutatorLastOperatorSequenceOrderedOperatorSpace
 
     //@+others
     //@+node:gcross.20101126220444.1727: *3* (fields)
-    IntVarArray last_operator_anti_commuting_qubit_sequence;
+    IntVarArray last_operator_anti_commuting_qubit_sequence, sorted_last_operator_anti_commuting_qubit_sequence;
     BoolVarArray interpair_ties, intrapair_ties;
     //@+node:gcross.20101126220444.1728: *3* (constructors)
     AntiCommutatorLastOperatorSequenceOrderedOperatorSpace(int number_of_operators, int number_of_qubits);

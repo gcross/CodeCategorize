@@ -24,35 +24,40 @@ AntiCommutatorLastOperatorSequenceOrderedOperatorSpace::AntiCommutatorLastOperat
     , CommutatorOperatorSpace(number_of_operators,number_of_qubits)
     , OperatorSpace(number_of_operators,number_of_qubits)
     , FirstColumnXZOperatorSpace(number_of_operators,number_of_qubits)
-    , last_operator_anti_commuting_qubit_sequence(*this,number_of_operators*number_of_qubits,0,1)
-    , intrapair_ties(*this,number_of_qubits*number_of_pairs,0,1)
-    , interpair_ties(*this,number_of_qubits*max(number_of_pairs-1,0),0,1)
+    , last_operator_anti_commuting_qubit_sequence(*this,number_of_operators*(number_of_qubits-1),0,1)
+    , sorted_last_operator_anti_commuting_qubit_sequence(*this,number_of_operators*(number_of_qubits-1),0,1)
+    , intrapair_ties(*this,(number_of_qubits-1)*number_of_pairs,0,1)
+    , interpair_ties(*this,(number_of_qubits-1)*max(number_of_pairs-1,0),0,1)
 {
-    if(number_of_operators <= 1) return;
+    if(number_of_operators <= 1 || number_of_qubits <= 1) return;
     BoolMatrix anti_commuting_qubits_matrix = getAntiCommutingQubitsMatrix(),
-               intrapair_ties_matrix(intrapair_ties,number_of_pairs,number_of_qubits),
-               interpair_ties_matrix(interpair_ties,max(number_of_pairs-1,0),number_of_qubits);
-    IntMatrix  matrix(last_operator_anti_commuting_qubit_sequence,number_of_qubits,number_of_operators);
+               intrapair_ties_matrix(intrapair_ties,number_of_pairs,number_of_qubits-1),
+               interpair_ties_matrix(interpair_ties,max(number_of_pairs-1,0),number_of_qubits-1);
+    IntMatrix  matrix(last_operator_anti_commuting_qubit_sequence,number_of_qubits-1,number_of_operators),
+               sorted_matrix(sorted_last_operator_anti_commuting_qubit_sequence,number_of_qubits-1,number_of_operators);
     for(int i = 0; i < number_of_operators-1; ++i) {
         const int commutator_number = commutator_matrix(i,number_of_operators-1);
-        for(int j = 0; j < number_of_qubits; ++j) {
-            channel(*this,anti_commuting_qubits_matrix(j,commutator_number),matrix(j,i));
+        for(int j = 0; j < number_of_qubits-1; ++j) {
+            channel(*this,anti_commuting_qubits_matrix(j+1,commutator_number),matrix(j,i));
         }
     }
     rel(*this,matrix.row(number_of_operators-1),IRT_EQ,0);
+    for(int i = 0; i < number_of_operators; ++i) {
+        sorted(*this,matrix.row(i),sorted_matrix.row(i));
+    }
     if(number_of_pairs <= 1) {
         BoolVarArgs empty_args;
-        for(int i = number_of_qubits-1; i >= 0; --i) {
+        for(int i = number_of_qubits-2; i >= 0; --i) {
             postOrderingConstraint
-                (matrix.col(i)
+                (sorted_matrix.col(i)
                 ,intrapair_ties_matrix.row(i)
                 ,empty_args
                 );
         }
     } else {
-        for(int i = number_of_qubits-1; i >= 0; --i) {
+        for(int i = number_of_qubits-2; i >= 0; --i) {
             postOrderingConstraint
-                (matrix.col(i)
+                (sorted_matrix.col(i)
                 ,intrapair_ties_matrix.row(i)
                 ,interpair_ties_matrix.row(i)
                 );
@@ -67,6 +72,7 @@ AntiCommutatorLastOperatorSequenceOrderedOperatorSpace::AntiCommutatorLastOperat
     , FirstColumnXZOperatorSpace(share,s)
 {
     last_operator_anti_commuting_qubit_sequence.update(*this,share,s.last_operator_anti_commuting_qubit_sequence);
+    sorted_last_operator_anti_commuting_qubit_sequence.update(*this,share,s.sorted_last_operator_anti_commuting_qubit_sequence);
     intrapair_ties.update(*this,share,s.intrapair_ties);
     interpair_ties.update(*this,share,s.interpair_ties);
 }
