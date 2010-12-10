@@ -20,7 +20,7 @@ using namespace std;
 
 //@+others
 //@+node:gcross.20101129210852.1820: ** fast_scan
-template<int number_of_qubits> void fast_scan(int number_of_operators) {
+template<int number_of_qubits> void fast_scan(int number_of_operators, optional<int> maximum_weight) {
     typedef static_quantum_operator<number_of_qubits> quantum_operator;
     typedef static_vector<quantum_operator,2*number_of_qubits> operator_vector;
     typedef qubit<quantum_operator> qubit_type;
@@ -30,7 +30,7 @@ template<int number_of_qubits> void fast_scan(int number_of_operators) {
 
     operator_vector operators;
 
-    OperatorSpace* m = constructConstrainedOperatorSpace(number_of_qubits,number_of_operators);
+    OperatorSpace* m = constructConstrainedOperatorSpace(number_of_qubits,number_of_operators,maximum_weight);
     DFS<OperatorSpace> e(m);
     m->initializeOperators<quantum_operator,operator_vector>(operators);
     delete m;
@@ -58,7 +58,7 @@ template<int number_of_qubits> void fast_scan(int number_of_operators) {
 
 }
 //@+node:gcross.20101129210852.2670: ** slow_scan
-void slow_scan(int number_of_qubits, int number_of_operators) {
+void slow_scan(int number_of_qubits, int number_of_operators, optional<int> maximum_weight) {
     typedef dynamic_quantum_operator quantum_operator;
     typedef vector<quantum_operator> operator_vector;
     typedef qubit<quantum_operator> qubit_type;
@@ -68,7 +68,7 @@ void slow_scan(int number_of_qubits, int number_of_operators) {
 
     operator_vector operators;
 
-    OperatorSpace* m = constructConstrainedOperatorSpace(number_of_qubits,number_of_operators);
+    OperatorSpace* m = constructConstrainedOperatorSpace(number_of_qubits,number_of_operators,maximum_weight);
     DFS<OperatorSpace> e(m);
     m->initializeOperators<quantum_operator,operator_vector>(operators);
     delete m;
@@ -97,12 +97,14 @@ void slow_scan(int number_of_qubits, int number_of_operators) {
 }
 //@+node:gcross.20101129210852.1819: ** main
 int main(int argc, char** argv) {
-    if(argc < 3) {
-        cout << "Usage: scan <# of qubits> <# of operators>" << endl;
+    if(argc < 3 || argc > 4) {
+        cout << "Usage: scan <# of qubits> <# of operators> [maximum weight]" << endl;
         return 1;
     }
     int number_of_qubits = atoi(argv[1]),
         number_of_operators = atoi(argv[2]);
+    optional<int> maximum_weight;
+    if(argc == 4) maximum_weight = atoi(argv[3]);
     if(number_of_operators < 3) {
         cerr << "The number of operators must be three or greater." << endl;
         return -1;
@@ -112,18 +114,18 @@ int main(int argc, char** argv) {
         return -1;
     }
     switch(number_of_qubits) {
-        case 4: fast_scan<4>(number_of_operators); break;
-        case 5: fast_scan<5>(number_of_operators); break;
-        case 6: fast_scan<6>(number_of_operators); break;
-        case 7: fast_scan<7>(number_of_operators); break;
-        case 8: fast_scan<8>(number_of_operators); break;
+        case 4: fast_scan<4>(number_of_operators,maximum_weight); break;
+        case 5: fast_scan<5>(number_of_operators,maximum_weight); break;
+        case 6: fast_scan<6>(number_of_operators,maximum_weight); break;
+        case 7: fast_scan<7>(number_of_operators,maximum_weight); break;
+        case 8: fast_scan<8>(number_of_operators,maximum_weight); break;
         default: goto slow_scan;
     }
     return 0;
 
 slow_scan:
     cout << "# (No hard-coded fast scaner for the given arguments;  falling back on the slow scaner.)" << endl;
-    slow_scan(number_of_qubits,number_of_operators);
+    slow_scan(number_of_qubits,number_of_operators,maximum_weight);
     return 0;
 }
 //@-others
