@@ -101,6 +101,12 @@ template<
             return auto_ptr<qec_t>(new qec_t(operators));
         }
 
+        auto_ptr<qec_t> computeOptimizedCode() const throw(OutOfSolutions) {
+            auto_ptr<qec_t> code_ptr = computeCode();
+            code_ptr->optimize_logical_qubits(false);
+            return code_ptr;
+        }
+
         const OperatorSpace* getSpace() const throw(OutOfSolutions) {
             assertNotOutOfSolutions();
             return space.get();
