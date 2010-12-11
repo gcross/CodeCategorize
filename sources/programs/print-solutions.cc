@@ -9,7 +9,7 @@
 #include <cstdlib>
 
 #include "constrained_operator_space.hh"
-#include "operator_space.hh"
+#include "solution_iterator.hh"
 
 using namespace CodeCategorize;
 using namespace Gecode;
@@ -27,16 +27,13 @@ int main(int argc, char** argv) {
         number_of_operators = atoi(argv[2]);
     optional<int> maximum_weight;
     if(argc == 4) maximum_weight = atoi(argv[3]);
-    OperatorSpace* m = constructConstrainedOperatorSpace(number_of_qubits,number_of_operators,maximum_weight);
-    DFS<OperatorSpace> e(m);
-    delete m;
-    cout << "---" << endl;
-    for(m = e.next(); m != NULL; m = e.next()) {
+    for(SolutionIterator<> solution(constructConstrainedOperatorSpace(number_of_qubits,number_of_operators,maximum_weight));
+        solution;
+        ++solution
+    ) {
         cout << "-";
-        vector<dynamic_quantum_operator> operators = m->getOperators();
-        BOOST_FOREACH(dynamic_quantum_operator& op, operators) { cout << " - " << op << endl;  cout << " "; }
+        BOOST_FOREACH(const dynamic_quantum_operator& op, *solution) { cout << " - " << op << endl;  cout << " "; }
         cout << endl;
-        delete m;
     }
 }
 //@-others

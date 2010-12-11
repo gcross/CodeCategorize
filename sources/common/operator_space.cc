@@ -58,7 +58,11 @@ OperatorSpace::OperatorSpace(bool share, OperatorSpace& s)
     , number_of_qubits(s.number_of_qubits)
     , number_of_variables(s.number_of_variables)
     , number_of_pairs(s.number_of_pairs)
-    , maximum_weight(maximum_weight)
+    , maximum_weight(s.maximum_weight)
+    , total_number_of_qubits(s.total_number_of_qubits)
+    , last_row(s.last_row)
+    , last_even_row(s.last_even_row)
+    , odd_number_of_rows(s.odd_number_of_rows)
 {
     X.update(*this,share,s.X);
     Z.update(*this,share,s.Z);

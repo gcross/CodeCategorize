@@ -103,15 +103,16 @@ Space* AllConstraintsEvenRowsOperatorSpace::copy(bool share)
 }
 //@+node:gcross.20101123222425.3752: ** Functions
 //@+node:gcross.20101123222425.3757: *3* constructConstrainedOperatorSpace
-OperatorSpace* constructConstrainedOperatorSpace(int number_of_qubits,int number_of_operators,optional<int> maximum_weight) {
-    return number_of_operators % 2 == 0
-        ? dynamic_cast<OperatorSpace*>(
-            new AllConstraintsEvenRowsOperatorSpace(number_of_operators,number_of_qubits-number_of_operators/2,maximum_weight)
-          )
-        : dynamic_cast<OperatorSpace*>(
-            new AllConstraintsOddRowsOperatorSpace(number_of_operators,number_of_qubits-number_of_operators/2,maximum_weight)
-          )
-        ;
+auto_ptr<OperatorSpace> constructConstrainedOperatorSpace(int number_of_qubits,int number_of_operators,optional<int> maximum_weight) {
+    return auto_ptr<OperatorSpace>(
+        number_of_operators % 2 == 0
+            ? dynamic_cast<OperatorSpace*>(
+                new AllConstraintsEvenRowsOperatorSpace(number_of_operators,number_of_qubits-number_of_operators/2,maximum_weight)
+              )
+            : dynamic_cast<OperatorSpace*>(
+                new AllConstraintsOddRowsOperatorSpace(number_of_operators,number_of_qubits-number_of_operators/2,maximum_weight)
+              )
+    );
 }
 //@-others
 

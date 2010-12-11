@@ -7,6 +7,8 @@
 #include <illuminate.hpp>
 
 #include "constraints/minimal_weight.hh"
+#include "solution_iterator.hh"
+
 #include "test_utils.hh"
 
 using namespace Gecode;
@@ -63,48 +65,36 @@ void runDerivedFieldsTest(int number_of_operators, int number_of_qubits) {
 }
 //@+node:gcross.20101121200631.1644: *4* runWeightTest
 void runWeightTest(int number_of_operators, int number_of_qubits, optional<int> maximum_weight=none) {
-    MinimalWeightOperatorSpace* m = new MinimalWeightOperatorSpace(number_of_operators,number_of_qubits,maximum_weight);
-    DFS<MinimalWeightOperatorSpace> e(m);
-    delete m;
-    for(m = e.next(); m != NULL; m = e.next()) {
-        vector<dynamic_quantum_operator> operators = m->getOperators();
-        for(int i = 0; i < number_of_operators; ++i) {
-            if(maximum_weight) ASSERT_TRUE(operators[i].weight() <= *maximum_weight);
-            ASSERT_TRUE(checkAllProducts(operators,operators[i],operators[i].weight(),i+1));
+    for(SolutionIterator<> solution(auto_ptr<OperatorSpace>(new MinimalWeightOperatorSpace(number_of_operators,number_of_qubits,maximum_weight)));
+        solution;
+        ++solution
+    ) {
+        int i = 0;
+        BOOST_FOREACH(const dynamic_quantum_operator& op, *solution) {
+            if(maximum_weight) ASSERT_TRUE(op.weight() <= *maximum_weight);
+            ASSERT_TRUE(checkAllProducts(*solution,op,op.weight(),i+1));
+            ++i;
         }
-        delete m;
     }
 }
 //@+node:gcross.20101122101448.1538: *4* runCorrectNumberOfSolutionsTest
 void runCorrectNumberOfSolutionsTest(int number_of_operators, int number_of_qubits) {
     int correct_number_of_solutions = 0;
-    {
-        OperatorSpace* m = new OperatorSpace(number_of_operators,number_of_qubits);
-        DFS<OperatorSpace> e(m);
-        delete m;
-        for(m = e.next(); m != NULL; m = e.next()) {
-            vector<dynamic_quantum_operator> operators = m->getOperators();
-            bool is_minimal_weight_solution = true;
-            for(int i = 0; i < number_of_operators; ++i) {
-                if(not checkAllProducts(operators,operators[i],operators[i].weight(),i+1)) {
-                    is_minimal_weight_solution = false;
-                    break;
-                }
+    for(SolutionIterator<> solution(auto_ptr<OperatorSpace>(new OperatorSpace(number_of_operators,number_of_qubits)));
+        solution;
+        ++solution
+    ) {
+        const vector<dynamic_quantum_operator>& operators = *solution;
+        bool is_minimal_weight_solution = true;
+        for(int i = 0; i < number_of_operators; ++i) {
+            if(not checkAllProducts(operators,operators[i],operators[i].weight(),i+1)) {
+                is_minimal_weight_solution = false;
+                break;
             }
-            if(is_minimal_weight_solution) ++correct_number_of_solutions;
-            delete m;
         }
+        if(is_minimal_weight_solution) ++correct_number_of_solutions;
     }
-    int number_of_solutions = 0;
-    {
-        MinimalWeightOperatorSpace* m = new MinimalWeightOperatorSpace(number_of_operators,number_of_qubits);
-        DFS<MinimalWeightOperatorSpace> e(m);
-        delete m;
-        for(m = e.next(); m != NULL; m = e.next()) {
-            ++number_of_solutions;
-            delete m;
-        }
-    }
+    int number_of_solutions = countSolutions(new MinimalWeightOperatorSpace(number_of_operators,number_of_qubits));
     ASSERT_EQ(correct_number_of_solutions,number_of_solutions);
 }
 //@+node:gcross.20101121135345.1487: *3* 2x1

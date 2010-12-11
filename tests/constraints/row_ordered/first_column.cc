@@ -24,13 +24,11 @@ TEST_SUITE(Constraints) { TEST_SUITE(RowOrdered) { TEST_SUITE(FirstColumnX) {
 //@+others
 //@+node:gcross.20101128153132.1858: *3* _1x1
 TEST_CASE(_1x1) {
-    int number_of_solutions = countSolutions(new FirstColumnXRowOrderedOperatorSpace(1,1));
-    ASSERT_EQ(1,number_of_solutions);
+    ASSERT_EQ(1,countSolutions(new FirstColumnXRowOrderedOperatorSpace(1,1)));
 }
 //@+node:gcross.20101128153132.1859: *3* _1x2
 TEST_CASE(_1x2) {
-    int number_of_solutions = countSolutions(new FirstColumnXRowOrderedOperatorSpace(1,2));
-    ASSERT_EQ(4,number_of_solutions);
+    ASSERT_EQ(4,countSolutions(new FirstColumnXRowOrderedOperatorSpace(1,2)));
 }
 //@+node:gcross.20101128153132.1860: *3* _3x1
 TEST_CASE(_3x1) {

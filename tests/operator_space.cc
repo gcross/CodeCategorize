@@ -8,6 +8,7 @@
 #include <illuminate.hpp>
 
 #include "operator_space.hh"
+#include "solution_iterator.hh"
 
 #include "test_utils.hh"
 
@@ -50,12 +51,12 @@ template<int number_of_operators, int number_of_qubits> void runUpdateValidation
     typedef static_vector<quantum_operator,number_of_operators> operator_vector;
     OperatorSpace* m = new OperatorSpace(number_of_operators,number_of_qubits);
     operator_vector operators;
-    m->initializeOperators<quantum_operator,operator_vector>(operators);
+    m->initializeOperators(operators);
     DFS<OperatorSpace> e(m);
     delete m;
     for(m = e.next(); m != NULL; m = e.next()) {
         vector<dynamic_quantum_operator> correct_operators = m->getOperators();
-        m->updateOperators<quantum_operator,operator_vector>(operators);
+        m->updateOperators(operators);
         for(int i = 0; i < number_of_operators; ++i) {
             for(int j = 0; j < number_of_qubits+number_of_operators/2; ++j) {
                 ASSERT_EQ(correct_operators[i].pauli_char_at(j),operators[i].pauli_char_at(j));
@@ -67,33 +68,25 @@ template<int number_of_operators, int number_of_qubits> void runUpdateValidation
 //@+node:gcross.20101203210234.1831: *3* runMaximumWeightTest
 void runMaximumWeightTest(int number_of_operators, int number_of_qubits, int maximum_weight) {
     int number_of_solutions = 0;
-    {
-        OperatorSpace* m = new OperatorSpace(number_of_operators,number_of_qubits,make_optional(maximum_weight));
-        DFS<OperatorSpace> e(m);
-        delete m;
-        for(m = e.next(); m != NULL; m = e.next()) {
-            vector<dynamic_quantum_operator> operators = m->getOperators();
-            for(int i = 0; i < number_of_operators; ++i) {
-                ASSERT_TRUE(operators[i].weight() <= maximum_weight);
-            }
-            ++number_of_solutions;
-            delete m;
+    for(SolutionIterator<> solution(auto_ptr<OperatorSpace>(new OperatorSpace(number_of_operators,number_of_qubits,make_optional(maximum_weight))));
+        solution;
+        ++solution
+    ) {
+        BOOST_FOREACH(const dynamic_quantum_operator& op, *solution) {
+            ASSERT_TRUE(op.weight() <= maximum_weight);
         }
+        ++number_of_solutions;
     }
     int correct_number_of_solutions = 0;
-    {
-        OperatorSpace* m = new OperatorSpace(number_of_operators,number_of_qubits);
-        DFS<OperatorSpace> e(m);
-        delete m;
-        for(m = e.next(); m != NULL; m = e.next()) {
-            vector<dynamic_quantum_operator> operators = m->getOperators();
-            for(int i = 0; i < number_of_operators; ++i) {
-                if(operators[i].weight() > maximum_weight) goto skip;
-            }
-            ++correct_number_of_solutions;
-            skip:
-            delete m;
+    for(SolutionIterator<> solution(auto_ptr<OperatorSpace>(new OperatorSpace(number_of_operators,number_of_qubits)));
+        solution;
+        ++solution
+    ) {
+        BOOST_FOREACH(const dynamic_quantum_operator& op, *solution) {
+            if(op.weight() > maximum_weight) goto skip;
         }
+        ++correct_number_of_solutions;
+        skip: ;
     }
     ASSERT_EQ(correct_number_of_solutions,number_of_solutions);
 }
@@ -107,15 +100,7 @@ TEST_SUITE(_1x1) {
 //@+others
 //@+node:gcross.20101116222338.1384: *4* number of solutions
 TEST_CASE(number_of_solutions) {
-    OperatorSpace* m = new OperatorSpace(1,1);
-    DFS<OperatorSpace> e(m);
-    delete m;
-    int number_of_solutions = 0;
-    for(m = e.next(); m != NULL; m = e.next()) {
-        ++number_of_solutions;
-        delete m;
-    }
-    ASSERT_EQ(4,number_of_solutions);
+    ASSERT_EQ(4,countSolutions(new OperatorSpace(1,1)));
 }
 //@+node:gcross.20101116222338.1397: *4* correct order
 TEST_CASE(correct_order) {
@@ -168,15 +153,7 @@ TEST_SUITE(_1x2) {
 //@+others
 //@+node:gcross.20101116222338.1388: *4* number of solutions
 TEST_CASE(number_of_solutions) {
-    OperatorSpace* m = new OperatorSpace(1,2);
-    DFS<OperatorSpace> e(m);
-    delete m;
-    int number_of_solutions = 0;
-    for(m = e.next(); m != NULL; m = e.next()) {
-        ++number_of_solutions;
-        delete m;
-    }
-    ASSERT_EQ(16,number_of_solutions);
+    ASSERT_EQ(16,countSolutions(new OperatorSpace(1,2)));
 }
 //@+node:gcross.20101116222338.1403: *4* correct order
 TEST_CASE(correct_order) {
@@ -231,15 +208,7 @@ TEST_SUITE(_2x1) {
 //@+others
 //@+node:gcross.20101116222338.1392: *4* number of solutions
 TEST_CASE(number_of_solutions) {
-    OperatorSpace* m = new OperatorSpace(2,1);
-    DFS<OperatorSpace> e(m);
-    delete m;
-    int number_of_solutions = 0;
-    for(m = e.next(); m != NULL; m = e.next()) {
-        ++number_of_solutions;
-        delete m;
-    }
-    ASSERT_EQ(16,number_of_solutions);
+    ASSERT_EQ(16,countSolutions(new OperatorSpace(2,1)));
 }
 //@+node:gcross.20101116222338.1401: *4* correct order
 TEST_CASE(correct_order) {
@@ -293,15 +262,7 @@ TEST_SUITE(_2x2) {
 //@+others
 //@+node:gcross.20101116222338.1396: *4* number of solutions
 TEST_CASE(number_of_solutions) {
-    OperatorSpace* m = new OperatorSpace(2,2);
-    DFS<OperatorSpace> e(m);
-    delete m;
-    int number_of_solutions = 0;
-    for(m = e.next(); m != NULL; m = e.next()) {
-        ++number_of_solutions;
-        delete m;
-    }
-    ASSERT_EQ(256,number_of_solutions);
+    ASSERT_EQ(256,countSolutions(new OperatorSpace(2,2)));
 }
 //@+node:gcross.20101116222338.1399: *4* correct order
 TEST_CASE(correct_order) {
@@ -361,15 +322,7 @@ TEST_SUITE(_3x3) {
 //@+others
 //@+node:gcross.20101116222338.1408: *4* number of solutions
 TEST_CASE(number_of_solutions) {
-    OperatorSpace* m = new OperatorSpace(3,3);
-    DFS<OperatorSpace> e(m);
-    delete m;
-    int number_of_solutions = 0;
-    for(m = e.next(); m != NULL; m = e.next()) {
-        ++number_of_solutions;
-        delete m;
-    }
-    ASSERT_EQ(1<<(2*3*3),number_of_solutions);
+    ASSERT_EQ(1<<(2*3*3),countSolutions(new OperatorSpace(3,3)));
 }
 //@+node:gcross.20101116222338.1415: *4* correct order
 TEST_CASE(correct_order) {

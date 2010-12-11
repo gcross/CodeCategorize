@@ -11,6 +11,8 @@
 
 #include "constraints/row_ordered/weight.hh"
 
+#include "test_utils.hh"
+
 using namespace std;
 using namespace Gecode;
 using namespace CodeCategorize;
@@ -23,27 +25,11 @@ TEST_SUITE(Constraints) { TEST_SUITE(RowOrdered) { TEST_SUITE(Weight) {
 //@+others
 //@+node:gcross.20101128173348.1819: *3* _1x1
 TEST_CASE(_1x1) {
-    WeightRowOrderedOperatorSpace* m = new WeightRowOrderedOperatorSpace(1,1);
-    DFS<WeightRowOrderedOperatorSpace> e(m);
-    delete m;
-    int number_of_solutions = 0;
-    for(m = e.next(); m != NULL; m = e.next()) {
-        ++number_of_solutions;
-        delete m;
-    }
-    ASSERT_EQ(4,number_of_solutions);
+    ASSERT_EQ(4,countSolutions(new WeightRowOrderedOperatorSpace(1,1)));
 }
 //@+node:gcross.20101128173348.1820: *3* _1x2
 TEST_CASE(_1x2) {
-    WeightRowOrderedOperatorSpace* m = new WeightRowOrderedOperatorSpace(1,2);
-    DFS<WeightRowOrderedOperatorSpace> e(m);
-    delete m;
-    int number_of_solutions = 0;
-    for(m = e.next(); m != NULL; m = e.next()) {
-        ++number_of_solutions;
-        delete m;
-    }
-    ASSERT_EQ(16,number_of_solutions);
+    ASSERT_EQ(16,countSolutions(new WeightRowOrderedOperatorSpace(1,2)));
 }
 //@+node:gcross.20101128173348.1821: *3* _2x1
 TEST_CASE(_2x1) {

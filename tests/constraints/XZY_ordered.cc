@@ -8,6 +8,8 @@
 
 #include "constraints/XZY_ordered.hh"
 
+#include "test_utils.hh"
+
 using namespace Gecode;
 using namespace CodeCategorize;
 //@-<< Includes >>
@@ -19,27 +21,11 @@ TEST_SUITE(Constraints) { TEST_SUITE(XZYOrdered) {
 //@+others
 //@+node:gcross.20101126142808.1724: *3* _1x1
 TEST_CASE(_1x1) {
-    XZYOrderedOperatorSpace* m = new XZYOrderedOperatorSpace(1,1);
-    DFS<XZYOrderedOperatorSpace> e(m);
-    delete m;
-    int number_of_solutions = 0;
-    for(m = e.next(); m != NULL; m = e.next()) {
-        ++number_of_solutions;
-        delete m;
-    }
-    ASSERT_EQ(0,number_of_solutions);
+    ASSERT_EQ(0,countSolutions(new XZYOrderedOperatorSpace(1,1)));
 }
 //@+node:gcross.20101126142808.1725: *3* _1x2
 TEST_CASE(_1x2) {
-    XZYOrderedOperatorSpace* m = new XZYOrderedOperatorSpace(1,2);
-    DFS<XZYOrderedOperatorSpace> e(m);
-    delete m;
-    int number_of_solutions = 0;
-    for(m = e.next(); m != NULL; m = e.next()) {
-        ++number_of_solutions;
-        delete m;
-    }
-    ASSERT_EQ(0,number_of_solutions);
+    ASSERT_EQ(0,countSolutions(new XZYOrderedOperatorSpace(1,2)));
 }
 //@+node:gcross.20101126142808.1726: *3* _2x1
 TEST_CASE(_2x1) {

@@ -7,6 +7,8 @@
 
 //@+<< Includes >>
 //@+node:gcross.20101123222425.2841: ** << Includes >>
+#include <memory>
+
 #include "constraints/column_ordered.hh"
 #include "constraints/first_column_XZ.hh"
 #include "constraints/minimal_weight.hh"
@@ -80,7 +82,7 @@ struct AllConstraintsEvenRowsOperatorSpace
 
 };
 //@+node:gcross.20101123222425.2885: ** Functions
-OperatorSpace* constructConstrainedOperatorSpace(int number_of_qubits,int number_of_operators,optional<int> maximum_weight=none);
+auto_ptr<OperatorSpace> constructConstrainedOperatorSpace(int number_of_qubits,int number_of_operators,optional<int> maximum_weight=none);
 //@-others
 
 }

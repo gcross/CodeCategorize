@@ -31,6 +31,7 @@
 <v t="gcross.20101126142808.1688"><vh>@thin XZY_ordered.hh</vh></v>
 </v>
 <v t="gcross.20101116210424.1511"><vh>@thin operator_space.hh</vh></v>
+<v t="gcross.20101209224839.1982"><vh>@thin solution_iterator.hh</vh></v>
 <v t="gcross.20101123222425.2564"><vh>@thin utilities.hh</vh></v>
 </v>
 <v t="gcross.20101116210206.1248"><vh>@path sources</vh>

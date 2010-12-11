@@ -8,6 +8,7 @@
 //@+<< Includes >>
 //@+node:gcross.20101123222425.2565: ** << Includes >>
 #include <gecode/set.hh>
+#include <memory>
 #include <utility>
 #include <vector>
 
@@ -21,6 +22,7 @@ using namespace Gecode;
 //@+others
 //@+node:gcross.20101123222425.2609: ** Functions
 int choose(int n,int k);
+long countSolutions(auto_ptr<OperatorSpace> space, const Search::Options& options = Search::Options::def);
 //@-others
 
 }

@@ -6,38 +6,33 @@
 //@+node:gcross.20101121135345.1485: ** << Includes >>
 #include <illuminate.hpp>
 
+#include "solution_iterator.hh"
+#include "utilities.hh"
+
 #include "test_utils.hh"
 
+using namespace CodeCategorize;
 using namespace Gecode;
 using namespace std;
 //@-<< Includes >>
 
 //@+others
 //@+node:gcross.20101121135345.1477: ** Functions
-//@+node:gcross.20101127142618.1766: *3* countSolutions
-long countSolutions(OperatorSpace* m) {
-    DFS<OperatorSpace> e(m);
-    delete m;
-    long number_of_solutions = 0;
-    for(m = e.next(); m != NULL; m = e.next()) {
-        ++number_of_solutions;
-        delete m;
-    }
-    return number_of_solutions;
+//@+node:gcross.20101209224839.2296: *3* countSolutions
+long countSolutions(OperatorSpace* space) {
+    return countSolutions(auto_ptr<OperatorSpace>(space));
 }
 //@+node:gcross.20101128173348.1865: *3* gatherSolutions
-vector<long> gatherSolutions(OperatorSpace* m) {
-    DFS<OperatorSpace> e(m);
-    delete m;
+vector<long> gatherSolutions(OperatorSpace* space) {
     vector<long> solutions;
-    for(m = e.next(); m != NULL; m = e.next()) {
-        solutions.push_back(longFromOperatorSpace(m));
-        delete m;
+    auto_ptr<OperatorSpace> space_ptr(space);
+    for(SolutionIterator<> solution(space_ptr); solution; ++solution) {
+        solutions.push_back(longFromOperatorSpace(solution.getSpace()));
     }
     return solutions;
 }
 //@+node:gcross.20101127142618.1761: *3* longFromOperatorSpace
-long longFromOperatorSpace(OperatorSpace* m) {
+long longFromOperatorSpace(const OperatorSpace* m) {
     long n = 0;
     for(int i = 0; i < m->O.size(); ++i) {
         n <<= 2;

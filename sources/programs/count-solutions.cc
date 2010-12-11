@@ -8,7 +8,7 @@
 #include <cstdlib>
 
 #include "constrained_operator_space.hh"
-#include "operator_space.hh"
+#include "utilities.hh"
 
 using namespace CodeCategorize;
 using namespace Gecode;
@@ -26,15 +26,7 @@ int main(int argc, char** argv) {
         number_of_operators = atoi(argv[2]);
     optional<int> maximum_weight;
     if(argc == 4) maximum_weight = atoi(argv[3]);
-    OperatorSpace* m = constructConstrainedOperatorSpace(number_of_qubits,number_of_operators,maximum_weight);
-    DFS<OperatorSpace> e(m);
-    delete m;
-    int number_of_solutions = 0;
-    for(m = e.next(); m != NULL; m = e.next()) {
-        ++number_of_solutions;
-        delete m;
-    }
-    cout << number_of_solutions << endl;
+    cout << countSolutions(constructConstrainedOperatorSpace(number_of_qubits,number_of_operators,maximum_weight)) << endl;
 }
 //@-others
 //@-leo
