@@ -97,6 +97,10 @@ void runCorrectNumberOfSolutionsTest(int number_of_operators, int number_of_qubi
     int number_of_solutions = countSolutions(new MinimalWeightOperatorSpace(number_of_operators,number_of_qubits));
     ASSERT_EQ(correct_number_of_solutions,number_of_solutions);
 }
+//@+node:gcross.20101209224839.2817: *4* runCheckCodesTest
+void runCheckCodesTest(int number_of_operators, int number_of_qubits) {
+    checkCodes(new MinimalWeightOperatorSpace(number_of_operators,number_of_qubits));
+}
 //@+node:gcross.20101121135345.1487: *3* 2x1
 TEST_SUITE(_2x1) {
 
@@ -109,6 +113,7 @@ TEST_SUITE(_2x1) {
         TEST_CASE(_2) { runWeightTest(2,1,make_optional(2)); }
         TEST_CASE(_3) { runWeightTest(2,1,make_optional(3)); }
     }
+    TEST_CASE(no_codes_excluded){ runCheckCodesTest(2,1); }
 
 }
 //@+node:gcross.20101121135345.1498: *3* 2x2
@@ -124,6 +129,7 @@ TEST_SUITE(_2x2) {
         TEST_CASE(_3) { runWeightTest(2,2,make_optional(3)); }
         TEST_CASE(_4) { runWeightTest(2,2,make_optional(4)); }
     }
+    TEST_CASE(no_codes_excluded){ runCheckCodesTest(2,2); }
 
 }
 //@+node:gcross.20101121135345.1500: *3* 2x3
@@ -140,6 +146,7 @@ TEST_SUITE(_2x3) {
         TEST_CASE(_4) { runWeightTest(2,3,make_optional(4)); }
         TEST_CASE(_5) { runWeightTest(2,3,make_optional(5)); }
     }
+    TEST_CASE(no_codes_excluded){ runCheckCodesTest(2,3); }
 
 }
 //@+node:gcross.20101121135345.1504: *3* 3x1
@@ -154,6 +161,7 @@ TEST_SUITE(_3x1) {
         TEST_CASE(_2) { runWeightTest(3,1,make_optional(2)); }
         TEST_CASE(_3) { runWeightTest(3,1,make_optional(3)); }
     }
+    TEST_CASE(no_codes_excluded){ runCheckCodesTest(3,1); }
 
 }
 //@+node:gcross.20101121135345.1506: *3* 3x2
@@ -169,6 +177,7 @@ TEST_SUITE(_3x2) {
         TEST_CASE(_3) { runWeightTest(3,2,make_optional(3)); }
         TEST_CASE(_4) { runWeightTest(3,2,make_optional(4)); }
     }
+    TEST_CASE(no_codes_excluded){ runCheckCodesTest(3,2); }
 
 }
 //@+node:gcross.20101121135345.1502: *3* 3x3
@@ -184,6 +193,7 @@ TEST_SUITE(_3x3) {
         TEST_CASE(_4) { runWeightTest(3,3,make_optional(4)); }
         TEST_CASE(_5) { runWeightTest(3,3,make_optional(5)); }
     }
+    TEST_CASE(no_codes_excluded){ runCheckCodesTest(3,3); }
 
 }
 //@+node:gcross.20101121135345.1508: *3* 4x1
@@ -198,6 +208,7 @@ TEST_SUITE(_4x1) {
         TEST_CASE(_2) { runWeightTest(4,1,make_optional(2)); }
         TEST_CASE(_3) { runWeightTest(4,1,make_optional(3)); }
     }
+    TEST_CASE(no_codes_excluded){ runCheckCodesTest(4,1); }
 
 }
 //@+node:gcross.20101121135345.1510: *3* 4x2
@@ -213,6 +224,7 @@ TEST_SUITE(_4x2) {
         TEST_CASE(_3) { runWeightTest(4,2,make_optional(3)); }
         TEST_CASE(_4) { runWeightTest(4,2,make_optional(4)); }
     }
+    TEST_CASE(no_codes_excluded){ runCheckCodesTest(4,2); }
 
 }
 //@+node:gcross.20101121135345.1512: *3* 5x1
@@ -239,6 +251,7 @@ TEST_SUITE(_6x1) {
     TEST_CASE(correct_derived_fields) { runDerivedFieldsTest(6,1); }
     TEST_CASE(correct_number_of_products) { runCorrectNumberOfProductsTest(6,1,3); }
     TEST_CASE(correct_number_of_solutions) { runCorrectNumberOfSolutionsTest(6,1); }
+    TEST_CASE(no_codes_excluded){ runCheckCodesTest(6,1); }
 
 }
 //@+node:gcross.20101121200631.1648: *3* 6x2

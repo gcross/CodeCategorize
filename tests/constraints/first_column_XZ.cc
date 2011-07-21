@@ -8,6 +8,8 @@
 
 #include "constraints/first_column_XZ.hh"
 
+#include "test_utils.hh"
+
 using namespace Gecode;
 using namespace CodeCategorize;
 //@-<< Includes >>
@@ -29,6 +31,7 @@ TEST_CASE(_1x1) {
         delete m;
     }
     ASSERT_EQ(1,number_of_solutions);
+    checkCodes(new FirstColumnXZOperatorSpace(1,1));
 }
 //@+node:gcross.20101129164055.1864: *3* _1x2
 TEST_CASE(_1x2) {
@@ -42,6 +45,7 @@ TEST_CASE(_1x2) {
         delete m;
     }
     ASSERT_EQ(4,number_of_solutions);
+    checkCodes(new FirstColumnXZOperatorSpace(1,2));
 }
 //@+node:gcross.20101129164055.1867: *3* _3x3
 TEST_CASE(_3x3) {
@@ -57,6 +61,7 @@ TEST_CASE(_3x3) {
         delete m;
     }
     ASSERT_EQ(2*2*4*4*4*4*4*4,number_of_solutions);
+    checkCodes(new FirstColumnXZOperatorSpace(3,3));
 }
 //@-others
 
