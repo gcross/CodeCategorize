@@ -100,6 +100,9 @@
 <v t="gcross.20101123222425.4269"><vh>@thin test_utils.cc</vh></v>
 <v t="gcross.20101128153132.1766"><vh>@thin test_utils_tests.cc</vh></v>
 </v>
+<v t="gcross.20110707131524.1810"><vh>@path scripts</vh>
+<v t="gcross.20110707131524.1811"><vh>@thin compute-operator-weight-distribution.py</vh></v>
+</v>
 </vnodes>
 <tnodes>
 <t tx="gcross.20101116210206.1248"></t>
@@ -114,5 +117,6 @@
 <t tx="gcross.20101123222425.3802"></t>
 <t tx="gcross.20101123222425.4124"></t>
 <t tx="gcross.20101128153132.1778"></t>
+<t tx="gcross.20110707131524.1810"></t>
 </tnodes>
 </leo_file>
