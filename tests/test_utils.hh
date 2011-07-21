@@ -53,6 +53,7 @@ struct Code {
         }
         return true;
     }
+
 };
 //@+node:gcross.20101121135345.1481: ** Functions
 void checkCodes(OperatorSpace* space);
