@@ -144,6 +144,8 @@ TEST_SUITE(maximum_weight) {
     TEST_CASE(_1) { runMaximumWeightTest(1,1,1); }
     TEST_CASE(_2) { runMaximumWeightTest(1,1,2); }
 }
+//@+node:gcross.20101209224839.2309: *4* correct codes
+TEST_CASE(correct_codes) { checkCodes(new OperatorSpace(1,1)); }
 //@-others
 
 }
@@ -199,6 +201,8 @@ TEST_SUITE(maximum_weight) {
     TEST_CASE(_2) { runMaximumWeightTest(1,2,2); }
     TEST_CASE(_3) { runMaximumWeightTest(1,2,3); }
 }
+//@+node:gcross.20101209224839.2311: *4* correct codes
+TEST_CASE(correct_codes) { checkCodes(new OperatorSpace(1,2)); }
 //@-others
 
 }
@@ -253,6 +257,8 @@ TEST_SUITE(maximum_weight) {
     TEST_CASE(_1) { runMaximumWeightTest(2,1,1); }
     TEST_CASE(_2) { runMaximumWeightTest(2,1,2); }
 }
+//@+node:gcross.20101209224839.2313: *4* correct codes
+TEST_CASE(correct_codes) { checkCodes(new OperatorSpace(2,1)); }
 //@-others
 
 }
@@ -313,6 +319,8 @@ TEST_SUITE(maximum_weight) {
     TEST_CASE(_2) { runMaximumWeightTest(2,2,2); }
     TEST_CASE(_3) { runMaximumWeightTest(2,2,3); }
 }
+//@+node:gcross.20101209224839.2315: *4* correct codes
+TEST_CASE(correct_codes) { checkCodes(new OperatorSpace(2,2)); }
 //@-others
 
 }
@@ -372,6 +380,8 @@ TEST_SUITE(maximum_weight) {
     TEST_CASE(_1) { runMaximumWeightTest(3,3,1); }
     TEST_CASE(_2) { runMaximumWeightTest(3,3,2); }
 }
+//@+node:gcross.20101209224839.2317: *4* correct codes
+TEST_CASE(correct_codes) { checkCodes(new OperatorSpace(3,3)); }
 //@-others
 
 }

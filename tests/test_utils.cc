@@ -4,6 +4,8 @@
 
 //@+<< Includes >>
 //@+node:gcross.20101121135345.1485: ** << Includes >>
+#include <algorithm>
+#include <codequest.hpp>
 #include <illuminate.hpp>
 
 #include "solution_iterator.hh"
@@ -18,9 +20,35 @@ using namespace std;
 
 //@+others
 //@+node:gcross.20101121135345.1477: ** Functions
+//@+node:gcross.20101209224839.2318: *3* checkCodes
+void checkCodes(OperatorSpace* space) {
+    typedef map<pair<int,int>,set<Code> > CodeTable;
+    typedef CodeTable::const_iterator CodeTablePosition;
+    static CodeTable operator_space_code_table;
+    pair<int,int> id = make_pair(space->number_of_operators,space->number_of_qubits);
+    CodeTablePosition operator_space_code_position = operator_space_code_table.find(id);
+    if(operator_space_code_position == operator_space_code_table.end()) {
+        operator_space_code_table.insert(make_pair(id,gatherCodes(new OperatorSpace(space->number_of_operators,space->number_of_qubits))));
+        operator_space_code_position = operator_space_code_table.find(id);
+    }
+    const set<Code>& operator_space_codes = operator_space_code_position->second;
+    const set<Code> constrained_space_codes = gatherCodes(space);
+    ASSERT_EQ(operator_space_codes.size(),constrained_space_codes.size());
+    ASSERT_TRUE(equal(operator_space_codes.begin(),operator_space_codes.end(),constrained_space_codes.begin()));
+}
 //@+node:gcross.20101209224839.2296: *3* countSolutions
 long countSolutions(OperatorSpace* space) {
     return countSolutions(auto_ptr<OperatorSpace>(space));
+}
+//@+node:gcross.20101209224839.2299: *3* gatherCodes
+set<Code> gatherCodes(OperatorSpace* space) {
+    set<Code> codes;
+    auto_ptr<OperatorSpace> space_ptr(space);
+    for(SolutionIterator<> solution(space_ptr); solution; ++solution) {
+        auto_ptr<SolutionIterator<>::qec_t> code = solution.computeOptimizedCode();
+        codes.insert(Code(code->stabilizers.size(),code->gauge_qubits.size(),code->logical_qubit_error_distances));
+    }
+    return codes;
 }
 //@+node:gcross.20101128173348.1865: *3* gatherSolutions
 vector<long> gatherSolutions(OperatorSpace* space) {
