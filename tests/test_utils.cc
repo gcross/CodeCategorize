@@ -46,7 +46,12 @@ set<Code> gatherCodes(OperatorSpace* space) {
     auto_ptr<OperatorSpace> space_ptr(space);
     for(SolutionIterator<> solution(space_ptr); solution; ++solution) {
         auto_ptr<SolutionIterator<>::qec_t> code = solution.computeOptimizedCode();
-        codes.insert(Code(code->stabilizers.size(),code->gauge_qubits.size(),code->logical_qubit_error_distances));
+        int number_of_stabilizers = code->stabilizers.size(),
+            number_of_gauge_qubits = code->gauge_qubits.size(),
+            number_of_logical_qubits = code->logical_qubit_error_distances.size();
+        if(number_of_stabilizers > 0 || number_of_gauge_qubits > 0 || number_of_logical_qubits > 0) {
+            codes.insert(Code(number_of_stabilizers,number_of_gauge_qubits,code->logical_qubit_error_distances));
+        }
     }
     return codes;
 }
